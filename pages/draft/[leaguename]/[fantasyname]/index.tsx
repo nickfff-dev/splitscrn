@@ -13,11 +13,7 @@ import dayjs from "dayjs";
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 
 
-const socket = io(
-  {
-    autoConnect: false
-  }
-);
+let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 function Draft({ focusonleague, focusonparticipant, userId, teams, players }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
@@ -31,140 +27,17 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
   const [balance, setBalance] = useState(0)
   const [picked, setPicked] = useState(false)
 
+  useEffect(() => { 
 
+    socketInitializer()
+  },[])
+  const socketInitializer = async () => { 
+    await fetch("/api/socket");
+    socket = io( {
+      autoConnect: false
+    });
 
-
-
-  const emitPlayerReady = () => {
-    socket.emit("imready")
-  }
-
-  const letmein = async () => {
-    const username = focusonparticipant.fantasyname
-    socket.auth = { username };
-    socket.connect();
-
-  }
-  useEffect(() => {
-
-    if (picked) {
-      socket.emit("playerpicked")
-      setPicked(false)
-    
-    }
-   }, [picked])
-  useEffect(() => {
-
-    if (focusonparticipant.confirmedAttendance === false) {
-      window.location.href = `/draft/${focusonleague.leaguename}/${focusonparticipant.fantasyname}/confirmdraft`
-    }
-  }, [focusonparticipant,focusonleague.leaguename])
-
-
-  useEffect(() => {
-
-
-    socket.on("people", (data: any) => {
-      console.log(data);
-      setDraftPeople(data)
-    })
-    return () => {
-      socket.off("people")
-
-    }
-
-  }, [draftPeople])
-
-
-  useEffect(() => {
-
-
-    socket.on("balance", (data: any) => {
-      console.log(data);
-      setBalance(data)
-    })
-    return () => {
-      socket.off("balance")
-    }
-
-  }, [balance])
-
-
-
-
-
-
-
-
-
-  useEffect(() => {
-    socket.on("counter", (count: any) => {
-      setCounter(count);
-    })
-
-  }, [counter])
-  useEffect(() => {
-    socket.on("draftposition", (data: any) => {
-      console.log(data)
-
-    })
-    return () => {
-      socket.off("draftposition")
-    }
-  }, [])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  useEffect(() => {
-
-    socket.on("message2", (message2: any) => {
-
-      setMessage2(message2)
-    })
-
-    return () => {
-
-      socket.off("message2")
-    }
-  }, [])
-
-  useEffect(() => {
-
-    socket.on("message", (message: any) => {
-
-      setMessage(message)
-    })
-
-    return () => {
-
-      socket.off("message")
-    }
-  }, [])
-  useEffect(() => {
-
-    socket.onAny((event: any, ...args: any) => {
-      console.log(event, args);
-    })
-
-
-    return () => {
-      socket.offAny()
-    }
-  }, [])
-
-  useEffect(() => {
-
+    // run all the useEffects below here once the socket is connected
     const sessionID = sessionStorage.getItem("sessionID");
     if (sessionID) {
 
@@ -172,6 +45,20 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       socket.connect();
 
     }
+
+    socket.on("connect", () => {
+
+      socket.emit("joinRoom", focusonleague.name)
+
+
+      watu.forEach((user: { self: any; connected: boolean; }) => {
+        if (user.self) {
+          user.connected = true;
+
+
+        }
+      })
+    })
 
     socket.on("session", ({ sessionID, userID }) => {
 
@@ -195,33 +82,6 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
       }
     });
-
-
-
-    return () => {
-      socket.off("connect_error")
-    }
-  }
-
-    , [])
-
-
-
-
-  useEffect(() => {
-    socket.on("connect", () => {
-
-      socket.emit("joinRoom", focusonleague.name)
-
-
-      watu.forEach((user: { self: any; connected: boolean; }) => {
-        if (user.self) {
-          user.connected = true;
-
-
-        }
-      })
-    })
 
     socket.on("disconnect", () => {
 
@@ -306,20 +166,97 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
     })
+    socket.on("message", (message: any) => {
 
-    return () => {
-      socket.off("connect");
-      socket.off("disconnect");
-      socket.off("users");
-      socket.off("user connected");
-
-      socket.off("user disconnected");
+      setMessage(message)
+    })
+    socket.on("counter", (count: any) => {
+      setCounter(count);
+    })
+    socket.on("people", (data: any) => {
+      console.log(data);
+      setDraftPeople(data)
+    })
+    socket.on("balance", (data: any) => {
+      console.log(data);
+      setBalance(data)
+    })
+    if (picked) {
+      socket.emit("playerpicked")
+      setPicked(false)
+    
     }
 
+    socket.on("draftposition", (data: any) => {
+      console.log(data)
+
+    })
+
+    socket.on("message2", (message2: any) => {
+
+      setMessage2(message2)
+    })
+    socket.onAny((event: any, ...args: any) => {
+      console.log(event, args);
+    })
+  }
+
+
+  const emitPlayerReady = () => {
+    socket.emit("imready")
+  }
+
+  const letmein = async () => {
+    const username = focusonparticipant.fantasyname
+    socket.auth = { username };
+    socket.connect();
+
+  }
+
+  useEffect(() => {
+
+    if (focusonparticipant.confirmedAttendance === false) {
+      window.location.href = `/draft/${focusonleague.leaguename}/${focusonparticipant.fantasyname}/confirmdraft`
+    }
+  }, [focusonparticipant,focusonleague.leaguename])
 
 
 
-  }, [watu, focusonleague.name])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   return (
