@@ -1,26 +1,63 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@layer base {
+  @font-face {
+    font-family: 'dubai';
+    font-weight: 200;
+    src: url('../public/fonts/DubaiW23-Light.woff2') format('woff2'), url('../public/fonts/DubaiW23-Light.woff') format('woff');
   }
-  body {
-    color: white;
-    background: black;
+
+  @font-face {
+    font-family: 'dubai';
+    font-weight: 400;
+    src: url('../public/fonts/DubaiW23-Regular.woff2') format('woff2'),
+      url('../public/fonts/DubaiW23-Regular.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'dubai';
+    font-weight: 600;
+    src: url('../public/fonts/DubaiW23-Medium.woff2') format('woff2'), url('../public/fonts/DubaiW23-Medium.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'dubai';
+    font-weight: 700;
+    src: url('../public/fonts/DubaiW23-Bold.woff2') format('woff2'), url('../public/fonts/DubaiW23-Bold.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'xix';
+    src: url('../public/fonts/xix.woff2') format('woff2'), url('../public/fonts/xix.woff') format('woff');
   }
 }
+
+
+.mainouterGrid{
+  @apply grid grid-cols-2 gap-4 p-4
+}
+
+@screen mobile{
+  .mainouterGrid{
+    @apply grid grid-cols-1
+  }
+}
+
+
+@screen tablet{
+  .mainouterGrid{
+    @apply grid grid-cols-1
+  }
+}
+
+
+@layer utilities {
+  .grid-rows-9 {
+    grid-template-rows: repeat(9, minmax(0, 1fr));
+  }
+  
+}
+
+

@@ -1,0 +1,77 @@
+
+.root {
+  @apply my-5 flex flex-col 
+}
+.resultsContainer{
+  @apply p-4 
+}
+.resultsContainer::-webkit-scrollbar{
+  @apply w-1 h-1   bg-gray-light rounded-lg 
+}
+.resultsRow{
+  @apply grid grid-cols-5 w-full text-white  gap-3 py-4 justify-items-center;
+}
+
+
+.resultsRow1{
+  @apply grid grid-cols-5  text-white gap-3 justify-items-center;
+}
+
+
+.container {
+  @apply grid-flow-col auto-cols-max gap-y-2  rounded-3xl bg-gray-light;
+}
+
+
+
+.container  span {
+  @apply text-white text-sm 
+}
+
+.container a{
+  @apply text-white text-sm 
+}
+
+@screen laptop-L {
+  .container span {
+    @apply text-base 
+  }
+  .container a{
+    @apply text-white text-sm 
+  }
+  .resultsRow span{
+    @apply text-lg 
+  }
+  .resultsRow1 span{
+    @apply text-lg px-2 
+  }
+}
+
+@screen laptop {
+  .root > h1 {
+    @apply text-base;
+  }
+
+  .container span {
+    @apply text-sm
+  }
+  .container a {
+    @apply text-sm px-2
+  }
+ 
+
+}
+
+
+
+.root  h1 {
+  @apply text-3xl font-bold uppercase bg-gradient-to-r from-primary via-[#f43d00]  to-secondary bg-clip-text font-bold text-transparent;
+}
+
+
+@media (max-width: 540px){
+  .resultsRow1 span{
+    @apply text-sm
+
+  }
+}
