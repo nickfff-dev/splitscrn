@@ -1,10 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import prisma from '@lib/prisma';
+import prisma from '../../../lib/prisma';
 import { Fixture, Teams, League, Players, Participant, TeamResult, PrismaClient, Prisma, PlayerResult } from "@prisma/client"
 import dayjs from 'dayjs';
-import { getPrivateLeagueResults, getPrivateLeagueMatches, getPrivateLeaguePlayers } from "@lib/cargoQueries";
-import { calculatePlayerScore, calculateTeamScore } from "@lib/calculate";
+import { getPrivateLeagueResults, getPrivateLeagueMatches, getPrivateLeaguePlayers } from "../../../lib/cargoQueries";
+import { calculatePlayerScore, calculateTeamScore } from "../../../lib/calculate";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {

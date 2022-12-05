@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 
 // components
-import { HomePage } from '@components';
+import { HomePage } from '../components';
 
 const Home = () => {
   

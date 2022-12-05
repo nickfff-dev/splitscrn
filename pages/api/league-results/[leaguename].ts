@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import prisma from '@lib/prisma';
+import prisma from '../../../lib/prisma';
 import { Fixture, Teams, League, Players, Participant, TeamResult, PlayerResult} from "@prisma/client"
-import { calculatePlayerScore, calculateTeamScore } from "@lib/calculate";
+import { calculatePlayerScore, calculateTeamScore } from "../../../lib/calculate";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {

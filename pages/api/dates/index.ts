@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import type { Date } from '@customTypes/Date';
+import type { Date } from '../../../types/Date';
 
-import cargo from '@lib/cargo';
+import cargo from '../../../lib/cargo';
 import dayjs from 'dayjs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Date[] | string>) {

@@ -6,7 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 
 
 // Components
-import { Layout } from '@components/shared';
+import { Layout } from '../components/shared';
 
 function MyApp({ Component, pageProps }: AppProps<{
   session: Session;

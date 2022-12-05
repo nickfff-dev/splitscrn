@@ -1,8 +1,8 @@
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import {useState, useEffect} from 'react';
 import dayjs from 'dayjs';
 import { Fixture, Teams, League, Players, Participant, Wallet, Withdrawal, User } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
@@ -67,7 +67,7 @@ const WithdrawPage = ({ owner, wallet }: { owner: User, wallet: Wallet }) => {
     return (
       <Grid>
   
-        <div className={s.container} >
+        <div >
         <label htmlFor="withdrawAmount" >Credits to withdraw
             <input type="number" name="withdrawAmount" style={{ color: "black" }} onChange={onWithdrawAmountChange}  />  </label><br/>
           <button onClick={onWithdrawAmountSubmit}>confirm</button><br/>

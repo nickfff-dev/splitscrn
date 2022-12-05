@@ -1,11 +1,11 @@
 // Components
-import { Grid } from '@components/ui';
+import { Grid } from '../ui';
 import {useState, useEffect} from 'react';
 import dayjs from 'dayjs';
 import { Fixture, Teams, League, Players, Participant, Wallet, Deposit, User } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useSession, signIn, signOut } from 'next-auth/react';
-import x from '@components/ui/Button/Button.module.css';
+
 import { useRouter } from 'next/router';
 
 
@@ -65,11 +65,11 @@ const DepositsPage = ({  owner, wallet }: {  owner: User , wallet: Wallet}) => {
   return (
     <Grid>
 
-      <div className={s.container} style={{ display: "flex", flexDirection: "row",justifyContent:"space-between", flexWrap:"wrap" }}>
+      <div style={{ display: "flex", flexDirection: "row",justifyContent:"space-between", flexWrap:"wrap" }}>
 
         {
           amounts.map((amount) => { 
-            return <button key={amount} onClick={onDepositAmountChange} value={amount} className={x.outline} style={{ padding: "5%", margin: "5%", borderRadius: "5px" }}>{amount}</button>
+            return <button key={amount} onClick={onDepositAmountChange} value={amount}  style={{ padding: "5%", margin: "5%", borderRadius: "5px" }}>{amount}</button>
 
           })
         }

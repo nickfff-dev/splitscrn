@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Date } from '@customTypes/Date';
+import { Date } from '../../../../types/Date';
 
 
 import s from './Seasons.module.css';
-import { Spinner } from '@components/ui';
+import { Spinner } from '../../../ui';
 
 const Seasons = () => {
   const [dates, setDates] = useState<Date[]>();

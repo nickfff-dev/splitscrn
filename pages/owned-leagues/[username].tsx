@@ -1,8 +1,8 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';
 
 import { GetServerSideProps } from 'next'
@@ -19,7 +19,7 @@ const MyLeagues = ({ leagues , username} :  InferGetServerSidePropsType<typeof g
   const user  = session?.user?.name
   return (
     <Grid>
-      <div className={s.container} style={{ color: "#ffd204" }}>
+      <div  style={{ color: "#ffd204" }}>
         <h1>{ username}</h1>
       <h1>My Leagues</h1>
        

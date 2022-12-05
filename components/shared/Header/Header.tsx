@@ -1,6 +1,6 @@
 // Core imports
 import { useState } from 'react';
-import Image from 'next/future/image';
+import Image from 'next//image';
 import Link from 'next/link';
 
 // Styles
@@ -12,10 +12,10 @@ import clsx from 'clsx';
 
 // Components
 import { Twirl as Hamburger } from 'hamburger-react';
-import  Button  from '../../ui/Button';
+import  Button  from '../../ui/Button/Button';
 
 // images
-import Logo from '@public/images/logo.svg';
+import Logo from '../../../public/images/logo.svg';
 import { type } from 'os';
 
 

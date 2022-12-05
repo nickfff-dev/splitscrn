@@ -94,7 +94,7 @@ const StatsViewPlayers = ({stats, mode}:{stats:any, mode:any}) => {
       </div>
         {stats.map((stat: any, index: number) => { 
           return (
-            <div className=" grid grid-cols-2  items-center my-auto rounded-full text-white">
+            <div key={index} className=" grid grid-cols-2  items-center my-auto rounded-full text-white">
             <div className="grid grid-flow-col auto-cols-[95px] text-center ">
             <p>{stat.key.split(" ")[0]}</p>
               <p>{stat?.value[0]?.region}</p>

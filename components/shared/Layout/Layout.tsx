@@ -1,5 +1,5 @@
 // Components
-import { Header, Footer } from '@components/shared';
+import { Header, Footer } from '../../shared';
 
 // styles
 import s from './Layout.module.css';

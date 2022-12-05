@@ -1,13 +1,13 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import { Fixture, Teams, League, Players, Withdrawal, Deposit, Wallet } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
-import { DepositsPage } from "@components";
-import {WithdrawPage} from "@components";
+import { DepositsPage } from "../../components";
+import {WithdrawPage} from "../../components";
 
 
 
@@ -21,14 +21,14 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
     if (owner.verificationCode === null || owner.verificationCode === "" || owner.emailVerified=== false) {
       window.location.href = "/user/verify"
     }
-  } ,[owner.verificationCode])
+  } ,[owner.verificationCode,owner.emailVerified])
  
  
   
 
   return (<div  style={{color:"white"}}>
     <Grid>
-    <div className={s.container}>
+    <div >
       <p> name : {
         
       owner.name
@@ -48,7 +48,7 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
     </p>
       </div>
     </Grid>
-    <div className={s.root}>
+    <div >
       
 
       <WithdrawPage owner={ owner}  wallet={wallet}  />
@@ -57,14 +57,14 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
         
         
       </div>
-      <div className={s.root}><DepositsPage owner={ owner} wallet={wallet}  /></div>
+      <div><DepositsPage owner={ owner} wallet={wallet}  /></div>
     <Grid>
-    <div className={s.root}>
+    <div >
       <h1> withdrawals </h1>
 
       {
         withdrawals.map((withdrawa: Withdrawal) => {
-          return (<div key={withdrawa.id} className={s.container}>
+          return (<div key={withdrawa.id} >
             <p>amount: ${withdrawa.amount}</p>
             <p>date: {withdrawa.date}</p>
             <p>time: {withdrawa.time}</p>
@@ -77,12 +77,12 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
       }
       </div>
       </Grid>
-    <div className={s.root}>
+    <div >
       <h1> Deposits </h1>
 
       {
         deposits.map((withdrawa: Deposit) => {
-          return (<div key={withdrawa.id} className={s.container}>
+          return (<div key={withdrawa.id} >
             <p>amount: ${withdrawa.amount}</p>
             <p>date: {withdrawa.date}</p>
             <p>time: {withdrawa.time}</p>

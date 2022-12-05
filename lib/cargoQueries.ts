@@ -1,9 +1,9 @@
-import cargo from '@lib/cargo';
+import cargo from '../lib/cargo';
 import { group } from 'console';
 import dayjs from 'dayjs';
 import { Region } from 'poro/dist/esm/src/types';
-import { League } from '@customTypes/League';
-import prisma from "@lib/prisma"
+import { League } from '../types/League';
+import prisma from "../lib/prisma"
 
 export const getCurrentTeams = async () => {
   try {

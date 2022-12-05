@@ -1,6 +1,6 @@
 import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
 import { useEffect, useState } from "react";
-import prisma from '@lib/prisma';
+import prisma from '../../lib/prisma';
 import dayjs from "dayjs";
 import Ct from "./creater.module.css"
 const CreateLeague = ({username}:{username:any}) => {

@@ -1,16 +1,16 @@
 import { Fixture, Teams, League, Players, Participant, PlayerResult } from "@prisma/client"
-import prisma from "@lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { GetServerSideProps } from 'next'
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useEffect, useState } from "react";
-import { getPrivateLeagueResults, getPrivateLeagueMatches } from "@lib/cargoQueries";
-import { calculatePlayerScore, calculateTeamScore } from "@lib/calculate";
-import { Grid } from '@components/ui';
+import { getPrivateLeagueResults, getPrivateLeagueMatches } from "../../../../../lib/cargoQueries";
+import { calculatePlayerScore, calculateTeamScore } from "../../../../../lib/calculate";
+import { Grid } from '../../../../../components/ui';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
-import { PlayerResults } from "@components"
-import ResultDetail from "@components/PlayerResult/ResultDetail";
+import { PlayerResults } from "../../../../../components"
+import ResultDetail from "../../../../../components/PlayerResult/ResultDetail";
 
 
 
@@ -45,6 +45,7 @@ function ParticipantTeamPage({ participant, results, league}: InferGetServerSide
     })
   }
   useEffect(() => { 
+ 
     getRosterChanges()
   }, [rosterChange])
   return (
@@ -52,7 +53,7 @@ function ParticipantTeamPage({ participant, results, league}: InferGetServerSide
       {/* <ResultDetail results={results} participant={participant} league={ league} /> */}
     <div className="m-5 overflow-hidden  ">
       <div className="p-20">
-    <div className={s.root} style={{ color: "#ffd204" }}>
+    <div style={{ color: "#ffd204" }}>
       <h1>Participant: {participant.name}</h1>
       
       <p>id: {participant.id}</p>

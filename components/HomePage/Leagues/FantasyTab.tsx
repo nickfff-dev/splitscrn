@@ -1,6 +1,6 @@
 import k from './Leagues.module.css';
 import { useEffect, useState } from 'react';
-import ResultDetail from '@components/PlayerResult/ResultDetail';
+import ResultDetail from '../../PlayerResult/ResultDetail';
 
 
 

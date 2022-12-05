@@ -1,12 +1,12 @@
 // Components
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import {useState, useEffect} from 'react';
 import dayjs from 'dayjs';
 import { Fixture, Teams, League, Players, Participant, TeamResult} from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
-import { calculatePlayerScore,  calculateTeamScore } from "@lib/calculate";
+
+import { calculatePlayerScore,  calculateTeamScore } from "../../lib/calculate";
 import { useSession, signIn, signOut } from 'next-auth/react';
-import x from '@components/ui/Button/Button.module.css';
+
 import { useRouter } from 'next/router';
 
 
@@ -70,8 +70,8 @@ try{
   return (<div className="">
     <Grid>
       
-      <div className={s.root}>
-      <button  className={x.outline} style={{color: "black"}}>updateresults</button>
+      <div >
+      <button  style={{color: "black"}}>updateresults</button>
         <h1> Player Results </h1>
   
       
@@ -81,7 +81,7 @@ try{
             {smdata.participantplayer && smdata.participantplayer?.map((result: any, index: number) => {
               if ( result.role === "Top") {
                 return (
-                  <div className={s.item} key={index}>
+                  <div key={index}>
                <p>Role: {result.role}<br /> name: {result.name}</p>
                   <p> game: {result.team1} vs {result.team2 }</p>
                   <p>tab: {result.game.split("_").slice(1).join("_")}</p>
@@ -112,7 +112,7 @@ try{
             { smdata.participantplayer && smdata.participantplayer?.map((result: any, index: number) => {
               if (result.role === "Jungle") {
                 return (
-                  <div className={s.item} key={index}>
+                  <div  key={index}>
               <p>Role: {result.role}<br /> name: {result.name}</p>
                     <p>game: {result.team1} vs {result.team2 }</p>
                   <p>tab: {result.game.split("_").slice(1).join("_")}</p>
@@ -142,7 +142,7 @@ try{
             {smdata.participantplayer && smdata.participantplayer?.map((result: any, index: number) => {
               if (result.role === "Mid") {
                 return (
-                  <div className={s.item} key={index}>
+                  <div  key={index}>
                     <p>Role: {result.role}<br /> name: {result.name}</p>
                     <p>game: {result.team1} vs {result.team2 }</p>
                   <p>tab: {result.game.split("_").slice(1).join("_")}</p>
@@ -173,7 +173,7 @@ try{
             {smdata.participantplayer && smdata.participantplayer?.map((result: any, index: number) => {
               if (result.role === "Bot" ) {
                 return (
-                  <div className={s.item} key={index}>
+                  <div  key={index}>
                     <p>{result.role}<br /> {participant.adc}</p>
                     <p>game: {result.team1} vs {result.team2 }</p>
                   <p>tab: {result.game.split("_").slice(1).join("_")}</p>
@@ -203,7 +203,7 @@ try{
             {smdata.participantplayer && smdata.participantplayer?.map((result: any, index: number) => {
               if (result.role === "Support") {
                 return (
-                  <div className={s.item} key={index}>
+                  <div  key={index}>
                     <p>{result.role}<br /> {result.name}</p>
                     <p> game: {result.team1} vs {result.team2}</p>
                     <p>date { result.date}</p>
@@ -236,7 +236,7 @@ try{
       </div>
     </Grid>
     <Grid>
-      <div className={s.root}>
+      <div >
         <h1> Team Results </h1>
  
       
@@ -247,7 +247,7 @@ try{
              
               if (result.name === participant.team) {   
                 return (
-                  <div className={s.item} key={smdata.participantteam.indexOf(result)}>
+                  <div  key={smdata.participantteam.indexOf(result)}>
                   <p>team: {result.name }</p>
                 
                   <p> game:  {result.team1} vs {result.team2 }</p>

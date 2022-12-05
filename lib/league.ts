@@ -1,16 +1,16 @@
 
 import io from 'Socket.IO-client'
 import dayjs from 'dayjs';
-import cargo from '@lib/cargo';
+import cargo from '../lib/cargo';
 
-import prisma from '@lib/prisma';
-import { Team } from '@customTypes/Team';
+import prisma from '../lib/prisma';
+import { Team } from '../types/Team';
 import { calculateTeamScore } from './calculate';
-import { Participant } from '@customTypes/Participant';
+import { Participant } from '../types/Participant';
 
-import { Fixture } from '@customTypes/Fixture';
-import { Player } from '@customTypes/Player';
-import { getPrivateLeaguePlayers,getPrivateLeagueTeams,getPrivateLeagueMatches,getPrivateLeagueResults} from '@lib/cargoQueries';
+import { Fixture } from '../types/Fixture';
+import { Player } from '../types/Player';
+import { getPrivateLeaguePlayers,getPrivateLeagueTeams,getPrivateLeagueMatches,getPrivateLeagueResults} from '../lib/cargoQueries';
 
 
 export class League {

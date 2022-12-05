@@ -2,8 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { League as Mchezo, Fixture, Teams, Players, Participant } from "@prisma/client"
 
 
-import prisma from '@lib/prisma';
-import cargo from '@lib/cargo';
+import prisma from '../../../lib/prisma';
+import cargo from '../../../lib/cargo';
 import nodemailer from 'nodemailer';
 import dayjs from 'dayjs';
 

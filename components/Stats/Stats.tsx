@@ -179,14 +179,14 @@ const Stats = ({ statistics }: { statistics: any }) => {
     if (region !== "" || role !== "") {
       runFilter(region, role)
     }
-  }, [region, role, runFilter])
+  }, [region, role])
 
   useEffect(() => {
     if (view === "Teams" && region !== "" && season !== "") {
       runFilterTeams()
     }
 
-  }, [view, region, season, runFilterTeams])
+  }, [view, region, season])
 
   return (<div className="overflow-x-hidden m-5" >
     <div className="grid grid-cols-9  auto-cols-auto space-x-5 mt-3 ml-3 space-x-12">

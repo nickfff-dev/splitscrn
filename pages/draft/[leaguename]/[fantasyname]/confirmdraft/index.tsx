@@ -1,8 +1,8 @@
-import prisma from "@lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../../../../components/ui';
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css"
+
 import { GetServerSideProps } from 'next'
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
@@ -27,7 +27,7 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
 
 
   return (
-    <div className={s.container} style={{color: "white"}}>
+    <div  style={{color: "white"}}>
       {
         draftman.confirmedAttendance ? (<p>you have already confirmed attendance the link to the draft page is <a target ="_blank" href={`/draft/${draftman.leaguename}/${draftman.fantasyname}`} rel="noreferrer">link to draft</a> </p>) :(<>   <h1>Confirm Draft</h1> 
         <br/>

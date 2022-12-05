@@ -1,13 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
 
-import {League} from "@lib/league"
-import prisma from '@lib/prisma';
-import cargo from '@lib/cargo';
-import{calculateLeagueDuration} from "@lib/calculate"
+import {League} from "../../../lib/league"
+import prisma from '../../../lib/prisma';
+import cargo from '../../../lib/cargo';
+import{calculateLeagueDuration} from "../../../lib/calculate"
 import dayjs from 'dayjs';
 
-import {  getPrivateLeagueTeams,  getPrivateLeaguePlayers,getLeagueFixture, } from '@lib/cargoQueries';
+import {  getPrivateLeagueTeams,  getPrivateLeaguePlayers,getLeagueFixture, } from '../../../lib/cargoQueries';
 
 
 

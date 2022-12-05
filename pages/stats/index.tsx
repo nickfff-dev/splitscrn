@@ -1,6 +1,6 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { GetServerSideProps } from 'next'
-import Stats from "@components/Stats/Stats";
+import Stats from "../../components/Stats/Stats";
 import { InferGetServerSidePropsType } from 'next'
 
 const StatsPage = ({statistics}: InferGetServerSidePropsType<typeof getServerSideProps>) => {

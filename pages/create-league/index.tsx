@@ -1,15 +1,15 @@
 
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
 import { useEffect, useState } from "react";
 import dayjs from 'dayjs';
-import { calculateLeagueDuration } from "@lib/calculate";
+import { calculateLeagueDuration } from "../../lib/calculate";
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
-import prisma from '@lib/prisma';
-import CreateLeague from "@components/Form/Creatorform";
-import { Grid } from '@components/ui';
+import prisma from '../../lib/prisma';
+import CreateLeague from "../../components/Form/Creatorform";
+import { Grid } from '../../components/ui';
 
 
 
@@ -21,7 +21,7 @@ const CreateaLeague = ({ username, owner }:  InferGetServerSidePropsType<typeof 
     if (owner.verificationCode === null || owner.verificationCode === "" || owner.emailVerified=== false) {
       window.location.href = "/user/verify"
     }
-  } ,[owner.verificationCode])
+  } ,[owner.verificationCode, owner.emailVerified])
 
 
   const[leaguelink, setLeagueLink] = useState("")

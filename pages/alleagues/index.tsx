@@ -1,8 +1,8 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import { Fixture, Teams, League, Players } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
@@ -14,7 +14,7 @@ const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServe
  
   return (
     <Grid>
-          <div className={s.root} style={{color: "#ffd204"}}>
+          <div  style={{color: "#ffd204"}}>
       <h1>Open Leagues</h1>
       
     </div>

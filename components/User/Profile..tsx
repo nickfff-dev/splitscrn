@@ -1,4 +1,5 @@
 import Us from './profile.module.css'
+import Image from 'next/image';
 
 const UserProfile = () => { 
   
@@ -10,7 +11,7 @@ const UserProfile = () => {
       <div className={`${Us.container}`}>
         <div className={`${Us.containerleft}`}>
           <div className={`${Us.containerleftinner}`}>
-            <img src="https://i.redd.it/rtqwmwm3tdy41.png" className="w-40 h-40" /> 
+            <Image src="https://i.redd.it/rtqwmwm3tdy41.png" className="w-40 h-40" alt={''} /> 
             <div className={`${Us.containerleftinnertext}`}>
               <div className={`${Us.profiletext}`}><h1>Username:</h1> <p>My name</p></div>
               <div className={`${Us.profiletext}`}><h1>Email:</h1> <p>Myemalil@yahooo.com</p></div>

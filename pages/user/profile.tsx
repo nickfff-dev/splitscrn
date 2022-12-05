@@ -1,4 +1,4 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
 
 
@@ -7,7 +7,7 @@ import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
 
 import dayjs from "dayjs";
-import UserProfile from "@components/User/Profile.";
+import UserProfile from "../../components/User/Profile.";
 
 
 const UserAccount = ({ owner, leagues }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
@@ -20,7 +20,7 @@ const UserAccount = ({ owner, leagues }: InferGetServerSidePropsType<typeof getS
     if (owner.verificationCode === null || owner.verificationCode === "" || owner.emailVerified=== false) {
       window.location.href = "/user/verify"
     }
-  } ,[owner.verificationCode])
+  } ,[owner.verificationCode,owner.emailVerified])
   const onUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
     setUser(e.target.value);
 

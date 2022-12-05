@@ -1,8 +1,8 @@
-import prisma from "@lib/prisma";
+import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../components/ui';
 import { Fixture, Teams, League, Players } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
@@ -22,7 +22,7 @@ const JoinLeague = ({ league, user }: InferGetServerSidePropsType<typeof getServ
     if (user.verificationCode === null || user.verificationCode === "" || user.emailVerified=== false) {
       window.location.href = "/user/verify"
     }
-  } ,[user.verificationCode])
+  } ,[user.verificationCode,user.emailVerified])
   const [teamName , setTeamName] = useState("");
   const { data: session } = useSession();
   const [responsetext, setResponseText] = useState("")
@@ -97,7 +97,7 @@ const JoinLeague = ({ league, user }: InferGetServerSidePropsType<typeof getServ
 
 
   return (<>
-    <div className={s.container}>
+    <div >
       
       
       {

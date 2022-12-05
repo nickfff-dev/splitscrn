@@ -1,8 +1,8 @@
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import prisma from "@lib/prisma";
+import prisma from "../../../../lib/prisma";
 import { GetServerSideProps } from 'next'
-import { Grid } from '@components/ui';
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+import { Grid } from '../../../../components/ui';
+
 import { useEffect, useState } from "react";
 import io, { Socket } from 'Socket.IO-client'
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
@@ -58,7 +58,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
     if (focusonparticipant.confirmedAttendance === false) {
       window.location.href = `/draft/${focusonleague.leaguename}/${focusonparticipant.fantasyname}/confirmdraft`
     }
-  }, [focusonparticipant])
+  }, [focusonparticipant,focusonleague.leaguename])
 
 
   useEffect(() => {
@@ -319,7 +319,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
 
-  }, [])
+  }, [watu, focusonleague.name])
 
 
   return (
@@ -328,7 +328,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       <div style={{ display: "flex", flexDirection: "row" }}>
 
         <Grid>
-          <div className={s.container} style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}   >
+          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}   >
 
             <h1> Draft</h1>
             <h2>leaguename: {focusonleague.name}</h2>
@@ -338,7 +338,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
           </div>
         </Grid>
         <Grid>
-          <div className={s.container} style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }} >
+          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }} >
             <h1 style={{ color: "#ffd204" }}>{balance == 0 ? null : (<>balance : {balance}</>)}</h1>
             <h1 style={{ color: "#ffd204" }}>{counter == 0 ? "wait your turn" : "timer: " + dayjs().set("minute", counter/60000).minute(counter/60000).format("mm:ss")
             
@@ -360,7 +360,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
         <Grid>
-          <div className={s.container} style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}>
+          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}>
             <h1>users in room</h1>
             {watu?.map((user) => {
               return (
@@ -380,7 +380,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       </div>
 
       <Grid>
-        <div className={s.container} style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "500px" }}>
+        <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "500px" }}>
           <button style={{ color: "#ffd204", float: "left" }} onClick={letmein}>enter room</button> <br />
 
 
@@ -390,7 +390,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
       </Grid>
       <Grid>
-        <div className={s.container} style={{ width: "1000px" }}>
+        <div  style={{ width: "1000px" }}>
           <table style={{ color: "#ffd204", width: "1000px" }} hidden={false}>
             <thead>
               <tr>
@@ -427,7 +427,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       </Grid>
       <Grid>
 
-        <div className={s.container} style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1000px" }} >
+        <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1000px" }} >
 
 
 
@@ -473,7 +473,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
               </tbody>
 
             </table>
-            <div className={s.container}></div>
+            <div ></div>
             <table style={{ color: "#ffd204" }} hidden={false}>
 
               <thead>

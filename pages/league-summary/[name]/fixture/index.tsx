@@ -1,8 +1,8 @@
-import prisma from "@lib/prisma";
+import prisma from "../../../../lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '@components/ui';
+import { Grid } from '../../../../components/ui';
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
@@ -34,7 +34,7 @@ const Fixtureview = ({ fixture, results }: { fixture: any, results: any }) => {
                   return resultMatchId === fixture.MatchId
                 }).map((result: any) => {
                   return (
-                    <div className={s.root} key={result.id} >
+                    <div  key={result.id} >
                       <p>{result.team1} vs { result.team2}</p>
                       <p > {result.game.split("_").slice(1).join("_")}</p>
                       

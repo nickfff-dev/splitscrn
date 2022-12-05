@@ -1,7 +1,7 @@
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import prisma from "@lib/prisma";
+import prisma from "../../../../lib/prisma";
 import { GetServerSideProps } from 'next'
-import s from "@components/HomePage/Insights/Seasons/Seasons.module.css";
+
 import { useEffect, useState} from "react";
 
 import { InferGetServerSidePropsType } from 'next'

@@ -1,4 +1,4 @@
-import prisma from "@lib/prisma";
+import prisma from "../../../../../lib/prisma";
 import { GetServerSideProps } from 'next'
 import { useState } from "react";
 import { InferGetServerSidePropsType } from 'next'
