@@ -8,7 +8,7 @@ import io, { Socket } from 'Socket.IO-client'
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
 import dayjs from "dayjs";
-
+import {time_convert} from '../../../../lib/calculate'
 
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 
@@ -181,11 +181,6 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       console.log(data);
       setBalance(data)
     })
-    if (picked) {
-      socket.emit("playerpicked")
-      setPicked(false)
-    
-    }
 
     socket.on("draftposition", (data: any) => {
       console.log(data)
@@ -226,7 +221,12 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
 
-
+  useEffect(() => {     if (picked) {
+    socket.emit("playerpicked")
+    setPicked(false)
+  
+  }
+}, [])
 
 
 
@@ -276,8 +276,8 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
         </Grid>
         <Grid>
           <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }} >
-            <h1 style={{ color: "#ffd204" }}>{balance == 0 ? null : (<>balance : {balance}</>)}</h1>
-            <h1 style={{ color: "#ffd204" }}>{counter == 0 ? "wait your turn" : "timer: " + dayjs().set("minute", counter/60000).minute(counter/60000).format("mm:ss")
+            <h1 style={{ color: "#ffd204" }}>{balance === 0 ? null : (<>balance : {balance}</>)}</h1>
+            <h1 style={{ color: "#ffd204" }}>{counter === 0 ? "wait your turn" : "timer: " + time_convert(counter)
             
             }</h1>
 
@@ -526,8 +526,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const teams = focusonleague?.teams
 
   const players = focusonleague?.players.filter((player) => {
-    player.selected === false
+    if (player.selected === false) {
+      return player
+    }
   })
+  console.log(players)
 
   const userId = user?.id
 

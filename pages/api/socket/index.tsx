@@ -56,7 +56,7 @@ export default async function handler(req: any, res: any) {
     sessionID: (socket as any).sessionID,
     userID: (socket as any).userID,
   });
-  const roomStore = new RoomStore(io, socket);
+  const roomStore = new RoomStore(io);
   socket.on("joinRoom", async (room) => {
     
     const people:any = io.sockets.adapter.rooms.get(room);
@@ -90,8 +90,8 @@ export default async function handler(req: any, res: any) {
       socket.emit("message", (socket as any).username + " You joined the room " + room);
       try {
         const draftMembers = await draftStore.getDraftMembers(room);
-        const userbalance:any = draftMembers?.filter((member) => member.fantasyname === (socket as any).username);
-        draftStore?.getDraftMemberWallet(userbalance[0].userId).then((wallet) => { 
+        const userbalance:any = draftMembers?.filter((member) => member.fantasyname === (socket as any).username).map((member) => member.userId);
+        draftStore?.getDraftMemberWallet(userbalance[0]).then((wallet) => { 
           socket.emit("balance", wallet);
         })
       }catch (err) { console.log(err) }
@@ -99,7 +99,7 @@ export default async function handler(req: any, res: any) {
 
     }
 
-    await roomStore.onPlayerReady();
+    await roomStore.onPlayerReady(socket);
   
 
 

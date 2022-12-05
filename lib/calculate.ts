@@ -193,3 +193,14 @@ const duration = endd.diff(startd, 'day');
 return duration
 
 }
+
+export function time_convert(num: number) {
+  var millisecondstoseconds = num / 1000;
+  var secondstominutes = millisecondstoseconds / 60;
+  var minutes = Math.floor(secondstominutes )
+  var seconds = Math.floor(millisecondstoseconds % 60);
+
+
+ return  `${minutes}:${seconds}`;
+ 
+}

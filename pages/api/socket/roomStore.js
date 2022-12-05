@@ -6,9 +6,9 @@ const draftStore = new PrismaDraftStore();
 const sessionStore = new InMemorySessionStore();
 
 export class RoomStore {
-  constructor(io, socket) {
+  constructor(io) {
     this.io = io;
-    this.socket = socket;
+    
     this.teamPickArray = [];
     this.draftMembersWithSocketId = [];
     this.counter = 300 * 1000;
@@ -57,17 +57,17 @@ if (turnplayerz) {
       });
     });
     console.log(users);
-    this.socket.emit("users", users);
+    socket.emit("users", users);
   }
 
-  async emitBalance(room) {
+  async emitBalance(room,socket) {
     try {
       const draftMembers = await draftStore.getDraftMembers(room);
       const userbalance = draftMembers.filter(
-        (member) => member.fantasyname === this.socket.username
+        (member) => member.fantasyname === socket.username
       );
       draftStore.getDraftMemberWallet(userbalance[0].userId).then((wallet) => {
-        this.socket.emit("balance", wallet);
+        socket.emit("balance", wallet);
       });
     } catch (err) {
       console.log(err);
@@ -86,12 +86,13 @@ if (turnplayerz) {
 
   async assignDraftOrder(room) {
     const addTodraft = this.io.sockets.adapter.rooms.get(room);
-
+   console.log("add", addTodraft);
     const draft = {
       name: room,
     };
 
-    await draftStore
+    if (addTodraft) {
+      await draftStore
       .saveDraft(draft)
       .then(async () => {
         for (const newMember of addTodraft) {
@@ -129,6 +130,7 @@ if (turnplayerz) {
       .then(async () => {
         await this.generateSnakeDraftOrder(room);
       });
+    }
   }
 
   async generateDraftMemberWithSocketID(room) {
@@ -192,28 +194,28 @@ if (turnplayerz) {
     }
   }
 
-  async onPlayerReady() {
-    this.socket.on("imready", async () => {
-      this.socket.isReady = true;
+  async onPlayerReady(socket) {
+    socket.on("imready", async () => {
+      socket.isReady = true;
 
-      sessionStore.updateSession(this.socket.sessionID);
+      sessionStore.updateSession(socket.sessionID);
       await draftStore.updateMemberReady(
-        this.socket.room,
-        this.socket.username
+        socket.room,
+        socket.username
       );
-
-      await this.beginDraft();
+      draftStore.getDraftMembers(socket.room).then(async (members) => { if (members.every((member) => member.isReady === true)) {await this.beginDraft(socket); } });
+      
     });
   }
 
-  async beginDraft() {
-    draftStore.getDraftMembers(this.socket.room).then(async (members) => {
-      if (members.every((member) => member.isReady)) {
-        await this.assignDraftOrder(this.socket.room);
-        await this.emitDraftMembers(this.socket.room);
+  async beginDraft(socket) {
+   
+    
+        await this.assignDraftOrder(socket.room);
+        await this.emitDraftMembers(socket.room);
         await this._emitTurn(this.draftOrder);
-      }
-    });
+      
+    
   }
 
   async _emitTurn(draftOrder) {
@@ -224,7 +226,7 @@ if (turnplayerz) {
 
       if (turnplayer) {
         const turnplayersocket = turnplayer.socketId;
-        console.log(turnplayersocket);
+      
         this.io
           .to(turnplayersocket)
           .emit("message2", ` ${turnplayer.fantasyname} It's your turn to pick`);
@@ -250,7 +252,7 @@ if (turnplayerz) {
 
       if (turnplayer) {
         const turnplayersocket = turnplayer.socketId;
-        console.log(turnplayersocket);
+        
         this.io
           .to(turnplayersocket)
           .emit(
