@@ -5,25 +5,53 @@
 
 
 .container{
-  @apply grid grid-cols-3 gap-4 grid-flow-row  border p-6}
+  @apply grid grid-cols-3 gap-4 grid-flow-row space-y-8 border p-6}
 
 .containerleft{
-  @apply col-start-1 col-end-2 row-start-1 row-end-5  bg-gray-medium rounded-xl
+  @apply col-start-1 col-end-2 row-start-1 row-end-5  bg-gray-medium rounded-xl 
 }
 
 .containerRight{
-  @apply col-start-2 col-end-3 row-start-1 row-end-4  border  
+  @apply col-start-2 col-end-3 row-start-1 row-end-4  }
+
+.belowcontainerleft{
+  @apply col-start-1 col-end-3 row-start-5 row-end-7    rounded-xl mt-5 p-5 items-center
+}
+.belowcontainerleftInner::-webkit-scrollbar{
+  @apply hidden 
+}
+.belowcontainerleftH{
+  @apply  grid  grid-flow-row grid-cols-5 auto-rows-[22px]  w-full  rounded-full items-center
 }
 
-
+.belowcontainerleftH h2{
+  @apply  text-center
+}
+.belowcontainerleftInner p{
+  @apply my-auto text-center
+}
+.belowcontainerleftInner{
+  @apply grid grid-cols-1  grid-flow-row content-center justify-center items-center overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[160px] h-full
+}
 .containerRight2{
-  @apply col-start-3 col-end-4 border  row-start-1 row-end-4
+  @apply col-start-3 col-end-4 row-start-1 row-end-4
 }
 .containerRight h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-center
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl  mb-6
+}
+.containerRight h2{
+  @apply font-bold text-secondary text-center capitalize
+}
+
+.belowcontainerleft h1{
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl  mb-6
+}
+
+.belowcontainerleft h2{
+  @apply font-bold text-secondary text-center capitalize
 }
 .containerthird{
-  @apply col-start-3 col-end-4 row-start-1 row-end-4 border 
+  @apply col-start-3 col-end-4 row-start-1 row-end-4 
 }
 
 .containerleftinner{
@@ -44,19 +72,19 @@
 }
 
 .profiletext p{
-  @apply text-lg text-gray-300  
+  @apply text-lg text-gray-300 
 }
 
 
 .containerRightInner{
-  @apply grid grid-cols-1  grid-flow-row content-center justify-center  overflow-y-scroll overflow-x-hidden  max-h-[120px] h-full
+  @apply grid grid-cols-1  grid-flow-row content-center justify-center  overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[160px] h-full
 }
 
 .H{
-  @apply grid  grid-flow-row grid-cols-4 auto-rows-[22px]  w-full gap-2  rounded-full
+  @apply grid  grid-flow-row grid-cols-5 auto-rows-[22px]  w-full  rounded-full space-x-2 text-white
 }
 .containerRightInner h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-center text-sm pb-3
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left text-sm pb-3
 
 }
 
@@ -69,10 +97,14 @@
 
 
 .containerRight2 h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-center
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl mb-6
 
 }
 
+.containerRight2 h2{
+  @apply font-bold text-secondary text-center capitalize
+
+}
 .containerRight2 p{
   @apply text-gray-300 text-center text-sm 
 
@@ -81,4 +113,49 @@
 
 .containerRightInner::-webkit-scrollbar{
   @apply hidden 
+}
+
+
+.H p{
+  @apply my-auto 
+}
+
+
+
+.belowContainerRight{
+  @apply col-start-3 col-end-4 row-start-5 row-end-7 pt-8}
+
+
+.belowContainerRightH{
+  @apply grid  grid-flow-row grid-cols-5 auto-rows-auto  w-full  rounded-full space-x-2 text-white 
+}
+
+.belowContainerRightInner{
+  @apply grid grid-cols-1  grid-flow-row items-center justify-center  overflow-y-scroll overflow-x-hidden  max-h-[160px] h-full  p-5
+}
+
+
+
+.belowContainerRight h1{
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl mb-2
+
+}
+
+.belowContainerRight h2{
+  @apply font-bold text-secondary text-center capitalize
+
+}
+.belowContainerRight p{
+  @apply text-gray-300 text-center text-sm 
+
+}
+
+
+.belowContainerRightInner::-webkit-scrollbar{
+  @apply hidden 
+}
+
+
+.belowContainerRightInner .H p{
+  @apply px-5
 }
