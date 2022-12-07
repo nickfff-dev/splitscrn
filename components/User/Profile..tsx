@@ -67,9 +67,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
                   return participant
                 }
          
-              }).map((participant: any) => {
+              }).map((participant: any, index:number) => {
                 return (
-                  <div className={`${Us.H}`}>
+                  <div key={index} className={`${Us.H}`}>
                     <p>{participant.fantasyname}</p>
                     <p>{participant.draftName}</p>
                     <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/confirmdraft`}>Click</a></p>
@@ -104,8 +104,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           <div className={`${Us.containerRightInner}  `}>
 
             {
-              owner.Wallet[0].Deposit.map((depo: any) => {
-                return (<div className={`${Us.H}`}>
+              owner.Wallet[0].Deposit.map((depo: any, index:number) => {
+                return (<div key={ index} className={`${Us.H}`}>
                   <p> deposit</p>
                 
                   <p> {depo.date}</p> 
@@ -116,8 +116,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
               })
             }
                    {
-              owner.Wallet[0].Withdrawal.map((depo: any) => {
-                return (<div className={`${Us.H}`}>
+              owner.Wallet[0].Withdrawal.map((depo: any, index:number) => {
+                return (<div key={index} className={`${Us.H}`}>
                   <p> deposit</p>
                 
                   <p> {depo.date}</p> 
@@ -144,8 +144,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           </div>
           <div className={`${Us.belowcontainerleftInner} `}>
             {
-              leagues.map((league: any) => {
-                return (<div className={`${Us.H}`}>
+              leagues.map((league: any, index:number) => {
+                return (<div key={index} className={`${Us.H}`}>
                   
                   <p>{league.name}</p>
                   <p>{league.region}</p>
@@ -173,8 +173,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           
               {
                 participants.map((participant: any) => {
-                  return participant.Trade?.map((trade: any) => {
-                    return(<div className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
+                  return participant.Trade?.map((trade: any, index:number) => {
+                    return(<div key={index} className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
 <p> {trade.playerIn.split(" ")[0]}</p>
                     
                       <p> {trade.playerOut.split(" ")[0]}</p>
