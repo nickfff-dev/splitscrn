@@ -13,7 +13,14 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@lib/*": ["./lib/*"],
+      "@customTypes/*": ["./types/*"],
+      "@components": ["./components"],
+      "@components/*": ["./components/*"],
+      "@public/*": ["./public/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/api/socket.js"],
   "exclude": ["node_modules"]

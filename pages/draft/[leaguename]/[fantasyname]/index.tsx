@@ -25,7 +25,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
   const [message2, setMessage2] = useState("")
   const [counter, setCounter] = useState(0)
   const [balance, setBalance] = useState(0)
-  const [picked, setPicked] = useState(false)
+ 
 
   useEffect(() => { 
 
@@ -42,6 +42,9 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
     if (sessionID) {
 
       socket.auth = { sessionID };
+
+
+      
       socket.connect();
 
     }
@@ -221,14 +224,6 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
 
-  useEffect(() => {     if (picked) {
-    socket.emit("playerpicked")
-    setPicked(false)
-  
-  }
-}, [])
-
-
 
 
 
@@ -395,8 +390,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
                         })
 
-                        setPicked(true)
-
+                   
 
 
                       }
@@ -452,7 +446,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
                           }
 
                         )
-                        setPicked(true)
+                      
 
                       }
                     }>

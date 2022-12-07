@@ -33,9 +33,9 @@ if (turnplayerz) {
   this.io.to(turnplayerz.socketId).emit("counter", this.counter);
 
   this.counter -= 1000;
-  if (this.counter < 0) {
-    this.counter = 300 * 1000;
-    return;
+  if (this.counter === 0) {
+    
+return
   }
   setTimeout(() => {
     this.startTimer();
@@ -236,7 +236,7 @@ if (turnplayerz) {
     } catch (e) {
       console.log(e);
     }
-
+    this.counter = 300 * 1000
     await this.startTimer();
     await this._triggerTimeOut();
      }
@@ -280,17 +280,13 @@ if (turnplayerz) {
   }
 
   async _resetTimeOut() {
-    console.log(typeof this.draftTimeOut);
-    if (typeof this.draftTimeOut === "object") {
-      clearTimeout(this.draftTimeOut);
-    }
+
+    clearTimeout(this.draftTimeOut);
+
+    
   }
 
-  async _shiftTurn() {
-    this._resetTimeOut();
 
-    this._nextTurn();
-  }
 
   async _resetCurrentDraft() {
     this.draftOrder = 0;
