@@ -1,27 +1,49 @@
 import Us from './profile.module.css'
 import Image from 'next/image';
 
-const UserProfile = () => {
+const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, participants:any}) => {
 
 
 
 
   return (
     <div className={`${Us.root}`}>
-      <button className=" rounded-full  bg-gray-light px-3 mb-5 py-1 text-lg"><span className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">Create A league</span></button>
+     
       <div className={`${Us.container} `}>
 
         <div className={`${Us.containerleft}`}>
+        <h1>Profile</h1>
           <div className={`${Us.containerleftinner}`}>
             <img src="https://i.redd.it/rtqwmwm3tdy41.png" className="w-40 h-40" alt={''} />
-            <div className={`${Us.containerleftinnertext}`}>
-              <div className={`${Us.profiletext}`}><h1>Username:</h1> <p>My name</p></div>
-              <div className={`${Us.profiletext}`}><h1>Email:</h1> <p>Myemalil@yahooo.com</p></div>
-              <div className={`${Us.profiletext}`}><h1>Dob:</h1> <p>12/24/2022</p></div>
-              <div className={`${Us.profiletext}`}><h1>Locale:</h1> <p> {Intl.DateTimeFormat().resolvedOptions().timeZone}</p></div>
+             
+            <div className={`${Us.containerleftinnertext} `}>
+              <div className={`${Us.profiletext}`}><h2>Username:</h2> <p>{owner.name}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Email:</h2> <p>{owner.email}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Dob:</h2> <p>{ owner.birthDate.split(" ")[0]}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Locale:</h2> <p> {Intl.DateTimeFormat().resolvedOptions().timeZone}</p></div>
+              <div className={` flex flex-row bg-gradient-to-r from-gray-200 to-  space-x-8 w-full p-2 font-bold`}><h2>Balance:</h2> <p>${Math.ceil(owner.Wallet[0].credits)}</p></div>
             </div>
-
+            
           </div>
+        
+          <div>
+          
+            
+     
+            <div className={`${Us.containerleftinnertext2} `}>
+            
+            <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{participants.length}</p></div>
+            <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{leagues.length}</p></div>
+            <div className={`${Us.profcard}`}><h2>Total points:</h2> <p>{
+              participants.reduce((acc: any, item: any) => {
+               return acc + item.points
+             },0)
+            }</p></div>
+              <div className={`${Us.profcard}`}><h2>Prize Claims:</h2> <p>{leagues.length}</p></div>
+              <div className={`${Us.profcard} invisible`}></div>
+            </div>
+          
+            <div className=" flex flex-row mx-auto w-1/2 justify-center space-x-2 mt-5"> <button className=" rounded-full bg-gray-light px-3 mt-6  py-1 text-lg"><span className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New league</span></button><button className=" rounded-full  bg-gray-light px-3 mt-6  py-1 text-lg"><span className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New Trade</span></button></div></div>
         </div>
         <div className={`${Us.containerRight} `}>
           <h1>Upcoming Drafts</h1>
@@ -30,54 +52,43 @@ const UserProfile = () => {
             <h2>Leaguename</h2>
 
             <h2>Confirmation</h2>
-            <h2>draftDate</h2>
+            
             <h2>Link</h2>
+            <h2>draftDate</h2>
 
 
 
           </div>
-          <div className={`${Us.containerRightInner} [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light p-3 `}>
+          <div className={`${Us.containerRightInner}  [&>*:nth-child(even)]:bg-gray-medium  [&>*:nth-child(odd)]:bg-gray-light`}>
+           
+            {
+              participants.filter((participant: any) => {
+                if (participant.confirmedAttendance === true) {
+                  return participant
+                }
+         
+              }).map((participant: any) => {
+                return (
+                  <div className={`${Us.H}`}>
+                    <p>{participant.fantasyname}</p>
+                    <p>{participant.draftName}</p>
+                    <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/confirmdraft`}>Click</a></p>
+                    <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/`}>draftLink</a></p>
+                    <p>{
+                      leagues.filter((league: any) => {
+                        if (league.name === participant.draftName) {
+                            return league
+                          }
+                      }).map((league: any) => {
+                          return league.draftTime.split("T")[0]
+                        })
+                    }</p>
+                  </div>
+                )
+              })
+           }
+   
 
-
-            <div className={`${Us.H}`}>
-              <p> TeamA</p>
-              <p> THEBESTlEAGUE</p>
-
-              <p> true</p>
-
-              <p>draftLink</p>
-              <p> 12/24/2022</p>
-            </div>
-
-            <div className={`${Us.H}`}>
-              <p> TeamA</p>
-              <p> THEBESTlEAGUE</p>
-
-              <p> true</p>
-
-              <p>draftLink</p>
-              <p> 12/24/2022</p></div>
-            <div className={`${Us.H}`}>
-              <p> TeamA</p>
-              <p> THEBESTlEAGUE</p>
-
-              <p> true</p>
-              <p>draftLink</p>
-              <p> 12/24/2022</p></div>
-            <div className={`${Us.H}`}>
-              <p> TeamA</p>
-              <p> THEBESTlEAGUE</p>
-
-              <p> true</p>
-              <p>draftLink</p>
-              <p> 12/24/2022</p></div>
-            <div className={`${Us.H}`}>
-              <p> TeamA</p>
-              <p> THEBESTlEAGUE</p>
-
-              <p> true</p>
-              <p>draftLink</p>
-              <p> 12/24/2022</p></div>
           </div>
 
         </div>
@@ -90,39 +101,34 @@ const UserProfile = () => {
             <h2>completed</h2>
             <h2>credits</h2>
           </div>
-          <div className={`${Us.containerRightInner} p-3 [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light `}>
+          <div className={`${Us.containerRightInner}  [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light `}>
 
+            {
+              owner.Wallet[0].Deposit.map((depo: any) => {
+                return (<div className={`${Us.H}`}>
+                  <p> deposit</p>
+                
+                  <p> {depo.date}</p> 
+                  <p> ${depo.amount}.00</p> 
+                  <p> true</p> 
+                  <p> {depo.credits}</p> 
+                </div>)
+              })
+            }
+                   {
+              owner.Wallet[0].Withdrawal.map((depo: any) => {
+                return (<div className={`${Us.H}`}>
+                  <p> deposit</p>
+                
+                  <p> {depo.date}</p> 
+                  <p> ${depo.amount}.00</p> 
+                  <p> true</p> 
+                  <p> {depo.credits}</p> 
+                </div>)
+              })
+                }
 
-            <div className={`${Us.H}`}>
-              <p> deposit</p>
-              <p> 12/24/2022</p>
-              <p> 100</p>
-              <p> true</p>
-              <p>95000</p></div>
-            <div className={`${Us.H}`}>
-              <p> deposit</p>
-              <p> 12/24/2022</p>
-              <p> 100</p>
-              <p> true</p>
-              <p>95000</p></div>
-            <div className={`${Us.H}`}>
-              <p> deposit</p>
-              <p> 12/24/2022</p>
-              <p> 100</p>
-              <p> true</p>
-              <p>95000</p></div>
-            <div className={`${Us.H}`}>
-              <p> deposit</p>
-              <p> 12/24/2022</p>
-              <p> 100</p>
-              <p> true</p>
-              <p>95000</p></div>
-            <div className={`${Us.H}`}>
-              <p> deposit</p>
-              <p> 12/24/2022</p>
-              <p> 100</p>
-              <p> true</p>
-              <p>95000</p></div>
+      
           </div>
 
         </div>
@@ -132,88 +138,54 @@ const UserProfile = () => {
             <h2>LEAGUE</h2>
             <h2>REGION</h2>
             <h2>StartDate</h2>
-                <h2>Prize</h2>
+                <h2>Owner</h2>
            
             <h2>Points</h2>
           </div>
           <div className={`${Us.belowcontainerleftInner} [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
-            
-          <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> LEC</p>
-
-              <p> 12/24/2022</p>
-              <p>$100</p>
-              <p> 12345</p>
-            </div>
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> LEC</p>
-
-              <p> 12/24/2022</p>
-              <p>$100</p>
-              <p> 12345</p>
-            </div>
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> LEC</p>
-
-              <p> 12/24/2022</p>
-              <p>$100</p>
-              <p> 12345</p>
-            </div>
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> LEC</p>
-
-              <p> 12/24/2022</p>
-              <p>$100</p>
-              <p> 12345</p>
-            </div>
+            {
+              leagues.map((league: any) => {
+                return (<div className={`${Us.H}`}>
+                  
+                  <p>{league.name}</p>
+                  <p>{league.region}</p>
+                  <p>{league.startDate.split("T")[0]}</p>
+                  <p>{league.owner === owner.name ? "me": (owner.name)}</p>
+                  <p>{ league.points}</p>
+                </div>)
+              })
+             }
+         
+      
+   
           </div>
         </div>
         <div className={`${Us.belowContainerRight}`}>
           <h1>My Trades</h1>
           <div className={`${Us.belowContainerRightH}`}>
-            <h2>LEAGUE</h2>
+        
             <h2>DATE</h2>
             <h2>PLAYERIN</h2>
             <h2>PLAYEROUT</h2>
             <h2>CREDITS</h2>
           </div>
           <div className={`${Us.belowContainerRightInner} [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
-          <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> 12/24/2022</p>
-
-              <p> NUGURI</p>
-              <p>DOVE</p>
-              <p> 12345</p>
-            </div>  
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> 12/24/2022</p>
-
-              <p> NUGURI</p>
-              <p>DOVE</p>
-              <p> 12345</p>
-            </div>
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> 12/24/2022</p>
-
-              <p> NUGURI</p>
-              <p>DOVE</p>
-              <p> 12345</p>
-            </div>
-            <div className={`${Us.H}`}>
-              <p>THEBESTlEAGUE</p>
-              <p> 12/24/2022</p>
-
-              <p> NUGURI</p>
-              <p>DOVE</p>
-              <p> 12345</p>
-            </div>
+          
+              {
+                participants.map((participant: any) => {
+                  return participant.Trade?.map((trade: any) => {
+                    return(<div className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
+<p> {trade.playerIn.split(" ")[0]}</p>
+                    
+                      <p> {trade.playerOut.split(" ")[0]}</p>
+                
+                    <p> $50000</p></div> )
+                  })
+                })
+             }
+              
+             
+           
             
           </div>
 </div>

@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import UserProfile from "../../components/User/Profile.";
 
 
-const UserAccount = ({ owner, leagues }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
+const UserAccount = ({ owner, leagues,participants }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
   const [usernewname, setUser] = useState("");
   const [birthDate, setBirthDate] = useState(owner.birthDate);
   
@@ -69,7 +69,7 @@ const UserAccount = ({ owner, leagues }: InferGetServerSidePropsType<typeof getS
 
   return (
     <>
-      <UserProfile/>
+      <UserProfile owner={owner} leagues={ leagues} participants={participants.flat(Infinity)}/>
     {/* <div className="grid grid-flow-col gap-5  auto-cols-max text-white m-3 overflow-hidden">
       
       <div className={`${s.container} mt-5  `}>
@@ -147,6 +147,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       email: session?.user?.email as string,
       
+      
+    },
+    include: {
+      Wallet: {
+        include: {
+          Deposit: true,
+          Withdrawal: true
+
+        }
+      }
     }
   }).then((data) => {
     return data
@@ -162,13 +172,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     },
     include: {
-      members: true
+      members: {
+        include: {
+          Trade: true
+        }
+      }
     } 
   })
+  const participants = leagues.map((league) => {
+    return league.members.map((member) => {
+      return member.username === username ? member : null
+    })
+  })
 
+ console.log(owner)
   return {
     props: {
-      owner, leagues
+      owner, leagues, participants
     }
   }
  

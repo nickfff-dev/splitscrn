@@ -1,22 +1,34 @@
 
 .root{
-  @apply m-5
+  @apply m-5 font-dubai
 }
 
 
 .container{
-  @apply grid grid-cols-3 gap-4 grid-flow-row space-y-8 border p-6}
+  @apply grid grid-cols-3 gap-3 grid-flow-row items-start justify-start p-6}
 
 .containerleft{
-  @apply col-start-1 col-end-2 row-start-1 row-end-5  bg-gray-medium rounded-xl 
+  @apply col-start-1 col-end-2 row-start-1 row-end-7 h-full   bg-gray-medium rounded-xl  p-1
 }
-
+.containerRight2{
+  @apply col-start-3 col-end-4 row-start-1 row-end-5   p-1
+}
 .containerRight{
-  @apply col-start-2 col-end-3 row-start-1 row-end-4  }
+  @apply col-start-2 col-end-3 row-start-1 row-end-5    p-1}
 
+
+.belowContainerRight{
+    @apply col-start-3 col-end-4 row-start-5 row-end-7   p-1}
+  
 .belowcontainerleft{
-  @apply col-start-1 col-end-3 row-start-5 row-end-7    rounded-xl mt-5 p-5 items-center
+    @apply col-start-2 col-end-3 row-start-5 row-end-7     p-1 items-center
+  }
+.containerleft h1{
+  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left text-xl  pl-2
 }
+
+
+
 .belowcontainerleftInner::-webkit-scrollbar{
   @apply hidden 
 }
@@ -28,46 +40,47 @@
   @apply  text-center
 }
 .belowcontainerleftInner p{
-  @apply my-auto text-center
+  @apply my-auto text-center text-sm
 }
 .belowcontainerleftInner{
-  @apply grid grid-cols-1  grid-flow-row content-center justify-center items-center overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[160px] h-full
-}
-.containerRight2{
-  @apply col-start-3 col-end-4 row-start-1 row-end-4
-}
-.containerRight h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl  mb-6
-}
-.containerRight h2{
-  @apply font-bold text-secondary text-center capitalize
+  @apply grid grid-cols-1  grid-flow-row content-center justify-center items-center overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[180px] h-full
 }
 
+.containerRight h1{
+  @apply text-white font-bold text-left pl-3 text-xl  mb-6 border-b border-white
+}
+.containerRight h2{
+  @apply font-bold text-white text-center capitalize
+}
+
+.containerRight p{
+  @apply  text-white text-center capitalize
+}
 .belowcontainerleft h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl  mb-6
+  @apply text-white font-bold text-left pl-2 text-xl  mb-6 border-b border-white
 }
 
 .belowcontainerleft h2{
-  @apply font-bold text-secondary text-center capitalize
-}
-.containerthird{
-  @apply col-start-3 col-end-4 row-start-1 row-end-4 
+  @apply font-bold text-white text-center capitalize
 }
 
 .containerleftinner{
-  @apply flex flex-row justify-evenly items-center p-3 
+  @apply flex flex-row justify-evenly items-center 
 }
 
 .containerleftinnertext{
-  @apply flex flex-col  items-start justify-start gap-2 
+  @apply flex flex-col  items-start justify-start gap-2  
 }
 
+.containerleftinnertext2{
+  @apply flex flex-col  items-center  justify-between gap-2 divide-y w-3/4  divide-gray-dark font-bold px-4 mx-auto  py-1 mt-6  bg-gradient-to-b from-gray-200 
+}
 
 .profiletext{
   @apply flex flex-row justify-between items-start gap-2 
 }
 
-.profiletext h1{ 
+.profiletext h2{ 
   @apply text-xl font-bold  text-gray-300
 }
 
@@ -77,14 +90,14 @@
 
 
 .containerRightInner{
-  @apply grid grid-cols-1  grid-flow-row content-center justify-center  overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[160px] h-full
+  @apply grid grid-cols-1  grid-flow-row content-center justify-center  overflow-y-scroll overflow-x-hidden space-y-2 p-3 max-h-[180px] h-full
 }
 
 .H{
-  @apply grid  grid-flow-row grid-cols-5 auto-rows-[22px]  w-full  rounded-full space-x-2 text-white
+  @apply grid  grid-flow-row grid-cols-5 auto-rows-[22px]  w-full  rounded-full space-x-2  text-white
 }
 .containerRightInner h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left text-sm pb-3
+  @apply text-white font-bold text-left text-sm pb-3
 
 }
 
@@ -97,18 +110,15 @@
 
 
 .containerRight2 h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl mb-6
+  @apply text-white font-bold text-left pl-3 text-xl mb-6 border-b border-white
 
 }
 
 .containerRight2 h2{
-  @apply font-bold text-secondary text-center capitalize
+  @apply font-bold text-white text-center capitalize
 
 }
-.containerRight2 p{
-  @apply text-gray-300 text-center text-sm 
 
-}
 
 
 .containerRightInner::-webkit-scrollbar{
@@ -117,32 +127,29 @@
 
 
 .H p{
-  @apply my-auto 
-}
+  @apply my-auto }
 
 
 
-.belowContainerRight{
-  @apply col-start-3 col-end-4 row-start-5 row-end-7 pt-8}
 
 
 .belowContainerRightH{
-  @apply grid  grid-flow-row grid-cols-5 auto-rows-auto  w-full  rounded-full space-x-2 text-white 
+  @apply   grid  grid-flow-row grid-cols-4 auto-rows-[22px]  w-full  rounded-full items-center  
 }
 
 .belowContainerRightInner{
-  @apply grid grid-cols-1  grid-flow-row items-center justify-center  overflow-y-scroll overflow-x-hidden  max-h-[160px] h-full  p-5
+  @apply grid grid-cols-1  grid-flow-row items-center justify-center  overflow-y-scroll overflow-x-hidden  max-h-[180px] h-full  space-y-2 p-3
 }
 
 
 
 .belowContainerRight h1{
-  @apply bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent text-left pl-3 text-xl mb-2
+  @apply text-white font-bold text-left pl-3 text-xl mb-6 border-b border-white
 
 }
 
 .belowContainerRight h2{
-  @apply font-bold text-secondary text-center capitalize
+  @apply font-bold text-white text-center capitalize
 
 }
 .belowContainerRight p{
@@ -156,6 +163,14 @@
 }
 
 
-.belowContainerRightInner .H p{
-  @apply px-5
+
+
+.profcard{
+  @apply  flex flex-row justify-between items-start w-full
+}
+
+
+
+.Htrade{
+  @apply grid  grid-flow-row grid-cols-4 auto-rows-[22px]  w-full  rounded-full space-x-2  text-white
 }
