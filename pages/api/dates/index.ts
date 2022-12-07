@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       }
            console.log("data",data);
       const dates = data?.map((league) => {
-        const date = dayjs(league.DateStart).format('MMM. DD') + 'th';
+        const date =league.Name.split(' ').slice(1).join(' ');
         const name = league.Name.split(' ')[0];
         
         return {
