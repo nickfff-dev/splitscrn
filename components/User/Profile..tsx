@@ -59,7 +59,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
 
           </div>
-          <div className={`${Us.containerRightInner}  [&>*:nth-child(even)]:bg-gray-medium  [&>*:nth-child(odd)]:bg-gray-light`}>
+          <div className={`${Us.containerRightInner} `}>
            
             {
               participants.filter((participant: any) => {
@@ -101,7 +101,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
             <h2>completed</h2>
             <h2>credits</h2>
           </div>
-          <div className={`${Us.containerRightInner}  [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light `}>
+          <div className={`${Us.containerRightInner}  `}>
 
             {
               owner.Wallet[0].Deposit.map((depo: any) => {
@@ -142,7 +142,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
            
             <h2>Points</h2>
           </div>
-          <div className={`${Us.belowcontainerleftInner} [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
+          <div className={`${Us.belowcontainerleftInner} `}>
             {
               leagues.map((league: any) => {
                 return (<div className={`${Us.H}`}>
@@ -169,7 +169,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
             <h2>PLAYEROUT</h2>
             <h2>CREDITS</h2>
           </div>
-          <div className={`${Us.belowContainerRightInner} [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
+          <div className={`${Us.belowContainerRightInner}`}>
           
               {
                 participants.map((participant: any) => {
