@@ -10,7 +10,7 @@ export default function SignIn({ providers } : {providers: any}) {
           <div className={`${S.loginCardInner}`}>
       {Object.values(providers).map((provider:any) => (
         <div className={`${S.buttongr}`} key={provider.name}>
-          <button className={`${S.btnlgin}`} onClick={() => signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/profile' })}>
+          <button className={`${S.btnlgin}`} onClick={() => { try{signIn(provider.id, { callbackUrl: 'http://localhost:3000/user/verify' })}catch(e:any){console.log(e)} }}>
            <span> Sign in with {provider.name}</span>
           </button>
         </div>

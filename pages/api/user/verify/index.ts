@@ -1,11 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../../lib/prisma';
 import nodemailer from 'nodemailer';
+import dayjs from 'dayjs';
+import  crypto  from 'crypto';
+
 
 
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) { 
+
  const resdata = JSON.parse(req.body)
   
 const MY_GMAIL ="jumanaturetech@gmail.com"
