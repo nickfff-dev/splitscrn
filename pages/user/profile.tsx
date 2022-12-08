@@ -7,7 +7,7 @@ import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
 
 import dayjs from "dayjs";
-import UserProfile from "../../components/User/Profile.";
+import UserProfile from "../../components/User/Profile";
 
 
 const UserAccount = ({ owner, leagues,participants }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 

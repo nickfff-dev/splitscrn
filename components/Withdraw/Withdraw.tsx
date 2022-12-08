@@ -65,30 +65,37 @@ const WithdrawPage = ({ owner, wallet }: { owner: User, wallet: Wallet }) => {
     }
   
     return (
-      <Grid>
+      
   
-        <div >
-        <label htmlFor="withdrawAmount" >Credits to withdraw
-            <input type="number" name="withdrawAmount" style={{ color: "black" }} onChange={onWithdrawAmountChange}  />  </label><br/>
-          <button onClick={onWithdrawAmountSubmit}>confirm</button><br/>
-          <p>amount you will get: {
+        <div  className="p-1 grid grid-cols-1    grid-flow-row gap-3">
+        <div className="col-span-1 space-y-4">
+          <label className="font-bold  " htmlFor="withdrawAmount" ><span className=" pr-6">Credits:</span><input className="h-8 text-gray-300 font-bold    px-4  bg-gray-light rounded-lg" type="number" name="withdrawAmount"  onChange={onWithdrawAmountChange}  /> 
+        </label>
+        
+        <button className="rounded-full py-1 ml-6  font-bold   focus:outline outline-primary bg-gray-light px-5 capitalize" onClick={onWithdrawAmountSubmit}><span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">confirm</span></button>
+          <div className="flex space-x-10">
+        <p className="font-bold capitalize">Withdraw: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">${
             
-            withdrawAmount / 100
+            (withdrawAmount / 100).toFixed(2)
           
-          }</p><br/>
-          <p>
-            fees charged : {
-              withdrawAmount / 100 * 0.05
-            }
-          </p> <br/>
+          }</span></p>
+          <p className="font-bold capitalize">
+            fees : <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${
+              (withdrawAmount / 100 * 0.05).toFixed(2)
+            }</span>
+          </p> 
           
-          <p>new balance: 
-            ${wallet.balance}
-          </p><br/>
-          <p>{responsetext}</p>
+          <p className="font-bold capitalize">new balance: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            ${wallet.balance.toFixed(2)}</span>
+          </p>
+          <p className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent ">{responsetext}</p>
+          </div>
+        </div>
+      
+   
     </div>
       
-      </Grid>
+      
     )
 }
 
