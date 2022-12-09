@@ -85,7 +85,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         include: {
           Trade: true
         }
-      }
+      }, 
+      players: true,
+
     } 
   })
   const participants = leagues.map((league) => {
@@ -94,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   })
 
- console.log(owner)
+ console.log(leagues)
   return {
     props: {
       owner, leagues, participants

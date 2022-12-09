@@ -10,6 +10,17 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   const [showAcquire, setShowAcquire] = useState(false)
   const [showRelease, setShowRelease] = useState(false)
   const [showTrade, setShowTrade] = useState(false)
+  const [activeLeague, setActiveLeague] = useState(leagues[0].name)
+  const onActiveLeague = (name: any) => {
+    setActiveLeague(name)
+    setActiveLeaguePlayers(getActiveLeaguePlayers())  
+    
+  }
+  const getActiveLeaguePlayers = () => { 
+    const activeLeaguePlayers = leagues.find((league:any) => league.name === activeLeague)
+    return activeLeaguePlayers.players
+  }
+  const [activeLeaguePlayers, setActiveLeaguePlayers] = useState(getActiveLeaguePlayers())
 
   const showingTrade = () => { 
     setShowTrade(!showTrade)
@@ -223,9 +234,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker closeTrade={closeTrade} showingAcquire={showingAcquire} showingRelease={showingRelease} /></div>
-      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} /></div>
-      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease}/></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} activeLeague={activeLeague} closeTrade={closeTrade} showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} /></div>
+      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} /></div>
+      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}/></div>
 
        
     

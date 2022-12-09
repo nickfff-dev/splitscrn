@@ -2,9 +2,13 @@ import { useEffect, useState } from "react"
 import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
-const TradeMaker = ({showingAcquire,showingRelease, closeTrade}:{showingAcquire:any,showingRelease:any,closeTrade:any}) => {
+const TradeMaker = ({showingAcquire,showingRelease, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any}) => {
 
-  
+  const [showModal, setShowModal] = useState(false)
+  const showDropwdwn = () => { 
+    setShowModal(!showModal)
+  }
+
   const [numberOfTrades, setNumberOfTrades] = useState(1)
   return (
 
@@ -16,17 +20,21 @@ const TradeMaker = ({showingAcquire,showingRelease, closeTrade}:{showingAcquire:
           <p className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent font-bold text-3xl">New Trade</p>  </div>
           <div className="col-start-3 col-end-5 row-start-1 row-end-2  text-gray-300    p-2  rounded-xl">
           <span  >
-              <button id="dropdownDividerButton"
-                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">LEAGUE : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">Frisky Ducks</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
-              <div id="dropdownDivider1" className="hidden absolute z-20 w-32 ml-2 text-center bg-white max-w-40  rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+              <button id="dropdownDividerButton" onClick={showDropwdwn}
+                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">LEAGUE : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">{activeLeague}</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
+              <div id="dropdownDivider1" className={`${showModal ? "block": "hidden"} absolute z-20 w-32 ml-2 text-center bg-white max-w-40  rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}>
                 <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
-                  <li> <button 
-                    className="inline py-2 px-4 uppercase">players</button>
-                  </li>
-                  <li>
-                    <button 
-                      className="inline py-2 px-4 uppercase ">teams</button>
-                  </li>
+              
+                  {
+                    leagues.map((league: any) => {
+                      return (
+                        <li>
+                          <button onClick={() => { onActiveLeague(league.name); showDropwdwn()}}
+                          className="inline py-2 px-4 uppercase ">{league.name}</button>
+                      </li>
+                      )
+                     })
+                  }
     
                 </ul>
               </div></span>   </div>

@@ -1,6 +1,6 @@
 
 import ReleaseLine from "./ReleaseLine"
-const Release = ({closeRelease}:{closeRelease:any}) => {
+const Release = ({closeRelease,players}:{closeRelease:any, players:any}) => {
   
   
   
@@ -57,20 +57,21 @@ const Release = ({closeRelease}:{closeRelease:any}) => {
           <p>NAME</p>
         <p>ROLE</p>
         <p>TEAM</p>
-      
+      <p>REGION</p>
               <p>POINTS</p>
               <p>PRICE</p> 
-            <p>FREE AGENT</p> 
-            
+              <p>FREE AGENT</p> 
+              
+            <p></p>
           
          
 
           </div>
- <ReleaseLine/>
-          <ReleaseLine />
-          <ReleaseLine />
-          <ReleaseLine/> <ReleaseLine/> <ReleaseLine/> <ReleaseLine/> <ReleaseLine/>
-      
+            {
+              players.map((player: any) => {
+                return <ReleaseLine player={player} />
+            })
+}
       </div>
       </div>
       

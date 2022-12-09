@@ -1,7 +1,7 @@
 import { useState } from "react"
 import AcquireLine from "./AcquireLine"
 
-const Acquire = ({closeAcquire}:{closeAcquire:any}) => {
+const Acquire = ({closeAcquire, players}:{closeAcquire:any ,players:any}) => {
 
   return (<div className="bg-gradient-to-r from-primary to-secondary  p-[2px] rounded-[16px] max-w-[1100px] w-full mx-auto">
     <div className="bg-gray-dark rounded-[16px] p-5">
@@ -19,11 +19,11 @@ const Acquire = ({closeAcquire}:{closeAcquire:any}) => {
 
         <div className="col-start-1 col-end-9  row-start-4 row-end-7  text-gray-300  p-2 text-center rounded-xl">
           
-          <div className="grid grid-flow-row grid-cols-9  space-x-3 space-y-1 px-3 py-1">
+          <div className="grid grid-flow-row grid-cols-8  space-x-3 space-y-1 px-3 py-1">
           <p>NAME</p>
         <p>REGION</p>
         <p>TEAM</p>
-        <p>RELEASE</p>
+       
         <p>ROLE</p>
             <p>PRICE</p> 
             <p></p> 
@@ -31,10 +31,11 @@ const Acquire = ({closeAcquire}:{closeAcquire:any}) => {
             <p></p>
 
           </div>
- <AcquireLine />
-          <AcquireLine />
-          <AcquireLine />
-          <AcquireLine/> <AcquireLine/> <AcquireLine/> <AcquireLine/> <AcquireLine/>
+          {
+            players.map((player: any) => { 
+              return <AcquireLine player={player} />
+            })
+            }
       
       </div>
       </div>
