@@ -5,13 +5,13 @@ const ReleaseLine = ({player}:{player:any}) => {
   
   return (<div className="grid grid-flow-row grid-cols-8 auto-rows-auto mt-2 space-x-2 bg-gray-light px-3 py-1 rounded-full">
       
-  <p className="my-auto">{player.name.split(" ")[0]}</p>
-  <p  className="my-auto">{player.position}</p>
-  <p  className="my-auto">{player.team}</p>
-    <p className="my-auto">{player.region}</p>
-    <p className="my-auto">{player.points ? player.points.toFixed(2) : (0).toFixed(2)}</p>
+  <p className="my-auto">{player?.name.split(" ")[0]}</p>
+  <p  className="my-auto">{player?.position}</p>
+  <p  className="my-auto">{player?.team.split(" ")[0]}</p>
+    <p className="my-auto">{player?.region}</p>
+    <p className="my-auto">{player?.points ? player.points.toFixed(2) : (0).toFixed(2)}</p>
     <p>$50,000</p>
-      <p className="my-auto">{player.selected ? `owned(${player.selectedBy})`: "freeagent"}</p> 
+      <p className="my-auto">{player?.selected ? `owned(${player?.selectedBy})`: "freeagent"}</p> 
     
      
     

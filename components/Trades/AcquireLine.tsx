@@ -3,14 +3,14 @@
 const AcquireLine = ({player,onSelectedPlayer2}:{player:any,onSelectedPlayer2: any}) => {
   return (        <div className="grid grid-flow-row grid-cols-8 auto-rows-auto mt-2 space-x-3 bg-gray-light px-3 py-1 rounded-full">
       
-  <p className="my-auto">{player.name.split(" ")[0]}</p>
-  <p  className="my-auto">{player.region}</p>
-  <p  className="my-auto">{player.team}</p>
+  <p className="my-auto">{player?.name.split(" ")[0]}</p>
+  <p  className="my-auto">{player?.region}</p>
+  <p  className="my-auto">{player?.team}</p>
 
-      <p className="my-auto">{player.position}</p> 
+      <p className="my-auto">{player?.position}</p> 
       <p className="my-auto">$500,000</p>
       <p>|</p> 
-      <p className="my-auto">{player.points ? player.points.toFixed(2) : (0).toFixed(2)}</p>
+      <p className="my-auto">{player?.points ? player.points.toFixed(2) : (0).toFixed(2)}</p>
     <div className="w-48 mx-auto">  <button onClick={() => {
        onSelectedPlayer2(player) 
       }}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
