@@ -312,8 +312,7 @@ playerdata?.map(async (team: any) => {
             },
             data: {
               points: participantplayer.filter((p: any) => p.name === player).reduce((a, b: any) => a + b.points, 0),
-              selectedBy: participant?.fantasyname,
-              region: league.region,
+          
       
             }
           }).then(async () => {
@@ -367,13 +366,21 @@ playerdata?.map(async (team: any) => {
             },
             data: {
               points: newplayerdata.filter((p: any) => p.name === player).reduce((a, b: any) => a + b.points, 0),
-              selectedBy: participant?.fantasyname,
-              region: league.region,
+         
             }
           }).then(async () => {
             await prisma.$disconnect();
         })
-      })
+        })
+        await prisma.league.update({
+          where: {
+            name: leaguename?.toString()
+          },
+          data: {
+            points: league?.members.map((member: any) => member.points).reduce((a: any, b: any) => a + b, 0),
+      
+          }
+        })
 
   }
   

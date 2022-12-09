@@ -51,14 +51,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   })
 
-  await prisma.players.updateMany({
-    where: {
-      leagueId: league?.id
-    },
-    data: {
-      region: league?.region 
-    }
-  })
+ 
   return {
     props: {
 
