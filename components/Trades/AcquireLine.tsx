@@ -5,7 +5,7 @@ const AcquireLine = ({player,onSelectedPlayer2}:{player:any,onSelectedPlayer2: a
       
   <p className="my-auto">{player?.name.split(" ")[0]}</p>
   <p  className="my-auto">{player?.region}</p>
-  <p  className="my-auto">{player?.team}</p>
+  <p  className="my-auto">{player?.team.split(" ")[0]}</p>
 
       <p className="my-auto">{player?.position}</p> 
       <p className="my-auto">$500,000</p>
