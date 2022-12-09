@@ -1,7 +1,7 @@
 
 
 const AcquireLine = () => {
-  return (        <div className="grid grid-flow-row grid-cols-9 auto-rows-[32px] mt-2 space-x-3 bg-gray-light px-3 py-1 rounded-full">
+  return (        <div className="grid grid-flow-row grid-cols-9 auto-rows-auto mt-2 space-x-3 bg-gray-light px-3 py-1 rounded-full">
       
   <p className="my-auto">SSUMDAY</p>
   <p  className="my-auto">LEC</p>

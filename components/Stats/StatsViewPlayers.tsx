@@ -98,17 +98,17 @@ const StatsViewPlayers = ({stats, mode}:{stats:any, mode:any}) => {
             <div className="grid grid-flow-col auto-cols-[95px] text-center ">
             <p>{stat.key.split(" ")[0]}</p>
               <p>{stat?.value[0]?.region}</p>
-              <p>{stat.value[0].team}</p>
+              <p>{stat.value[0].team.split(" ")[0]}</p>
               <p>{stat.value[0].role}</p>
               <p>$50,000</p>
               <p >|</p>
               
                 {
-                  mode=== "scores" ? (    <div   className={`${Lt.team}  grid grid-flow-col content-center justify-items-center  auto-cols-[70px] overflow-x-scroll  w-[700px]`}>
+                  mode=== "scores" ? (    <div   className={`${Lt.team}  grid grid-flow-col content-center items-center auto-rows-auto  auto-cols-[70px] overflow-x-scroll  w-[700px]`}>
                 
                   {
                     stat.value.map((entry: any, index:number) => {
-                      return(<p key={index}>{ entry.points}</p>)
+                      return (<p key={index}>{ entry.points}</p>)
                     })
                   }
         

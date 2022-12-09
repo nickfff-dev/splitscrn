@@ -52,7 +52,7 @@ function TradesPage({ league, fantasyteam }: InferGetServerSidePropsType<typeof 
 
   return (
     <>
-      <TradeMaker/>
+      
       
       
       <div className="text-white grid lg:grid-col-2 grid-flow-col m-12">
