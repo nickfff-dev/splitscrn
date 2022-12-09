@@ -1,7 +1,8 @@
+import { Participant } from './../../../types/Participant';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import prisma from '../../../lib/prisma';
-import { Fixture, Teams, League, Players, Participant, TeamResult, PrismaClient, Prisma, PlayerResult } from "@prisma/client"
+import { Fixture, Teams, League, Players, TeamResult, PrismaClient, Prisma, PlayerResult } from "@prisma/client"
 import dayjs from 'dayjs';
 import { getPrivateLeagueResults, getPrivateLeagueMatches, getPrivateLeaguePlayers } from "../../../lib/cargoQueries";
 import { calculatePlayerScore, calculateTeamScore } from "../../../lib/calculate";
@@ -286,11 +287,40 @@ playerdata?.map(async (team: any) => {
           id: participant?.id as number
         },
         data: {
-          points: totalpoints
+          points: totalpoints,
+          topPoints: participantplayer.filter((player: any) => player.role === "Top").reduce((a, b: any) => a + b.points, 0),
+          junglePoints: participantplayer.filter((player: any) => player.role === "Jungle").reduce((a, b: any) => a + b.points, 0),
+          midPoints: participantplayer.filter((player: any) => player.role === "Mid").reduce((a, b: any) => a + b.points, 0),
+          adcPoints: participantplayer.filter((player: any) => player.role === "Bot").reduce((a, b: any) => a + b.points, 0),
+          supportPoints: participantplayer.filter((player: any) => player.role === "Support").reduce((a, b: any) => a + b.points, 0),
+          teamPoints: participantteam.reduce((a, b: any) => a + b.points, 0),
         }
       }).then(async () => {
         await prisma.$disconnect();
       })
+       
+        let playUpdates =  [participant?.top, participant?.jungle, participant?.mid, participant?.adc, participant?.support]
+         
+        playUpdates.map(async (player: any) => { 
+          await prisma.players.update({
+            where: {
+              name_leagueId: {
+                name: player,
+                leagueId: league.id
+              }
+
+            },
+            data: {
+              points: participantplayer.filter((p: any) => p.name === player).reduce((a, b: any) => a + b.points, 0),
+              selectedBy: participant?.fantasyname,
+              region: league.region,
+      
+            }
+          }).then(async () => {
+            await prisma.$disconnect();
+          })
+        })
+    
       } else {
         var totallckpoints: number[] = []
         var roles = ["Top", "Jungle", "Mid", "Bot", "Support"]
@@ -314,11 +344,37 @@ playerdata?.map(async (team: any) => {
             id: participant?.id as number
           },
           data: {
-            points: totalpoints
+            points: totalpoints,
+            topPoints: totallckpoints[0],
+            junglePoints: totallckpoints[1],
+            midPoints: totallckpoints[2],
+            adcPoints: totallckpoints[3],
+            supportPoints: totallckpoints[4],
+            teamPoints: participantteam.reduce((a, b: any) => a + b.points, 0),
           }
         }) .then(async () => {
           await prisma.$disconnect();
         })
+        let playUpdates = [participant?.top, participant?.jungle, participant?.mid, participant?.adc, participant?.support]
+        playUpdates.map(async (player: any) => { 
+          await prisma.players.update({
+            where: {
+              name_leagueId: {
+                name: player,
+                leagueId: league.id
+              }
+
+            },
+            data: {
+              points: newplayerdata.filter((p: any) => p.name === player).reduce((a, b: any) => a + b.points, 0),
+              selectedBy: participant?.fantasyname,
+              region: league.region,
+            }
+          }).then(async () => {
+            await prisma.$disconnect();
+        })
+      })
+
   }
   
       

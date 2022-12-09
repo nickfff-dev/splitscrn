@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   
   const name = context.params?.name
 
-
+ 
   const league = await prisma.league.findUnique({
     where: {
       name: name?.toString()
@@ -41,7 +41,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   })
 
   const wallets = await prisma.wallet.findMany({})
-
+  await prisma.league.update({
+    where: {
+      name: name?.toString()
+    },
+    data: {
+      points: league?.members.map((member:any) => member.points).reduce((a:any, b:any) => a + b, 0)
+    }
+  })
   return {
     props: {
 

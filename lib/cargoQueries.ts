@@ -210,6 +210,7 @@ export const getPrivateLeaguePlayers = async (leaguename:string, startDate: stri
                 team: player.Team,
                 position: player.Role,
                 selected: false,
+                region: region
               }
             }
           }
@@ -266,6 +267,7 @@ export const getPrivateLeagueTeams = async (leaguename: string, startDate: strin
                 adc: team.RosterLinks.split(";;")[3],
                 support: team.RosterLinks.split(";;")[4],
                 points: 0,
+                region: region,
                 selected: false
               }
             }

@@ -272,7 +272,8 @@ export class PrismaDraftStore extends draftStore {
                   id: choiceId
                 },
                 data: {
-                  selected: true
+                  selected: true,
+                  selectedBy: FantasyName
                 }
               }
             }
@@ -288,6 +289,7 @@ export class PrismaDraftStore extends draftStore {
           data: {
       
             [updatePosition.toLowerCase()]: updateValue,
+           
           }
         })
         await this.prisma.league.update({
@@ -301,6 +303,7 @@ export class PrismaDraftStore extends draftStore {
                   id: choiceId
                 },
                 data: {
+                  selectedBy: FantasyName,
                   selected: true
                 }
               }

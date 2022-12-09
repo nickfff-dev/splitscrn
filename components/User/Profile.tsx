@@ -192,7 +192,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
                   <p>{league.region}</p>
                   <p>{league.startDate.split("T")[0]}</p>
                   <p>{league.owner === owner.name ? "me": (owner.name)}</p>
-                  <p>{ league.points}</p>
+                  <p>{league.points}</p>
                 </div>)
               })
              }

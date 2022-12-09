@@ -105,6 +105,7 @@ model Teams {
   adc      String  @db.VarChar(100)
   support  String  @db.VarChar(100)
   points   Float?
+  region   String?
   leagueId Int?
   League   League? @relation(fields: [leagueId], references: [id])
   selected Boolean @default(false)
@@ -119,6 +120,7 @@ model Players {
   team       String?  @db.VarChar(100)
   position   String   @db.VarChar(100)
   points     Float?
+  region     String?
   leagueId   Int?
   League     League?  @relation(fields: [leagueId], references: [id])
   selected   Boolean? @default(false)
@@ -131,15 +133,21 @@ model Players {
 model Participant {
   id                  Int      @id @default(autoincrement())
   username            String   @db.VarChar(255)
-  top                 String?  @db.VarChar(100)
+  top               String?  @db.VarChar(100)
+  topPoints           Float?
   jungle              String?  @db.VarChar(100)
+  junglePoints        Float?
   mid                 String?  @db.VarChar(100)
+  midPoints           Float?
   adc                 String?  @db.VarChar(100)
+  adcPoints           Float?
   inviteCode          String?  @db.VarChar(255)
   inviteComplete      Boolean? @default(false)
   confirmedAttendance Boolean? @default(false)
   support             String?  @db.VarChar(100)
+  supportPoints       Float?
   team                String?  @db.VarChar(100)
+  teamPoints          Float?
   points              Float?
   draftOrder          Int?     @db.Int
   leaguename          String?  @db.VarChar(255)
@@ -187,6 +195,7 @@ model PlayerResult {
   role           String
   creepScore     Int?
   visionScore    Int?
+  region        String?
   team1          String?
   team2          String?
   kills          Int?
@@ -210,6 +219,8 @@ model TeamResult {
   name            String
   game            String
   teamKills       Int?
+  region         String?
+
   dragonKills     Int?
   riftHeraldKills Int?
   turretKills     Int?
