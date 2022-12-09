@@ -25,7 +25,7 @@ const StatsViewPlayers = ({stats, mode}:{stats:any, mode:any}) => {
    })
   return (<>
     <div className={`${Lt.root} mt-12`}>
-    <div id="freed" className="grid [&>*:nth-child(odd):not(:first-child)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light  grid-flow-rows auto-rows-[50px] space-y-2 content-center justify-items-center">
+    <div id="freed" className="grid [&>*:nth-child(odd):not(:first-child)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light  grid-flow-row auto-rows-[50px] space-y-2 content-center justify-items-center">
       
       
       <div className=" grid grid-cols-1 justify-items-center content-center items-center my-auto">

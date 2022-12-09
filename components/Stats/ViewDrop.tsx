@@ -36,7 +36,7 @@ const ViewDrop = ({data, }: {data:any}) => {
       </span>
       
       {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.towers}</span>
@@ -47,7 +47,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
             {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.inhibitors}</span>
@@ -58,7 +58,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.dragons}</span>
@@ -69,7 +69,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                  {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.rift}</span>
@@ -80,7 +80,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                      {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.baron}</span>
@@ -91,7 +91,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                         {
-        data.filter((item: any) => item.split === split).slice(0,1).map((entry: any,index:number) => {  
+        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.totalKill}</span>

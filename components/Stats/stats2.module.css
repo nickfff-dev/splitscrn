@@ -1,5 +1,5 @@
 .root{
-  @apply bg-gray-dark  grid grid-flow-row content-center 
+  @apply bg-gray-dark  grid-flow-row grid-cols-11 auto-rows-[32px] mt-2 space-x-3  px-3 py-1
 }
 
 

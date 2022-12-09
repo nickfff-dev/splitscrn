@@ -116,7 +116,17 @@ const Stats = ({ statistics }: { statistics: any }) => {
   const assignTeamData = () => {
     const teamdata = filterteamdata()
     const groupdteamdata = Object.entries(groupBy(teamdata, "name")).map(([key, value]) => ({ key, value }))
-    return groupdteamdata
+
+    const returnData = groupdteamdata.map((team: any) => { 
+
+      const teamData = team.value
+      const teamData2 = teamData.filter((game: any, index: any) => { 
+        return teamData.findIndex((game2: any) => game2.split === game.split) === index
+      })
+      return { key: team.key, value: teamData2 }
+    })
+
+    return returnData
   }
 
   const runFilterTeams = () => {
@@ -139,7 +149,16 @@ const Stats = ({ statistics }: { statistics: any }) => {
   const assignData = () => {
     const mres = filterdata()
     const tuma = Object.entries(groupBy(mres, "name")).map(([key, value]) => ({ key, value }))
-    return tuma
+        // check in each names value array if there are any games that share the same split if there are omit one of them then return the array
+
+    const returnData = tuma.map((team: any) => { 
+      const teamData = team.value
+      const teamData2 = teamData.filter((game: any, index: any) => { 
+        return teamData.findIndex((game2: any) => game2.split === game.split) === index
+      })
+      return { key: team.key, value: teamData2 }
+        })
+    return returnData
   }
   const [stats, setStats] = useState(assignData())
   const [teamStats, setTeamStats] = useState(assignTeamData())
@@ -189,19 +208,17 @@ const Stats = ({ statistics }: { statistics: any }) => {
   }, [view, region, season])
 
   return (<div className="overflow-x-hidden m-5" >
-    <div className="grid grid-cols-9  auto-cols-auto space-x-5 mt-3 ml-3 space-x-12">
-      <div className="grid grid-flow-col grid-cols-2 col-span-2  space-x-3 "> 
-        <button className={`${Lt.scorefilter}`} onClick={() => {
+    <div className="grid grid-cols-9 grid-flow-row   auto-cols-auto space-x-5 mt-3 ml-3 space-x-12">
+      
+        <button className={`${Lt.scorefilter} col-start-1 col-end-2 row-start-1 row-end-2`} onClick={() => {
           setMode("scores")
         }}><span>SCORE</span></button>
-        <button className={`${Lt.scorefilter}`} onClick={() => {
+        <button className={`${Lt.scorefilter} col-start-2 col-end-3 row-start-1 row-end-2`} onClick={() => {
           setMode("stats")
         }}><span>STATS</span></button>
-      </div>
-      <div className="col-span-1">
-        
-      </div>
-      <div className="col-span-6 grid grid-flow-col items-center justify-items-center" >
+      
+     
+      <div className="col-start-4 col-end-9 grid grid-flow-col items-center justify-end " >
         <span>
           <button id="dropdownDividerButton" onClick={() => {
             showDropwdwn("dropdownDivider1")
