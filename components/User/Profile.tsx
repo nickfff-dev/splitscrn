@@ -18,7 +18,15 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
     setShow(!show)
      
    }
-
+  const closeAcquire = () => { 
+    setShowAcquire(false)
+  }
+  const closeRelease = () => { 
+    setShowRelease(false)
+  }
+  const closeTrade = () => { 
+    setShowTrade(false)
+  }
  const showingAcquire = () => { 
     setShowAcquire(!showAcquire)
   }
@@ -215,9 +223,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker  showingAcquire={showingAcquire} showingRelease={showingRelease} /></div>
-      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire /></div>
-      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release/></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker closeTrade={closeTrade} showingAcquire={showingAcquire} showingRelease={showingRelease} /></div>
+      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} /></div>
+      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease}/></div>
 
        
     

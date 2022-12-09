@@ -1,6 +1,6 @@
 
 import ReleaseLine from "./ReleaseLine"
-const Release = () => {
+const Release = ({closeRelease}:{closeRelease:any}) => {
   
   
   
@@ -42,7 +42,12 @@ const Release = () => {
 
             </ul>
           </div></span>
-  </div>
+          </div>
+          <button onClick={closeRelease} className="absolute top-1  right-[9vw] inline-flex items-center" 
+><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+</button>
       <div className="col-start-6 col-end-8 row-start-1 row-end-2  text-gray-300     ">
       <input className="text-left rounded-full bg-gray-light border px-2 border-gray-light h-8  w-full" placeholder="Search...."/> </div>
 
