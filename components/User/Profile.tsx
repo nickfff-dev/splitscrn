@@ -17,7 +17,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   const [tradeResult, setTradeResult] = useState("");
 
   const onSelectedPlayer = (player: any) => {
-    setSelectedPlayer(player);
+    setSelectedPlayer(player.name);
+    closeRelease()
 
    }
 
@@ -253,7 +254,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
       <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} activeLeague={activeLeague} closeTrade={closeTrade} selectedPlayer2={ selectedPlayer2}  selectedPlayer={ selectedPlayer} showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} /></div>
       <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire onSelectedPlayer2={onSelectedPlayer2}  closeAcquire={closeAcquire} players={activeLeaguePlayers} /></div>
-      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}/></div>
+      <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}  onSelectedPlayer={onSelectedPlayer}   /></div>
 
        
     

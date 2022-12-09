@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react"
 import ReleaseLine from "./ReleaseLine"
-const Release = ({closeRelease,players}:{closeRelease:any, players:any}) => {
+const Release = ({closeRelease,players,onSelectedPlayer}:{closeRelease:any, players:any,onSelectedPlayer:any}) => {
   
  
   const [freeAgentFilter, setFreeAgentFilter] = useState("OWNED")
@@ -126,7 +126,7 @@ const Release = ({closeRelease,players}:{closeRelease:any, players:any}) => {
                   return plays
                 }
               }).map((player: any, index:number) => {
-                return <ReleaseLine key={index} player={player} />
+                return <ReleaseLine key={index} player={player} onSelectedPlayer={onSelectedPlayer} />
             })
 }
       </div>
