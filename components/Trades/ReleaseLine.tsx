@@ -9,7 +9,7 @@ const ReleaseLine = ({player}:{player:any}) => {
   <p  className="my-auto">{player.position}</p>
   <p  className="my-auto">{player.team}</p>
     <p className="my-auto">{player.region}</p>
-    <p className="my-auto">{player.points}</p>
+    <p className="my-auto">{player.points ? player.points.toFixed(2) : (0).toFixed(2)}</p>
     <p>$50,000</p>
       <p className="my-auto">{player.selected ? "owned": "freeagent"}</p> 
     
