@@ -1,7 +1,8 @@
-
+import { useState } from "react"
 import AcquireLine from "./AcquireLine"
 
 const Acquire = () => {
+
   return (<div className="bg-gradient-to-r from-primary to-secondary  p-[2px] rounded-[16px] max-w-[1100px] w-full mx-auto">
     <div className="bg-gray-dark rounded-[16px] p-5">
       <div className="grid grid-flow-row grid-cols-8 auto-rows-auto  space-x-3 ">
@@ -25,7 +26,7 @@ const Acquire = () => {
             <p></p>
 
           </div>
- <AcquireLine/>
+ <AcquireLine />
           <AcquireLine />
           <AcquireLine />
           <AcquireLine/> <AcquireLine/> <AcquireLine/> <AcquireLine/> <AcquireLine/>

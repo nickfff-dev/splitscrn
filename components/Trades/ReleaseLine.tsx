@@ -2,6 +2,7 @@
 
 
 const ReleaseLine = () => {
+  
   return (<div className="grid grid-flow-row grid-cols-8 auto-rows-auto mt-2 space-x-3 bg-gray-light px-3 py-1 rounded-full">
       
   <p className="my-auto">SSUMDAY</p>

@@ -2,13 +2,30 @@ import Us from './profile.module.css'
 import Image from 'next/image';
 import TradeMaker from '@components/Trades/TradeMaker';
 import Acquire from '@components/Trades/Acquire';
+import { useState, useEffect } from 'react';
 import Release from '@components/Trades/Release';
 
 const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, participants:any}) => {
- 
+  const [show, setShow] = useState(false)
+  const [showAcquire, setShowAcquire] = useState(false)
+  const [showRelease, setShowRelease] = useState(false)
+  const [showTrade, setShowTrade] = useState(false)
 
+  const showingTrade = () => { 
+    setShowTrade(!showTrade)
+  }
+  const showDropwdwn = () => {
+    setShow(!show)
+     
+   }
 
+ const showingAcquire = () => { 
+    setShowAcquire(!showAcquire)
+  }
 
+  const showingRelease = () => { 
+    setShowRelease(!showRelease)
+  }
   return (
     <div className={`${Us.root}`}>
      
@@ -46,7 +63,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
               <div className={`${Us.profcard} invisible`}></div>
             </div>
           
-            <div className=" flex flex-row mx-auto w-1/2 justify-center space-x-2 mt-5"> <button className=" rounded-full bg-gray-light px-3 mt-6  py-1 text-lg"><span className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New league</span></button><button className=" rounded-full  bg-gray-light px-3 mt-6  py-1 text-lg"><button className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New Trade</button></button></div></div>
+            <div className=" flex flex-row mx-auto w-1/2 justify-center space-x-2 mt-5"> <button className=" rounded-full bg-gray-light px-3 mt-6  py-1 text-lg"><span className="capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New league</span></button><button className=" rounded-full  bg-gray-light px-3 mt-6  py-1 text-lg" onClick={() => {
+              setShowTrade(!showTrade)
+            }}><span className= "capitalize bg-gradient-to-l from-primary via-secondary  to-[#f43d00] bg-clip-text font-bold text-transparent">New Trade</span></button></div></div>
         </div>
         <div className={`${Us.containerRight} `}>
           <h1>Upcoming Drafts</h1>
@@ -194,13 +213,14 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 </div>
       </div>
 
-      <div className="grid grid-cols-9">
+    
 
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker  showingAcquire={showingAcquire} showingRelease={showingRelease} /></div>
+      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire /></div>
+      <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release/></div>
 
-        <div className="col-start-1 col-end-8 row-start-1 row-end-7 "><Acquire/></div>
-        <div className="col-start-2 col-end-3 row-start-1 row-end-7 "></div>
-        <div className="col-start-3 col-end-4 row-start-1 row-end-7 "></div>
-      </div>
+       
+    
 
     </div>
   );

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
-const TradeMaker = () => {
+const TradeMaker = ({showingAcquire,showingRelease}:{showingAcquire:any,showingRelease:any}) => {
 
+  
   const [numberOfTrades, setNumberOfTrades] = useState(1)
   return (
 
@@ -29,7 +30,7 @@ const TradeMaker = () => {
     
                 </ul>
               </div></span>   </div>
-        
+
         <div className="col-start-1 col-end-6  row-start-4 row-end-7  text-gray-300  p-2 text-center  rounded-xl">
     
           <div className="grid grid-flow-row grid-cols-6  space-x-3 space-y-1 px-3 py-1">
@@ -43,7 +44,7 @@ const TradeMaker = () => {
     
               {
                 Array.from(Array(numberOfTrades).keys()).map((trade) => {
-                  return <TradeLine key={trade} />
+                  return <TradeLine key={trade} showingAcquire={showingAcquire} showingRelease={showingRelease}  />
                  })
             }
     
@@ -57,7 +58,7 @@ const TradeMaker = () => {
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg></button></div>
         </div></div> 
-   
+     
  )
 }
 
