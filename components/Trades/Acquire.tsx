@@ -32,8 +32,8 @@ const Acquire = ({closeAcquire, players}:{closeAcquire:any ,players:any}) => {
 
           </div>
           {
-            players.map((player: any) => { 
-              return <AcquireLine player={player} />
+            players.map((player: any, index:number) => { 
+              return <AcquireLine key={index} player={player} />
             })
             }
       

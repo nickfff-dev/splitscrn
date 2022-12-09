@@ -68,8 +68,8 @@ const Release = ({closeRelease,players}:{closeRelease:any, players:any}) => {
 
           </div>
             {
-              players.map((player: any) => {
-                return <ReleaseLine player={player} />
+              players.map((player: any, index:number) => {
+                return <ReleaseLine key={index} player={player} />
             })
 }
       </div>

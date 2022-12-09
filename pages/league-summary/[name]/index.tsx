@@ -46,7 +46,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       name: name?.toString()
     },
     data: {
-      points: league?.members.map((member:any) => member.points).reduce((a:any, b:any) => a + b, 0)
+      points: league?.members.map((member: any) => member.points).reduce((a: any, b: any) => a + b, 0),
+
+    }
+  })
+
+  await prisma.players.updateMany({
+    where: {
+      leagueId: league?.id
+    },
+    data: {
+      region: league?.region 
     }
   })
   return {

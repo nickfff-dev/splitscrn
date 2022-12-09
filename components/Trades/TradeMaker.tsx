@@ -26,9 +26,9 @@ const TradeMaker = ({showingAcquire,showingRelease, leagues, closeTrade,onActive
                 <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
               
                   {
-                    leagues.map((league: any) => {
+                    leagues.map((league: any, index:number) => {
                       return (
-                        <li>
+                        <li key={index}>
                           <button onClick={() => { onActiveLeague(league.name); showDropwdwn()}}
                           className="inline py-2 px-4 uppercase ">{league.name}</button>
                       </li>
