@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
-const TradeMaker = ({showingAcquire,showingRelease, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any}) => {
+const TradeMaker = ({showingAcquire,showingRelease,selectedPlayer2, leagues, closeTrade,onActiveLeague,activeLeague,selectedPlayer}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,selectedPlayer2:any,selectedPlayer:any}) => {
 
   const [showModal, setShowModal] = useState(false)
   const showDropwdwn = () => { 
@@ -57,7 +57,7 @@ const TradeMaker = ({showingAcquire,showingRelease, leagues, closeTrade,onActive
     
               {
                 Array.from(Array(numberOfTrades).keys()).map((trade) => {
-                  return <TradeLine key={trade} showingAcquire={showingAcquire} showingRelease={showingRelease}  />
+                  return <TradeLine key={trade} showingAcquire={showingAcquire} showingRelease={showingRelease} selectedPlayer2={selectedPlayer2}  selectedPlayer={selectedPlayer} />
                  })
             }
     

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import AcquireLine from "./AcquireLine"
 
-const Acquire = ({closeAcquire, players}:{closeAcquire:any ,players:any}) => {
+const Acquire = ({closeAcquire, players,onSelectedPlayer2}:{closeAcquire:any ,players:any,onSelectedPlayer2:any}) => {
 
   return (<div className="bg-gradient-to-r from-primary to-secondary  p-[2px] rounded-[16px] max-w-[1100px] w-full mx-auto">
     <div className="bg-gray-dark rounded-[16px] p-5">
@@ -33,7 +33,7 @@ const Acquire = ({closeAcquire, players}:{closeAcquire:any ,players:any}) => {
           </div>
           {
             players.map((player: any, index:number) => { 
-              return <AcquireLine key={index} player={player} />
+              return <AcquireLine key={index} player={player} onSelectedPlayer2={onSelectedPlayer2}  />
             })
             }
       

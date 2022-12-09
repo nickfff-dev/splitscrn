@@ -11,6 +11,21 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   const [showRelease, setShowRelease] = useState(false)
   const [showTrade, setShowTrade] = useState(false)
   const [activeLeague, setActiveLeague] = useState(leagues[0].name)
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [tradeRole, setTradeRole] = useState("");
+  const [selectedPlayer2, setSelectedPlayer2] = useState(null);
+  const [tradeResult, setTradeResult] = useState("");
+
+  const onSelectedPlayer = (player: any) => {
+    setSelectedPlayer(player);
+
+   }
+
+  const onSelectedPlayer2 = (player: any) => { 
+    setSelectedPlayer2(player.name);
+    closeAcquire()
+    
+  }
   const onActiveLeague = (name: any) => {
     setActiveLeague(name)
     setActiveLeaguePlayers(getActiveLeaguePlayers())  
@@ -234,8 +249,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} activeLeague={activeLeague} closeTrade={closeTrade} showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} /></div>
-      <div id="acquire" className={`${showAcquire ? "": "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} /></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} activeLeague={activeLeague} closeTrade={closeTrade} selectedPlayer2={ selectedPlayer2}  selectedPlayer={ selectedPlayer}showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} /></div>
+      <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire onSelectedPlayer2={onSelectedPlayer2}  closeAcquire={closeAcquire} players={activeLeaguePlayers} /></div>
       <div id ="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}/></div>
 
        
