@@ -16,10 +16,7 @@ const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:an
   <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
 </button>
-
-        <div className="col-start-1 col-end-9  row-start-4 row-end-7  text-gray-300  p-2 text-center rounded-xl">
-          
-          <div className="grid grid-flow-row grid-cols-8  space-x-3 space-y-1 px-3 py-1">
+<div className="grid grid-flow-row grid-cols-8 col-start-1 col-end-9  row-start-3 row-end-4    text-gray-300  text-center space-x-3 space-y-1 px-3 py-1 ">
           <p>NAME</p>
         <p>REGION</p>
         <p>TEAM</p>
@@ -31,8 +28,15 @@ const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:an
             <p></p>
 
           </div>
+        <div className="col-start-1 col-end-9  row-start-4 row-end-7  text-gray-300  p-2 text-center rounded-xl max-h-[400px] overflow-y-scroll overflow-x-hidden scrollbar-style">
+          
+
           {
-            players.map((player: any, index:number) => { 
+            players.filter((item: any) => {
+              if (item.selected === false) {
+                return item
+               }
+            }).map((player: any, index:number) => { 
               return <AcquireLine key={index} player={player} onPlayer1={onPlayer1} closeAcquire={closeAcquire}  />
             })
             }
