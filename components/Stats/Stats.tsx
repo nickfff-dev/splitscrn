@@ -115,16 +115,27 @@ const Stats = ({ statistics }: { statistics: any }) => {
 
   const assignTeamData = () => {
     const teamdata = filterteamdata()
+    const teamsss: any[] = []
     const groupdteamdata = Object.entries(groupBy(teamdata, "name")).map(([key, value]) => ({ key, value }))
+    groupdteamdata.map((team: any, index:number) => { 
+      teamsss.push({key:team.key, value:[]})
+return    team.value.filter((value: any, index: any, self: any) => {
+return self.findIndex((v: any) => v.split === value.split) === index;
+}).map((ele: any) => {
+return  teamsss[index].value.push(ele)
 
+});
+  
+})
    
 
-    return groupdteamdata
+    return teamsss
   }
 
   const runFilterTeams = () => {
     const unfilt = filterteamdata()
     const empunfilt: any[] = []
+    const teamsss: any[] = []
     if (region !== "" && season !== "") {
       unfilt.map((team: any) => {
         if (team.region === region) {
@@ -134,8 +145,18 @@ const Stats = ({ statistics }: { statistics: any }) => {
     }
 
     const outcome = Object.entries(groupBy(empunfilt, "name")).map(([key, value]) => ({ key, value }))
+    outcome.map((team: any, index:number) => { 
+      teamsss.push({key:team.key, value:[]})
+return    team.value.filter((value: any, index: any, self: any) => {
+return self.findIndex((v: any) => v.split === value.split) === index;
+}).map((ele: any) => {
+return  teamsss[index].value.push(ele)
+
+});
+  
+})
     console.log(outcome)
-    setTeamStats(outcome)
+    setTeamStats(teamsss)
   }
 
 
