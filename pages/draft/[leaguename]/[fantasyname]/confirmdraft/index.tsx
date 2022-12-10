@@ -1,6 +1,6 @@
-import prisma from "../../../../../lib/prisma";
+import prisma from "@lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '../../../../../components/ui';
+import { Grid } from '@components/ui';
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
 
 import { GetServerSideProps } from 'next'
@@ -27,24 +27,26 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
 
 
   return (
-    <div  style={{color: "white"}}>
+    <div className="text-gray-300 text-center max-w-[668px] mx-auto rounded-xl  m-[5%] bg-gradient-to-r from-primary p-1 to-secondary" >
+      <div className="bg-gray-dark p-[3%] rounded-xl ">
       {
-        draftman.confirmedAttendance ? (<p>you have already confirmed attendance the link to the draft page is <a target ="_blank" href={`/draft/${draftman.leaguename}/${draftman.fantasyname}`} rel="noreferrer">link to draft</a> </p>) :(<>   <h1>Confirm Draft</h1> 
-        <br/>
-        <p>participating in: { draftman.leaguename }</p>  <br/>
+        draftman.confirmedAttendance ? (<p>you have already confirmed attendance the link to the draft page is <a target ="_blank" href={`/draft/${draftman.leaguename}/${draftman.fantasyname}`} rel="noreferrer">link to draft</a> </p>) :(<div>   <h1 className="text-4xl mb-2 font-bold">{draftman.leaguename}</h1> 
+      
+        <p className="text-xl font-bold mb-2">draft about to start in 30 min</p>  <br/>
           
-        <p>
-          fantasyteam name: {draftman.fantasyname}
-        </p> <br/>
-  
+        <div className="outline w-max mx-auto px-4 py-2 mb-3 rounded-lg outline-secondary bg-gray-medium text-gray-300 text-xl">
+      {draftman.fantasyname}
+        </div> 
+        <p className="text-gray-300 text-lg mb-6 ">Please confirm you are present and will participate</p>
      
           {
             message ? (<p>{message}</p>) : null
           }
-                <button onClick={sendDraft}> click to Confirm Draft</button>
-  </>)
+                <button className="outline  px-8 py-2 text-xl uppercase outline-secondary rounded-full"  onClick={sendDraft}> confirm</button>
+  </div>)
      }
 
+</div>
      
     </div>
   )
