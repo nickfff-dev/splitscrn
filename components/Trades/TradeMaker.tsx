@@ -2,13 +2,27 @@ import { useEffect, useState } from "react"
 import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
-const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any}) => {
+import TradesPage from "../../pages/participant/[leaguename]/[fantasyname]/trades"
+const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, acquirecollection,activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any,acquirecollection:any}) => {
 
   const [showModal, setShowModal] = useState(false)
   const showDropwdwn = () => { 
     setShowModal(!showModal)
   }
-   
+  function cashColor(cred: any) {
+    let wearr;
+    if (cred > 0) {
+      let we = cred.toLocaleString("en-US")
+      wearr = we.split("")
+      wearr.splice(0, 0, "+$")
+      
+    } else {
+      let we = cred.toLocaleString("en-US")
+      wearr = we.split("")
+      wearr.splice(1, 0, "$")
+    }
+    return  wearr.join("")
+  } 
   const [showModal3, setShowModal3] = useState(false)
   const showDropwdwn3 = () => { 
     setShowModal3(!showModal3)
@@ -81,7 +95,7 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
     
               {
                 Array.from(Array(numberOfTrades).keys()).map((item) => {
-                  return <TradeLine key={item} showingAcquire={showingAcquire} showingRelease={showingRelease} playerIn={trade[item] ? trade[item].playerIn : null} playerOut={trade[item] ? trade[item].playerOut : null} />
+                  return <TradeLine key={item} showingAcquire={showingAcquire} showingRelease={showingRelease} playerIn={acquirecollection[item] ? acquirecollection[item].name : null} playerOut={trade[item] ? trade[item].playerOut : null} credits={trade[item] ? trade[item].credits : null } />
                  })
             }
     
@@ -91,7 +105,10 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
           setNumberOfTrades(numberOfTrades + 1) 
           }}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg> </button></div>
+            </svg> </button></div>
+            <div><p className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent font-bold text-3xl">{
+             cashColor( trade.reduce((a: number, b: any) => a + b.credits, 0))
+            }</p></div>
           <div className="  rounded outline bg-gray-light outline-secondary " ><button className="text-gray-200 text-lg font-bold py-1" >
             CONFIRM
         </button></div>

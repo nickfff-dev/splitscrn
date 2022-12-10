@@ -5,12 +5,16 @@ import Acquire from '@components/Trades/Acquire';
 import { useState, useEffect } from 'react';
 import Release from '@components/Trades/Release';
 import { Trade } from '@customTypes/Trade';
+import TradesPage from '../../pages/participant/[leaguename]/[fantasyname]/trades';
 const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, participants:any}) => {
   const [show, setShow] = useState(false)
   const [showAcquire, setShowAcquire] = useState(false)
   const [showRelease, setShowRelease] = useState(false)
   const [showTrade, setShowTrade] = useState(false)
+
   const [activeLeague, setActiveLeague] = useState(leagues[0])
+
+  
   const getParticipant = () => { 
     return participants.find((participant: any) => participant.leagueId === activeLeague.id)
   }
@@ -54,13 +58,26 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   
   const [playerIn, setPlayerIn] = useState(null)
 
+  const [acquirecollection, setAcquireCollection] = useState<any[]>([])
 
-
-
+  function calculateOneTradeCost(playerIn:any,playerOut:any) {
+    if (playerIn.position === playerOut.position) {
+        return -25000
+    }
+    
+    else {
+      return 10000
+    }
+  
+}
   //  initiate trade with a state of 6 empty trade objects
   const [trade, setTrade] = useState<Trade[]>([])
   const onPlayer1 = (player: any) => { 
     setPlayerIn(player)
+    setAcquireCollection([
+      ...acquirecollection,
+       player 
+    ])
   }
 
   const onPlayer2 = (playerOut: any) => { 
@@ -75,7 +92,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           participantId: activeParticipant.id,
           playerIn: (playerIn as any).name as string,
           playerOut: playerOut.name,
-          tradeRole: (playerIn as any).position
+          tradeRole: (playerIn as any).position,
+          credits: calculateOneTradeCost( playerIn, playerOut)
+        
   
         }
       ])
@@ -92,16 +111,10 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
    
   })
 
-  const calculateTradeCost = () => {
-  //  assume that the trade if i trade a player out with a player for the same role it will cost me 50000 but if im trading with a player from a different role it will cost me 75000
-    //  find the role of the player im trading in and compare to the role of the player im trading out
+
+  
 
 
-    
-    const tradeCost = trade.map((trade: Trade) => { 
-      const inPlayerRole = activeLeaguePlayers.find((player: any) => player.name === trade.playerIn)
-    })
- }
   return (
     <div className={`${Us.root}`}>
      
@@ -291,7 +304,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade} /></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade}  acquirecollection={acquirecollection} /></div>
       <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} onPlayer1={onPlayer1 } /></div>
       <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}   activeParticipant={activeParticipant} onPlayer2={onPlayer2} /></div>
 

@@ -4,5 +4,6 @@ export interface Trade {
   playerOut: string,
   leagueId: string,
   participantId: string,
-  tradeRole: string
+  tradeRole: string,
+  credits: number,
 }
