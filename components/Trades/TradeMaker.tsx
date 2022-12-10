@@ -70,12 +70,12 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
 
         <div className="col-start-1 col-end-6  row-start-4 row-end-7  text-gray-300  p-2 text-center  rounded-xl">
     
-          <div className="grid grid-flow-row grid-cols-6  space-x-3 space-y-1 px-3 py-1">
+          <div className="grid grid-flow-row grid-cols-5  space-x-3 space-y-1 px-3 py-1">
          <p></p>
             <p>ACQUIRE</p>
             <p></p>
             <p>RELEASE</p>
-            <p></p>
+            
             <p>CASH</p> 
           </div>
     
