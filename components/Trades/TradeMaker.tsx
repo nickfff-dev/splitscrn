@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
-const TradeMaker = ({showingAcquire,showingRelease,selectedPlayer2, onActiveParticipant, activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague,selectedPlayer}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,selectedPlayer2:any,selectedPlayer:any,participants:any, onActiveParticipant:any,activeParticipant:any}) => {
+const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any}) => {
 
   const [showModal, setShowModal] = useState(false)
   const showDropwdwn = () => { 
@@ -80,8 +80,8 @@ const TradeMaker = ({showingAcquire,showingRelease,selectedPlayer2, onActivePart
           </div>
     
               {
-                Array.from(Array(numberOfTrades).keys()).map((trade) => {
-                  return <TradeLine key={trade} showingAcquire={showingAcquire} showingRelease={showingRelease} selectedPlayer2={selectedPlayer2}  selectedPlayer={selectedPlayer} />
+                Array.from(Array(numberOfTrades).keys()).map((item) => {
+                  return <TradeLine key={item} showingAcquire={showingAcquire} showingRelease={showingRelease} playerIn={trade[item] ? trade[item].player2 : null} playerOut={trade[item] ? trade[item].player1 : null} />
                  })
             }
     

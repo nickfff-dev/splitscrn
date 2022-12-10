@@ -4,17 +4,13 @@ import TradeMaker from '@components/Trades/TradeMaker';
 import Acquire from '@components/Trades/Acquire';
 import { useState, useEffect } from 'react';
 import Release from '@components/Trades/Release';
-
+import { Trade } from '@customTypes/Trade';
 const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, participants:any}) => {
   const [show, setShow] = useState(false)
   const [showAcquire, setShowAcquire] = useState(false)
   const [showRelease, setShowRelease] = useState(false)
   const [showTrade, setShowTrade] = useState(false)
   const [activeLeague, setActiveLeague] = useState(leagues[0])
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [tradeRole, setTradeRole] = useState("");
-  const [selectedPlayer2, setSelectedPlayer2] = useState(null);
-  const [tradeResult, setTradeResult] = useState("");
   const getParticipant = () => { 
     return participants.find((participant: any) => participant.leagueId === activeLeague.id)
   }
@@ -23,49 +19,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   const onActivePartcicpant = (participant: any) => {
     setActiveParticipant(participant)
    }
-  const trade = {
-// define with types
-    
-    
-    fantasyname: activeParticipant.fantasyname,
-    leagueId: activeLeague.id,
-    participantId: activeParticipant.id,
-    player1: selectedPlayer,
-    player2: selectedPlayer2,
-    tradeRole: tradeRole,
-    
-
-  }
-
-  
-  const [trades, setTrades] = useState([trade])
-  const tradePopulate = () => { 
-    const trade = {
-      player1:  selectedPlayer,
-      player2:  selectedPlayer2,
-      tradeRole:  tradeRole,
-      participantId: activeParticipant.id,
-      leagueId: activeLeague.id,
-      fantasyname: activeParticipant.fantasyname,
-  
-    }
-    setTrades([...trades, trade])
-    console.log(trades)
-  }
-  const onSelectedPlayer = (player: any) => {
-    setSelectedPlayer(player.name);
-     
-
-    closeRelease()
-    tradePopulate()
-   }
-
-  const onSelectedPlayer2 = (player: any) => { 
-    setSelectedPlayer2(player.name);
-    closeAcquire()
-  
-  }
-  const onActiveLeague = (league: any) => {
+   const onActiveLeague = (league: any) => {
     setActiveLeague(league)
     getActiveLeaguePlayers()
     
@@ -78,14 +32,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   useEffect(() => {
     setActiveLeaguePlayers(getActiveLeaguePlayers())
    })
-  const showingTrade = () => { 
-    setShowTrade(!showTrade)
-  }
-  const showDropwdwn = () => {
-    setShow(!show)
-     
-   }
-  const closeAcquire = () => { 
+  
+
+   const closeAcquire = () => { 
     setShowAcquire(false)
   }
   const closeRelease = () => { 
@@ -101,6 +50,47 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   const showingRelease = () => { 
     setShowRelease(!showRelease)
   }
+
+  
+  const [player1, setPlayer1] = useState(null)
+
+
+
+
+  //  initiate trade with a state of 6 empty trade objects
+  const [trade, setTrade] = useState<Trade[]>([])
+  const onPlayer1 = (player: any) => { 
+    setPlayer1(player)
+  }
+
+  const onPlayer2 = (player: any) => { 
+    //  begin setting the state with a new trade now yu have both players and the league and participant then empty the player1 and player2 state
+         
+    if (player1) {
+      setTrade([
+        ...trade,
+        {
+          leagueId: activeLeague.id,
+          leaguename: activeLeague.name,
+          participantId: activeParticipant.id,
+          player1: (player1 as any).name as string,
+          player2: player.name,
+          tradeRole: player.position
+  
+        }
+      ])
+    }
+    
+    setPlayer1(null)
+    
+  }
+
+  useEffect(() => { 
+  
+    console.log(trade)
+    console.log(player1)
+   
+  })
   return (
     <div className={`${Us.root}`}>
      
@@ -290,9 +280,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade} selectedPlayer2={selectedPlayer2} selectedPlayer={selectedPlayer} showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} /></div>
-      <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire onSelectedPlayer2={onSelectedPlayer2}  closeAcquire={closeAcquire} players={activeLeaguePlayers} /></div>
-      <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}  onSelectedPlayer={onSelectedPlayer} activeParticipant={activeParticipant}  /></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade} /></div>
+      <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} onPlayer1={onPlayer1 } /></div>
+      <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}   activeParticipant={activeParticipant} onPlayer2={onPlayer2} /></div>
 
        
     

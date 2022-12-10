@@ -1,7 +1,7 @@
 
 
 
-const ReleaseLine = ({player,onSelectedPlayer}:{player:any,onSelectedPlayer:any}) => {
+const ReleaseLine = ({player,onPlayer2}:{player:any,onPlayer2:any}) => {
   
   return (<div className="grid grid-flow-row grid-cols-8 auto-rows-auto mt-2 space-x-2 bg-gray-light px-3 py-1 rounded-full">
       
@@ -16,8 +16,8 @@ const ReleaseLine = ({player,onSelectedPlayer}:{player:any,onSelectedPlayer:any}
      
     
     <div className="w-48 mx-auto">  <button onClick={() => {
-      onSelectedPlayer(player)
-      }} ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
+      onPlayer2(player)
+    }}  ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg></button></div> 
   </div>)
