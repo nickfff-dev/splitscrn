@@ -1,6 +1,6 @@
-import prisma from "../../lib/prisma";
+import prisma from "@lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '../../components/ui';
+import { Grid } from '@components/ui';
 import { Fixture, Teams, League, Players } from "@prisma/client"
 
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';
@@ -96,12 +96,12 @@ const JoinLeague = ({ league, user }: InferGetServerSidePropsType<typeof getServ
 
 
 
-  return (<>
-    <div >
-      
+  return (<div className="m-[5%]">
+    <div className=" bg-gradient-to-r from-primary to-secondary p-1 rounded-xl max-w-[600px] mx-auto ">
+      <div className="bg-gray-dark p-5 rounded-xl"> 
       
       {
-        initiateInvite ? <label htmlFor="invitecode" >Invite Code<input value={invitecode} type="text" name="invitecode" onChange={ 
+        initiateInvite ? <label className="flex space-x-3 flex-row" htmlFor="invitecode" ><p className="text-gray-300 font-bold text-lg">Invite Code</p><input className="bg-transparent outline rounded text-left px-2 text-secondary text-gray-300  font-bold text-lg" value={invitecode} type="text" placeholder="invitecode.." name="invitecode" onChange={ 
           (e) => { 
             setInviteCode(e.target.value)
           }
@@ -126,26 +126,27 @@ const JoinLeague = ({ league, user }: InferGetServerSidePropsType<typeof getServ
                   }
                 })
               })
-            }} /></label> :(<>      <label htmlFor="leaguename" >League Name
-        <input defaultValue={league.name} /> </label>
-      <label htmlFor="username" >yourusername
-        <input defaultValue={session?.user?.name?.toString()} /> 
+            }} className="outline outline-secondary px-8 text-gray-300 py-1 text-xl text-center uppercase" /></label> :(<div className="flex flex-col space-y-5 items-center ">      <label className="flex items-center justify-between space-x-3" htmlFor="leaguename" ><p className=" text-gray-300 font-bold text-lg">League Name</p>
+        <input defaultValue={league.name} className="bg-transparent text-secondary font-bold text-lg" /> </label>
+      <label className="flex items-center space-x-5" htmlFor="username" ><p className=" text-gray-300 font-bold text-lg">username:</p>
+        <input className="bg-transparent text-secondary font-bold text-lg" defaultValue={session?.user?.name?.toString()} /> 
       </label>
 
-      <label htmlFor="teamname" >Team Name 
-        <input name ="teamname"  onChange={
+      <label className="flex items-center justify-between space-x-5 " htmlFor="teamname" ><p className=" text-gray-300 font-bold text-lg">Team Name </p>
+        <input className="bg-transparent outline rounded text-left px-2 text-secondary text-gray-300  font-bold text-lg" name ="teamname" placeholder="fantasy name...."  onChange={
           (e) => { 
             setTeamName(e.target.value)
           }
         } />
       </label>
-      <button onClick={enrollToleague}>click to enroll</button>
+      <div><button className="outline outline-secondary px-8 text-gray-300 py-1 text-xl text-center uppercase" onClick={enrollToleague}>JOIN</button></div>
       <h1 style={{color: "white"}}>{
-      responsetext? responsetext : "Join a League"
-      }</h1></>)
-}
+      responsetext? responsetext : null
+      }</h1></div>)
+        }
+        </div>
     </div>
-    </>
+    </div>
   )
 }
 
