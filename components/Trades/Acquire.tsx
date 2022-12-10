@@ -33,7 +33,7 @@ const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:an
           </div>
           {
             players.map((player: any, index:number) => { 
-              return <AcquireLine key={index} player={player} onPlayer1={onPlayer1}  />
+              return <AcquireLine key={index} player={player} onPlayer1={onPlayer1} closeAcquire={closeAcquire}  />
             })
             }
       

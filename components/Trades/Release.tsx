@@ -125,7 +125,7 @@ const Release = ({closeRelease,players,activeParticipant,onPlayer2}:{closeReleas
                   
                 }
               }).map((player: any, index:number) => {
-                return <ReleaseLine key={index} player={player} onPlayer2={onPlayer2} />
+                return <ReleaseLine key={index} player={player} onPlayer2={onPlayer2} closeRelease={closeRelease} />
             })
 }
       </div>

@@ -81,7 +81,7 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
     
               {
                 Array.from(Array(numberOfTrades).keys()).map((item) => {
-                  return <TradeLine key={item} showingAcquire={showingAcquire} showingRelease={showingRelease} playerIn={trade[item] ? trade[item].player2 : null} playerOut={trade[item] ? trade[item].player1 : null} />
+                  return <TradeLine key={item} showingAcquire={showingAcquire} showingRelease={showingRelease} playerIn={trade[item] ? trade[item].playerIn : null} playerOut={trade[item] ? trade[item].playerOut : null} />
                  })
             }
     

@@ -14,8 +14,8 @@ const regTrade = async (trade: any) => {
     try {
       await prisma.trade.create({
     data: {
-      playerIn: trade.player2,
-      playerOut: trade.player1,
+      playerIn: trade.playerIn,
+      playerOut: trade.playerOut,
       participant: {
         connect: {
           id: trade.participantId

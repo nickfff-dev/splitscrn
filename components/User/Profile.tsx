@@ -52,7 +52,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   }
 
   
-  const [player1, setPlayer1] = useState(null)
+  const [playerIn, setPlayerIn] = useState(null)
 
 
 
@@ -60,37 +60,48 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   //  initiate trade with a state of 6 empty trade objects
   const [trade, setTrade] = useState<Trade[]>([])
   const onPlayer1 = (player: any) => { 
-    setPlayer1(player)
+    setPlayerIn(player)
   }
 
-  const onPlayer2 = (player: any) => { 
+  const onPlayer2 = (playerOut: any) => { 
     //  begin setting the state with a new trade now yu have both players and the league and participant then empty the player1 and player2 state
          
-    if (player1) {
+    if (playerIn) {
       setTrade([
         ...trade,
         {
           leagueId: activeLeague.id,
           leaguename: activeLeague.name,
           participantId: activeParticipant.id,
-          player1: (player1 as any).name as string,
-          player2: player.name,
-          tradeRole: player.position
+          playerIn: (playerIn as any).name as string,
+          playerOut: playerOut.name,
+          tradeRole: (playerIn as any).position
   
         }
       ])
     }
     
-    setPlayer1(null)
+    setPlayerIn(null)
     
   }
 
   useEffect(() => { 
   
     console.log(trade)
-    console.log(player1)
+    console.log(playerIn)
    
   })
+
+  const calculateTradeCost = () => {
+  //  assume that the trade if i trade a player out with a player for the same role it will cost me 50000 but if im trading with a player from a different role it will cost me 75000
+    //  find the role of the player im trading in and compare to the role of the player im trading out
+
+
+    
+    const tradeCost = trade.map((trade: Trade) => { 
+      const inPlayerRole = activeLeaguePlayers.find((player: any) => player.name === trade.playerIn)
+    })
+ }
   return (
     <div className={`${Us.root}`}>
      
