@@ -87,13 +87,20 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
     
     
         </div>
-      
-          </div>
-          <div className="w-48 mx-auto">  <button onClick={() => {
-             setNumberOfTrades(numberOfTrades + 1)
+        <div className="col-start-4 col-end-3  row-start-7 row-end-8 grid grid-flow-row text-center space-y-3">  <div><button className="" onClick={() => {
+          setNumberOfTrades(numberOfTrades + 1) 
           }}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#FF9429" className="w-6 h-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg></button></div>
+          </svg> </button></div>
+          <div className="  rounded outline bg-gray-light outline-secondary " ><button className="text-gray-200 text-lg font-bold py-1" >
+            CONFIRM
+        </button></div>
+          
+        </div>
+          </div>
+    
+       
+
         </div></div> 
      
  )
