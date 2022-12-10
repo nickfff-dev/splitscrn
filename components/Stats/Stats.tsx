@@ -117,16 +117,9 @@ const Stats = ({ statistics }: { statistics: any }) => {
     const teamdata = filterteamdata()
     const groupdteamdata = Object.entries(groupBy(teamdata, "name")).map(([key, value]) => ({ key, value }))
 
-    const returnData = groupdteamdata.map((team: any) => { 
+   
 
-      const teamData = team.value
-      const teamData2 = teamData.filter((game: any, index: any) => { 
-        return teamData.findIndex((game2: any) => game2.split === game.split) === index
-      })
-      return { key: team.key, value: teamData2 }
-    })
-
-    return returnData
+    return groupdteamdata
   }
 
   const runFilterTeams = () => {
@@ -150,21 +143,27 @@ const Stats = ({ statistics }: { statistics: any }) => {
     const mres = filterdata()
     const tuma = Object.entries(groupBy(mres, "name")).map(([key, value]) => ({ key, value }))
         // check in each names value array if there are any games that share the same split if there are omit one of them then return the array
+    const playersss: any[] = []
+    tuma.map((player: any, index:number) => { 
+               playersss.push({key:player.key, value:[]})
+       return    player.value.filter((value: any, index: any, self: any) => {
+       return self.findIndex((v: any) => v.split === value.split) === index;
+      }).map((ele: any) => {
+      return  playersss[index].value.push(ele)
+       
+      });
+           
+    })
 
-    const returnData = tuma.map((team: any) => { 
-      const teamData = team.value
-      const teamData2 = teamData.filter((game: any, index: any) => { 
-        return teamData.findIndex((game2: any) => game2.split === game.split) === index
-      })
-      return { key: team.key, value: teamData2 }
-        })
-    return returnData
+   console.log(playersss )
+    return playersss 
   }
   const [stats, setStats] = useState(assignData())
   const [teamStats, setTeamStats] = useState(assignTeamData())
   const runFilter = (region: string, role: string) => {
     const unfilt = filterdata()
     const empunfilt: any[] = []
+    const playersss: any[] = []
     if (region !== "" && role !== "") {
       unfilt.map((play: any) => {
         if (play.region === region && play.role === role) {
@@ -186,8 +185,18 @@ const Stats = ({ statistics }: { statistics: any }) => {
     }
 
     const tuma = Object.entries(groupBy(empunfilt, "name")).map(([key, value]) => ({ key, value }))
-
-    setStats(tuma)
+    
+    tuma.map((player: any, index:number) => { 
+               playersss.push({key:player.key, value:[]})
+       return    player.value.filter((value: any, index: any, self: any) => {
+       return self.findIndex((v: any) => v.split === value.split) === index;
+      }).map((ele: any) => {
+      return  playersss[index].value.push(ele)
+       
+      });
+           
+    })
+    setStats(playersss)
 
   }
 

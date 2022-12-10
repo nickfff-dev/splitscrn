@@ -137,7 +137,7 @@ export const getLeagueFixture = async (leaguename:string, startDate: string, end
       fields: [
         "MatchSchedule.OverviewPage", 'MatchSchedule.DateTime_UTC', 'MatchSchedule.BestOf', 'MatchSchedule.Team1', 'MatchSchedule.Team2', 'MatchSchedule.Winner',  'MatchSchedule.Tab',  'MatchSchedule.MatchId','MatchSchedule._pageName'
       ],
-      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%" `,
+      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Season_Tiebreakers%" AND MatchSchedule.OverviewPage NOT LIKE "%LPLOL%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%" `,
      
     })
    
@@ -182,7 +182,7 @@ export const getPrivateLeaguePlayers = async (leaguename:string, startDate: stri
     const { data } = await cargo.query({
       tables: ["MatchSchedule", "TournamentRosters", "Players"],
       fields: ["Players.Player", "Players.Role", "Players.Team", "TournamentRosters.Team", "TournamentRosters.OverviewPage", "MatchSchedule.OverviewPage", "Players.IsSubstitute", "Players.TeamLast"],
-      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
+      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Season_Tiebreakers%"  AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%LPLOL%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
       joinOn: [
         {
           left: "TournamentRosters.Team",
@@ -239,7 +239,7 @@ export const getPrivateLeagueTeams = async (leaguename: string, startDate: strin
         'TournamentRosters.UniqueLine',
         'TournamentRosters.IsUsed'
       ],
-      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
+      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%Season_Tiebreakers%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%LPLOL%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
       joinOn: [
         
         {
@@ -315,7 +315,7 @@ export const getPrivateLeagueMatches = async (startDate: string, endDate: string
         'ScoreboardGames.Team2Kills',
       ],
   
-      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
+      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%Season_Tiebreakers%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%LPLOL%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
       joinOn: [
       
         {
@@ -343,7 +343,7 @@ export const getPrivateLeagueResults = async (startDate: string, endDate: string
       fields: [
         'MatchSchedule.OverviewPage',"MatchSchedule.BestOf", "MatchSchedule.MatchId","ScoreboardPlayers.GameId", "ScoreboardPlayers.Link", "ScoreboardPlayers.Team","ScoreboardPlayers.Assists", "ScoreboardPlayers.Deaths",        "ScoreboardPlayers.Role",         "ScoreboardPlayers.DateTime_UTC",  "ScoreboardPlayers.TeamKills",    "ScoreboardPlayers.Assists",         "ScoreboardPlayers.Kills",         "MatchSchedule.BestOf",         "ScoreboardPlayers.CS",         "ScoreboardPlayers.VisionScore",  "ScoreboardPlayers.OverviewPage", "MatchSchedule.Team1" , "MatchSchedule.Team2"
       ],
-      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
+      where: `MatchSchedule.DateTime_UTC >= "${startDate}" AND MatchSchedule.DateTime_UTC <= "${endDate}" AND MatchSchedule.OverviewPage LIKE "%${region}%" AND MatchSchedule.OverviewPage NOT LIKE "%Season_Tiebreakers%" AND MatchSchedule.OverviewPage NOT LIKE "%Academy%" AND MatchSchedule.OverviewPage NOT LIKE "%LCS Proving Grounds%" AND MatchSchedule.OverviewPage NOT LIKE "%LCK CL%" AND MatchSchedule.OverviewPage NOT LIKE "%Championship%" AND MatchSchedule.OverviewPage NOT LIKE "%Regional%" AND MatchSchedule.OverviewPage NOT LIKE "%LPLOL%" AND MatchSchedule.OverviewPage NOT LIKE "%Playoffs%"`,
       joinOn: [
         {left: 'MatchSchedule.MatchId', right: 'ScoreboardPlayers.MatchId'},
       ],

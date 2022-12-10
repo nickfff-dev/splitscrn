@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     })
   })
 
- console.log(leagues)
+
   return {
     props: {
       owner, leagues, participants
