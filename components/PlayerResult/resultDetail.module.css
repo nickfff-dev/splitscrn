@@ -7,17 +7,17 @@
 }
 
 .resultsContainer{
-  @apply grid grid-cols-6 justify-items-center  content-center
+  @apply grid grid-cols-6 items-center  content-center grid-flow-row gap-2 auto-rows-max  w-full  rounded-full
   
 }
-.singleRoleRow1{@apply grid grid-cols-2 justify-items-center   w-[160px]  text-sm  content-center text-white 
+.singleRoleRow1{@apply grid grid-cols-2 items-center  gap-12  text-sm  content-center text-white 
 }
 .singleRoleRow{
   @apply grid grid-cols-2 justify-items-center bg-gray-light rounded-full  w-[160px]  text-sm  content-center text-white 
 }
 
 .singleRowHead{
-  @apply border border-primary rounded-xl  py-2  text-[12px] w-[160px] mx-2 row-span-2 -mb-2
+  @apply border border-primary rounded-xl  p-3  text-[12px] w-[160px] mx-2 row-span-2 -mb-2
 }
 .singleRowHeadIn{
   @apply grid grid-cols-2  justify-items-center 
@@ -35,7 +35,7 @@
 
 
 .coltitles h1{
-  @apply bg-gradient-to-r from-primary via-[#f43d00]  to-secondary bg-clip-text font-bold text-transparent text-lg
+  @apply bg-gradient-to-r from-primary via-[#f43d00]  to-secondary bg-clip-text font-bold text-transparent text-[14px]
 }
 .coltitles span, .coltitles p{
   @apply text-white 

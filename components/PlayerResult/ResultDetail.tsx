@@ -178,7 +178,7 @@ const ResultDetail = ({ results, participant, league, closeModal }: { results: a
                   <img src="https://i.redd.it/rtqwmwm3tdy41.png" className="w-12 h-12" alt={`${player.name.split(" ")[0]}`}/> 
                   <div className={`${d.coltitles}`}>
                     <h1>{`${player.name.split(" ")[0]}`}</h1>
-                      <span>{player.team}</span>
+                      <span>{player.team.split(" ")[0]}</span>
                     <p>{player.role}</p>
                   </div>
                 </div>
@@ -186,7 +186,7 @@ const ResultDetail = ({ results, participant, league, closeModal }: { results: a
                   <p>TOTAL: <span>{Math.ceil(player.points)}</span></p>
                 </div>
               </div>
-              <div className={`${d.singleRoleRow1}`} >
+              <div className={`${d.singleRoleRow1}   `} >
                 <p>stat</p>
                 <p>score</p>
               </div>
