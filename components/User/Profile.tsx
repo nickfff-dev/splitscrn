@@ -92,8 +92,9 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           participantId: activeParticipant.id,
           playerIn: (playerIn as any).name as string,
           playerOut: playerOut.name,
-          tradeRole: (playerIn as any).position,
-          credits: calculateOneTradeCost( playerIn, playerOut)
+          tradeRole: (playerOut as any).position,
+          credits: calculateOneTradeCost(playerIn, playerOut),
+          
         
   
         }
@@ -112,7 +113,31 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
   })
 
 
+  const onClickTrade = async (e: any) => { 
+    e.preventDefault();
   
+    var fantasyname = activeParticipant.fantasyname
+    
+    await fetch(`/api/trades/${fantasyname}`, {
+    
+      method: 'POST',
+      body: JSON.stringify({
+      trades:trade,
+      userId:owner.id
+        
+
+      })
+    }).then((res) => { 
+      res.text().then((data) => { 
+        
+        console.log(data);
+        setTrade([])
+        setAcquireCollection([])
+        
+
+      })
+    })
+  }
 
 
   return (
@@ -304,7 +329,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade}  acquirecollection={acquirecollection} /></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade}  acquirecollection={acquirecollection} onClickTrade={onClickTrade} /></div>
       <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} onPlayer1={onPlayer1 } /></div>
       <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}   activeParticipant={activeParticipant} onPlayer2={onPlayer2} /></div>
 

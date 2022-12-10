@@ -7,10 +7,12 @@ import dayjs from 'dayjs';
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {
 
 
-  const  trade =  JSON.parse(req.body);
-  
-  console.log(trade); 
-const regTrade = async (trade: any) => {
+  const  tradesdata =  JSON.parse(req.body);
+  const fantasyname =  req.query.fantasyname
+  console.log(tradesdata);
+ 
+  const regTrade = async (trade: any) => {
+   const therole = trade.tradeRole === "Bot" ? "adc" : trade.tradeRole.charAt(0).toLowerCase() + trade.tradeRole.slice(1)
     try {
       await prisma.trade.create({
     data: {
@@ -36,7 +38,7 @@ const regTrade = async (trade: any) => {
               id: trade.participantId
             },
             data: {
-              [trade.tradeRole]: trade.player2
+              [therole]: trade.playerIn
             }
           }
         },
@@ -45,7 +47,7 @@ const regTrade = async (trade: any) => {
             {
               where: {
                 name_leagueId: {
-                  name: trade.player1,
+                  name: trade.playerOut,
                   leagueId: trade.leagueId
                 }
               },
@@ -57,25 +59,16 @@ const regTrade = async (trade: any) => {
             {
               where: {
                 name_leagueId: {
-                  name: trade.player2,
+                  name: trade.playerIn,
                   leagueId: trade.leagueId
                 }
               },
               data: {
                 selected: true,
-                selectedBy: trade.fantasyname
+                selectedBy: fantasyname as string
               }
             }
           ]
-        },
-        // delete all playerresults with role = tradeRole and playerid = player1.id
-        PlayerResult: {
-            
-          deleteMany: {
-            role:  trade.tradeRole.charAt(0).toUpperCase() + trade.tradeRole.slice(1),
-            participantId: trade.participantId,
-            name: trade.player1
-          }
         }
   
         
@@ -87,17 +80,60 @@ const regTrade = async (trade: any) => {
         
      
     })
+  }).then(async () => {
+    await prisma.playerResult.deleteMany({
+      where: {
+        participantId: trade.participantId,
+        name: trade.playerOut
+      }
+      
+    }).then(async () => {
+       
+    
+      await prisma.$disconnect();
+    })
+    
   })
-  return "success"
+  
   } catch (e) {
     
-    res.send("error");
+   
     console.log(e)
   }
+  
  }
 
-  
 
+
+  
+  if (tradesdata) {
+    try {
+      tradesdata.trades.map(async(trade: any) => {
+       await regTrade(trade)
+      })
+
+      let fullAmount = tradesdata.trades.reduce((a: number, b: any) => a + b.credits, 0)
+      await prisma.wallet.update({
+         where: {
+             userId: tradesdata.userId
+         },
+         data: {
+           credits: {
+             increment: fullAmount
+           }
+         }
+       }).then(async () => {
+          
+       
+         await prisma.$disconnect();
+         
+      
+     })
+          res.send("success")
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   
 }

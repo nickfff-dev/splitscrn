@@ -3,7 +3,7 @@ import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
 import TradesPage from "../../pages/participant/[leaguename]/[fantasyname]/trades"
-const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, acquirecollection,activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any,acquirecollection:any}) => {
+const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, onClickTrade, acquirecollection,activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any,acquirecollection:any,onClickTrade:any}) => {
 
   const [showModal, setShowModal] = useState(false)
   const showDropwdwn = () => { 
@@ -109,7 +109,7 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, a
             <div><p className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent font-bold text-3xl">{
              cashColor( trade.reduce((a: number, b: any) => a + b.credits, 0))
             }</p></div>
-          <div className="  rounded outline bg-gray-light outline-secondary " ><button className="text-gray-200 text-lg font-bold py-1" >
+          <div className="  rounded outline bg-gray-light outline-secondary " ><button onClick={onClickTrade} className="text-gray-200 text-lg font-bold py-1" >
             CONFIRM
         </button></div>
           

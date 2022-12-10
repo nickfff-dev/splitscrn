@@ -6,4 +6,5 @@ export interface Trade {
   participantId: string,
   tradeRole: string,
   credits: number,
+
 }
