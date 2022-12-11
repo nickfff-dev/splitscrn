@@ -199,7 +199,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
            
             {
               participants.filter((participant: any) => {
-                if (participant.confirmedAttendance === true) {
+                if (participant.confirmedAttendance === false) {
                   return participant
                 }
          

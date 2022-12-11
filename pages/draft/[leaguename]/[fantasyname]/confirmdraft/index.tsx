@@ -25,6 +25,18 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
 
   }
 
+  const deleteParticipant = async () => {
+    await fetch(`/api/deleteParticipant/${draftman.fantasyname}`, {
+      method: "POST",
+      
+    
+    }).then((res: any) => {
+      res.text().then((text:any) => {
+        setMessage(text)
+      })
+    })
+  }
+
 
   return (
     <div className="text-gray-300 text-center max-w-[668px] mx-auto rounded-xl  m-[5%] bg-gradient-to-r from-primary p-1 to-secondary" >
@@ -42,7 +54,7 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
           {
             message ? (<p>{message}</p>) : null
           }
-                <button className="outline  px-8 py-2 text-xl uppercase outline-secondary rounded-full"  onClick={sendDraft}> confirm</button>
+               <div className="flex justify-center space-x-5"> <button className="outline  px-8 py-2 text-xl uppercase outline-secondary rounded-full"  onClick={sendDraft}> confirm</button> <button className="outline  px-8 py-2 text-xl uppercase outline-secondary rounded-full"  onClick={deleteParticipant}> decline</button></div>
   </div>)
      }
 
