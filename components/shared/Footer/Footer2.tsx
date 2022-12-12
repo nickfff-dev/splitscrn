@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
+import {faTwitter, faSteam, faDiscord} from "@fortawesome/free-brands-svg-icons"
 
 const Footer2 = () => {
   return(<footer className="bg-gray-medium  flex items-center justify-between px-2 py-[10px] my-auto">
@@ -10,13 +10,13 @@ const Footer2 = () => {
   </span>
   <ul className="flex flex-wrap items-center text-sm text-gray-300">
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'twitter']} className="fa-brands fa-twitter rounded bg-gray-300 text-gray-dark p-1"/></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={faTwitter} className="fa-brands fa-twitter rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'steam']} className="fa-brands fa-steam rounded bg-gray-300 text-gray-dark p-1"/></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={faSteam} className="fa-brands fa-steam rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'discord']}className="fa-brands fa-discord rounded bg-gray-300 text-gray-dark p-1"/></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={faDiscord}className="fa-brands fa-discord rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
           <Link href="/" className="mr-4 hover:underline uppercase text-[11px]">Sponsored</Link>

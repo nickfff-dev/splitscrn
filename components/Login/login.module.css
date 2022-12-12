@@ -24,14 +24,14 @@
 
 
 .buttongr{
-  @apply  grid grid-rows-2  content-center justify-items-center 
+  @apply  grid grid-rows-2   content-center justify-items-center 
 }
 
 
 .btnlgin{
- @apply bg-gradient-to-r from-primary to-secondary  px-4 py-2 rounded-xl
+ @apply bg-gradient-to-r from-primary to-secondary  px-4 py-2 rounded-xl 
 }
 
 .btnlgin span{
-  @apply text-gray-dark font-bold text-xl uppercase;
+  @apply text-gray-dark font-bold text-lg uppercase;
 }
