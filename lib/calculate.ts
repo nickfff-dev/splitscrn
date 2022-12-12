@@ -194,13 +194,21 @@ return duration
 
 }
 
+export function checkSecond(sec:any) {
+  if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
+  if (sec < 0) {sec = "59"};
+  return sec;
+}
+
 export function time_convert(num: number) {
   var millisecondstoseconds = num / 1000;
   var secondstominutes = millisecondstoseconds / 60;
   var minutes = Math.floor(secondstominutes )
   var seconds = Math.floor(millisecondstoseconds % 60);
-
-
- return  `${minutes}:${seconds}`;
+  var second2 =checkSecond(seconds)
+ 
+ return  `${minutes}:${second2}`;
  
 }
+
+

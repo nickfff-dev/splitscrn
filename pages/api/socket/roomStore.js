@@ -1,6 +1,7 @@
 import { InMemorySessionStore } from "./sessionStore"
 
 import { PrismaDraftStore } from "./draftStore"
+import { checkSecond } from "@lib/calculate";
 
 const draftStore = new PrismaDraftStore();
 const sessionStore = new InMemorySessionStore();
@@ -37,6 +38,10 @@ if (turnplayerz) {
     
 return
   }
+
+
+
+
   setTimeout(() => {
     this.startTimer();
   }, 1000);
@@ -74,10 +79,7 @@ return
     }
   }
 
-  async ondraftPick() {
-    await this._resetTimeOut();
-    await this._nextTurn();
-  }
+
 
   async emitDraftMembers(room) {
     const draftMembers = await draftStore.getDraftMembers(room);
@@ -282,6 +284,7 @@ return
   async _resetTimeOut() {
 
     clearTimeout(this.draftTimeOut);
+
 
     
   }

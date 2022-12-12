@@ -107,7 +107,7 @@ export default async function handler(req: any, res: any) {
 
 
   socket.on("draftPick", async (data) => {
-    roomStore._resetTimeOut();
+   await roomStore._resetTimeOut();
 
     const userId = data.userId;
     console.log(userId);
@@ -151,7 +151,7 @@ export default async function handler(req: any, res: any) {
 
 
     })
-    roomStore._nextTurn();
+    await roomStore._nextTurn();
 
 
   });
