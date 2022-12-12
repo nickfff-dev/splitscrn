@@ -1,10 +1,24 @@
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
 import S from  "./login.module.css"
-export default function SignIn({ providers } : {providers: any}) {
+export default function SignIn({ providers, session } : {providers: any, session:any}) {
   return (
     <div className={`${S.root}`}>
       <div className={`${S.loginContainer}`}>
-        <div className={`${S.loginContainerInner}`}>
+        {
+          session?.user ? (<div className={`${S.loginContainerInner}`}>
+          <h1>SignOut</h1>
+          <div className={`${S.loginCardOuter}`}>
+          <div className={`${S.loginCardInner}`}>
+      
+        <div className={`${S.buttongr}`}>
+          <button className={`${S.btnlgin}`} onClick={() => { try{signOut()}catch(e:any){console.log(e)} }}>
+           <span> SignOut</span>
+          </button>
+        </div>
+  
+          </div>
+          </div>
+          </div>) :(        <div className={`${S.loginContainerInner}`}>
           <h1>Log in</h1>
           <div className={`${S.loginCardOuter}`}>
           <div className={`${S.loginCardInner}`}>
@@ -17,7 +31,8 @@ export default function SignIn({ providers } : {providers: any}) {
       ))}
           </div>
           </div>
-          </div>
+          </div>)
+}
         </div>
     </div>
   )

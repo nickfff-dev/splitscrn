@@ -1,11 +1,12 @@
-import { getProviders, signIn } from "next-auth/react"
+import { getProviders,  useSession } from "next-auth/react"
 import SignIn from "@components/Login/Login"
 
 import Verify from "@components/Login/Verify"
 
-export default function LogIn({ providers } : {providers: any}) {
+export default function LogIn({ providers }: { providers: any }) {
+  const { data: session } = useSession();
   return (
-    <SignIn providers={providers}/>
+    <SignIn providers={providers} session={session} />
   )
 }
 

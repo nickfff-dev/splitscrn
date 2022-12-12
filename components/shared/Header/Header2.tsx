@@ -29,8 +29,11 @@ const Header2 = () => {
             <li className="text-gray-300 active:text-secondary text-lg"><Link href="/create-league">Create League</Link></li>
           </ul>
 
-         <div className="flex space-x-3"> <button  className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="  hover:text-gray-300">{session?.user?.name}</span></button>
-        <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="   hover:text-gray-300">Sign In</span></Link></div>
+          {
+            session?.user? (  <div className="flex space-x-3"> <button  className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="  hover:text-gray-300">{session?.user?.name}</span></button>
+            <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="   hover:text-gray-300">Sign Out</span></Link></div>):(  <div className="flex space-x-3"> 
+        <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="   hover:text-gray-300">Sign In</span></Link></div>)
+        }
         <div className={s.burger}>
         <button  id="mobile-icon"data-collapse-toggle="navbar-sticky" onClick={() => {toggleMenu()
 }}type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
