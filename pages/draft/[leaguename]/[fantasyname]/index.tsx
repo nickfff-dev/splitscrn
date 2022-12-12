@@ -318,11 +318,12 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       </div>
 
       
-        <div  className="flex w-72 mx-auto space-x-5">
-          <button className="outline outline-1  outline-secondary px-5 py-1 rounded-full text-gray-300 capitalize" onClick={letmein}>enter room</button> 
+      <div className="w-72 mx-auto text-center mt-5">
+      <h1 className="font-bold text-gray-300">Happy Drafting!!</h1>
+          <button className="outline outline-1 mt-4 outline-secondary px-5 py-1 rounded-full text-gray-300 capitalize" onClick={letmein}>enter room</button> 
 
 
-
+        
           
         </div>
 
