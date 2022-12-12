@@ -109,6 +109,7 @@ model Teams {
   leagueId Int?
   League   League? @relation(fields: [leagueId], references: [id])
   selected Boolean @default(false)
+  selectedBy String?
 
   @@index([leagueId])
 }

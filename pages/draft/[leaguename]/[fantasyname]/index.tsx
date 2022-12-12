@@ -21,13 +21,13 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
   const [usernamealreadyselected, setUsernamealreadyselected] = useState(false)
   const [watu, setWatu] = useState([{ connected: false, self: true, userID: "", username: "", isReady: false}])
-  const [draftPeople, setDraftPeople] = useState([{ adc: "", jungle: "", mid: "", support: "", top: "", team: "", username: "", leaguename: "", leagueId: 0, id: 0 }])
+  const [draftPeople, setDraftPeople] = useState([{ adc: "", jungle: "", mid: "", support: "", top: "", team: "", username: "", leaguename: "", leagueId: 0, id: 0,fantasyname:"" }])
   const [message, setMessage] = useState("")
   const [message2, setMessage2] = useState("")
   const [counter, setCounter] = useState(0)
   const [balance, setBalance] = useState(0)
  
- const socketdata = {message: message, message2:message2, counter:counter, balance:balance, usersinroom:watu,}
+ const socketdata = {message: message, message2:message2, counter:counter, balance:balance, usersinroom:watu,teams:teams}
 
   useEffect(() => { 
 
@@ -227,19 +227,19 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
   const draftPlayer = useCallback((player:any) => {
-    if (player) {
+   
       socket.emit("draftPick", {
         name: player.name,
         fantasyname: focusonparticipant.fantasyname,
-        role: player.position,
+        role: player.position ? player.position : "Team",
         draftName: focusonleague.name,
         leagueId: focusonleague.id,
         choiceId: player.id,
         userId: userId
   
       })
-}
-},[socket])
+
+},[])
 
 
 
@@ -307,21 +307,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
        
-          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}>
-            <h1>users in room</h1>
-            {watu?.map((user) => {
-              return (
-
-                <span key={user.userID}>{user.username} </span>
-
-
-
-              );
-
-
-
-            })}
-          </div>
+  
   
 
       </div>
@@ -336,157 +322,16 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
         </div>
 
       
-        <div  style={{ width: "1000px" }}>
-          <table style={{ color: "#ffd204", width: "1000px" }} hidden={false}>
-            <thead>
-              <tr>
-                <th scope="col">FANTASYNAME</th>
-                <th scope="col">Top</th>
-                <th scope="col">JNG</th>
-                <th scope="col">MID</th>
-                <th scope="col">BOT</th>
-                <th scope="col">SUP</th>
-
-                <th scope="col">TEAM</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              {
-                draftPeople.map((participant: any) => (
-                  <tr key={participant.id} >
-                    <td>{participant.fantasyname}</td>
-                    <td>{participant.top}</td>
-                    <td>{participant.jungle}</td>
-                    <td>{participant.mid}</td>
-                    <td>{participant.adc}</td>
-
-                    <td>{participant.support}</td>
-                    <td>{participant.team}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-
-          </table>
-        </div>
+        
       
 
-        <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1000px" }} >
 
-
-
-
-          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1000px" }}>
-            <table style={{ color: "#ffd204" }} hidden={false}>
-
-              <thead>
-                <tr>
-                  <th scope="col">TEAM NAME</th>
-
-
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  teams.map((team: Teams) => (
-                    <tr key={team.id} onClick={
-                      () => {
-                        socket.emit("draftPick", {
-                          name: team.name,
-                          fantasyname: focusonparticipant.fantasyname,
-                          role: "Team",
-                          draftName: focusonleague.name,
-                          leagueId: focusonleague.id,
-                          choiceId: team.id,
-                          userId: userId
-
-                        })
-
-                   
-
-
-                      }
-                    }>
-                      <td>{team.name}</td>
-
-
-                    </tr>
-                  ))
-                }
-              </tbody>
-
-            </table>
-            <div ></div>
-            <table style={{ color: "#ffd204" }} hidden={false}>
-
-              <thead>
-                <tr>
-                  <th scope="col">playername</th>
-                  <th scope="col">player team</th>
-                  <th scope="col">role</th>
-
-
-
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  players.filter((player: Players) => {
-                    if (player.position === "Top" || player.position === "Jungle" || player.position === "Mid" || player.position === "Bot" || player.position === "Support") {
-
-                      return player
-
-
-                    }
-                  }).map((player: Players) => (
-                    <tr key={player.id} onClick={
-                      () => {
-
-                        socket.emit(
-                          "draftPick",
-                          {
-                            name: player.name,
-                            fantasyname: focusonparticipant.fantasyname,
-                            role: player.position,
-                            draftName: focusonleague.name,
-                            leagueId: focusonleague.id,
-                            choiceId: player.id,
-                            userId: userId
-
-
-
-                          }
-
-                        )
-                      
-
-                      }
-                    }>
-
-                      <td>{player.name}</td>
-                      <td>{player.team}</td>
-                      <td>{player.position}</td>
-                      <td>{player.points}</td>
-
-
-                    </tr>
-                  ))
-                }
-              </tbody>
-
-            </table>
-
-          </div>
-
-        </div>
 
 
      
 
 
-      {
-      }
+  
     </>
   )
 }
