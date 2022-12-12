@@ -17,7 +17,7 @@
 }
 
 .singleRowHead{
-  @apply border border-primary rounded-xl  p-3  text-[12px] w-[160px] mx-2 row-span-2 -mb-2
+  @apply border border-primary rounded-xl  my-auto  text-[12px] w-[160px] mx-2 row-span-2 -mb-2
 }
 .singleRowHeadIn{
   @apply grid grid-cols-2  justify-items-center 
