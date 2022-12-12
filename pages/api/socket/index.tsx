@@ -1,9 +1,9 @@
 import { Server } from "socket.io";
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { InMemorySessionStore } from "./sessionStore"
-import prisma from '../../../lib/prisma'
-import { PrismaDraftStore } from "./draftStore"
-import {RoomStore} from './roomStore'
+import { InMemorySessionStore } from "@lib/sessionStore"
+import prisma from '@lib/prisma'
+import { PrismaDraftStore } from "@lib/draftStore"
+import {RoomStore} from '@lib/roomStore'
 
 
 const sessionStore = new InMemorySessionStore();
@@ -112,7 +112,7 @@ export default async function handler(req: any, res: any) {
 
 
   socket.on("draftPick", async (data) => {
-   await roomStore._resetTimeOut();
+    
 
     const userId = data.userId;
     console.log(userId);
@@ -156,7 +156,7 @@ export default async function handler(req: any, res: any) {
 
 
     })
-    await roomStore._nextTurn();
+    await roomStore._triggerTimeOut();
 
 
   });

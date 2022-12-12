@@ -293,7 +293,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
               Ensure you have enough balance to partcicipate(each player costs $50,000 hence six slots 50,000 x 6=300,000)
             </li>
                 <li>
-              Click on <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">enter room button </strong>   to enter the draft room and click <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">ready</strong> when you are ready to begin
+              Click on <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">enter room button </strong>   to enter the draft room 
             </li>
             <li>
               Each round lasts <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">five minutes</strong> 
