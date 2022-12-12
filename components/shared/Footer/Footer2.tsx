@@ -1,5 +1,6 @@
 
 import Link from "next/link"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 
@@ -9,13 +10,13 @@ const Footer2 = () => {
   </span>
   <ul className="flex flex-wrap items-center text-sm text-gray-300">
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><i className="fa-brands fa-twitter rounded bg-gray-300 text-gray-dark p-1"></i></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'twitter']} className="fa-brands fa-twitter rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><i className="fa-brands fa-steam rounded bg-gray-300 text-gray-dark p-1"></i></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'steam']} className="fa-brands fa-steam rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
-          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><i className="fa-brands fa-discord rounded bg-gray-300 text-gray-dark p-1"></i></Link>
+          <Link href="/" className="mr-4 hover:underline uppercase text-[11px] "><FontAwesomeIcon icon={['fab', 'discord']}className="fa-brands fa-discord rounded bg-gray-300 text-gray-dark p-1"/></Link>
       </li>
       <li>
           <Link href="/" className="mr-4 hover:underline uppercase text-[11px]">Sponsored</Link>

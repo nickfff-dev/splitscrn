@@ -13,12 +13,12 @@ const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServe
   
  
   return (
-    <Grid>
+    <div>
           <div  style={{color: "#ffd204"}}>
       <h1>Open Leagues</h1>
       
-    </div>
-</Grid>
+      </div>
+      </div>
   )
  }
 
