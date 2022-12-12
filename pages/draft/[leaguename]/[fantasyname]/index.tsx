@@ -1,14 +1,15 @@
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import prisma from "../../../../lib/prisma";
+import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
-import { Grid } from '../../../../components/ui';
+import { Grid } from '@components/ui';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import io, { Socket } from 'Socket.IO-client'
+import DraftPopup from "@components/Draft/DraftPopup";
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
 import dayjs from "dayjs";
-import {time_convert} from '../../../../lib/calculate'
+import {time_convert} from '@lib/calculate'
 
 import { DefaultEventsMap } from "@socket.io/component-emitter";
 
@@ -26,6 +27,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
   const [counter, setCounter] = useState(0)
   const [balance, setBalance] = useState(0)
  
+ const socketdata = {message: message, message2:message2, counter:counter, balance:balance, usersinroom:watu,}
 
   useEffect(() => { 
 
@@ -224,7 +226,20 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
 
-
+  const draftPlayer = useCallback((player:any) => {
+    if (player) {
+      socket.emit("draftPick", {
+        name: player.name,
+        fantasyname: focusonparticipant.fantasyname,
+        role: player.position,
+        draftName: focusonleague.name,
+        leagueId: focusonleague.id,
+        choiceId: player.id,
+        userId: userId
+  
+      })
+}
+},[socket])
 
 
 
@@ -256,10 +271,10 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
   return (
     <>
-
+      <DraftPopup players={ players} ondraftPick={draftPlayer}  draftPeople={ draftPeople} socketdata={socketdata} />
       <div style={{ display: "flex", flexDirection: "row" }}>
 
-        <Grid>
+        
           <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}   >
 
             <h1> Draft</h1>
@@ -268,8 +283,8 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
             <h4> draftposition: {focusonparticipant.draftOrder}</h4>
 
           </div>
-        </Grid>
-        <Grid>
+        
+        
           <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }} >
             <h1 style={{ color: "#ffd204" }}>{balance === 0 ? null : (<>balance : {balance}</>)}</h1>
             <h1 style={{ color: "#ffd204" }}>{counter === 0 ? "wait your turn" : "timer: " + time_convert(counter)
@@ -288,16 +303,16 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
                 message2 ? (<h1 style={{ color: "#ffd204" }}>{message2}</h1>) : (<h1 style={{ color: "#ffd204" }}></h1>)
               }</div>
           </div>
-        </Grid>
+     
 
 
-        <Grid>
+       
           <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}>
             <h1>users in room</h1>
             {watu?.map((user) => {
               return (
 
-                <span key={user.userID}>{user.username} {focusonleague.room}</span>
+                <span key={user.userID}>{user.username} </span>
 
 
 
@@ -307,11 +322,11 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
             })}
           </div>
-        </Grid>
+  
 
       </div>
 
-      <Grid>
+      
         <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "500px" }}>
           <button style={{ color: "#ffd204", float: "left" }} onClick={letmein}>enter room</button> <br />
 
@@ -320,8 +335,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
           <button style={{ color: "#ffd204" }} onClick={emitPlayerReady}>are you ready?</button><br />
         </div>
 
-      </Grid>
-      <Grid>
+      
         <div  style={{ width: "1000px" }}>
           <table style={{ color: "#ffd204", width: "1000px" }} hidden={false}>
             <thead>
@@ -356,8 +370,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
           </table>
         </div>
-      </Grid>
-      <Grid>
+      
 
         <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "1000px" }} >
 
@@ -469,7 +482,7 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
         </div>
 
 
-      </Grid>
+     
 
 
       {

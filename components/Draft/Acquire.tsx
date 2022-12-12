@@ -1,11 +1,11 @@
 import { useState } from "react"
 import AcquireLine from "./AcquireLine"
 
-const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:any,onPlayer1:any}) => {
+const Acquire = ({closeAcquire, players,fetchPlayer}:{closeAcquire:any ,players:any,fetchPlayer:any}) => {
 
   return (<div className="bg-gradient-to-r from-primary to-secondary  p-[2px] rounded-[16px] max-w-[1100px] w-full mx-auto">
     <div className="bg-gray-dark rounded-[16px] p-5">
-      <div className="grid grid-flow-row col-start-1 col-end-8 auto-rows-auto  space-x-3 ">
+      <div className="grid grid-flow-row grid-cols-8 auto-rows-auto  space-x-3 ">
         
       <div className="col-start-1 col-end-2 row-start-1 row-end-2  text-gray-300    p-2  rounded-xl">
       <h1 className=" font-bold text-xl bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">ACQUIRE</h1>  </div>
@@ -37,7 +37,7 @@ const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:an
                 return item
                }
             }).map((player: any, index:number) => { 
-              return <AcquireLine key={index} player={player} onPlayer1={onPlayer1} closeAcquire={closeAcquire}  />
+              return <AcquireLine key={index} player={player} fetchPlayer={fetchPlayer} closeAcquire={closeAcquire}  />
             })
             }
       
