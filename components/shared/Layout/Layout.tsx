@@ -1,6 +1,6 @@
 // Components
-import { Header, Footer } from '../../shared';
-
+import { Header,  Footer } from '../../shared';
+import Header2 from '../Header/Header2';
 // styles
 import s from './Layout.module.css';
 
@@ -11,7 +11,7 @@ interface IProps {
 const Layout = ({ children }: IProps) => {
   return (
     <div className={s.root}>
-      <Header />
+      <Header2 />
       <main className={s.content}>{children}</main>
       <Footer />
     </div>
