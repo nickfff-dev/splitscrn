@@ -72,7 +72,7 @@ export default async function handler(req: any, res: any) {
         } else {
           socket.join(room);
           (personsocket as any).room = room;
-          socket.emit("message", (personsocket as any).username + " joined the room " + room);
+          socket.emit("message", (personsocket as any).username + " joined the room ");
           try {
             const draftMembers = await draftStore.getDraftMembers(room);
             const userbalance:any = draftMembers?.filter((member) => member.fantasyname === (personsocket as any).username);
@@ -87,7 +87,7 @@ export default async function handler(req: any, res: any) {
     } else {
       socket.join(room);
       (socket as any).room = room;
-      socket.emit("message", (socket as any).username + " You joined the room " + room);
+      socket.emit("message", (socket as any).username + " You joined the room " );
       try {
         const draftMembers = await draftStore.getDraftMembers(room);
         const userbalance:any = draftMembers?.filter((member) => member.fantasyname === (socket as any).username).map((member) => member.userId);
@@ -146,7 +146,7 @@ export default async function handler(req: any, res: any) {
         }
       }
       else {
-        socket.emit("message", `You don't have enough money to make this pick balance is ${balance}` );
+        socket.emit("message", `not enough credits ${balance}` );
       }
 
 

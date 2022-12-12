@@ -181,7 +181,7 @@ return
       .to(room)
       .emit(
         "message",
-        `draft order looks like this ${JSON.stringify(this.teamPickArray)}`
+        `Draft started`
       );
   }
 
