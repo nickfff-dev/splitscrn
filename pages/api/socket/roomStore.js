@@ -210,11 +210,11 @@ return
     });
   }
 
-  async beginDraft(socket) {
+  async beginDraft(room) {
    
     
-        await this.assignDraftOrder(socket.room);
-        await this.emitDraftMembers(socket.room);
+        await this.assignDraftOrder(room);
+        await this.emitDraftMembers(room);
         await this._emitTurn(this.draftOrder);
       
     

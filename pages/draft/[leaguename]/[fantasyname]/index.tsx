@@ -1,7 +1,7 @@
 import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
 import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
-import { Grid } from '@components/ui';
+
 
 import { useEffect, useState, useCallback } from "react";
 import io, { Socket } from 'Socket.IO-client'
@@ -26,9 +26,11 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
   const [message2, setMessage2] = useState("")
   const [counter, setCounter] = useState(0)
   const [balance, setBalance] = useState(0)
- 
+  const[ showDraft, setShowDraft]=useState(false)
  const socketdata = {message: message, message2:message2, counter:counter, balance:balance, usersinroom:watu,teams:teams}
-
+  const showDraftPopup = () => {
+    setShowDraft(!showDraft)
+  }
   useEffect(() => { 
 
     socketInitializer()
@@ -202,14 +204,12 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
   }
 
 
-  const emitPlayerReady = () => {
-    socket.emit("imready")
-  }
 
   const letmein = async () => {
     const username = focusonparticipant.fantasyname
     socket.auth = { username };
     socket.connect();
+    setShowDraft(true)
 
   }
 
@@ -270,26 +270,73 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
 
 
   return (
-    <>
-      <DraftPopup players={ players} ondraftPick={draftPlayer}  draftPeople={ draftPeople} socketdata={socketdata} />
-      <div style={{ display: "flex", flexDirection: "row" }}>
+    <div>
+     <div id="acquire" className={`${ showDraft ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}> <DraftPopup players={ players} ondraftPick={draftPlayer}  draftPeople={ draftPeople} socketdata={socketdata} /></div>
+      <div >
 
         
-          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }}   >
+          <div className="mb-3">
+                 <h1 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold text-4xl text-center font-xix ">DRAFT LOBBY</h1>
+          <div className=" mt-5 text-center">
+            <span className="text-gray-300 font-bold text-xl">Welcome to the Draft!</span>
+            <h2 className="text-gray-300 font-bold text-xl">league: {focusonleague.name}</h2>
+            <h3 className="text-gray-300 font-bold text-xl">Team: {focusonparticipant.fantasyname}</h3>
 
-            <h1> Draft</h1>
-            <h2>leaguename: {focusonleague.name}</h2>
-            <h3>fantasyname: {focusonparticipant.fantasyname}</h3>
-            <h4> draftposition: {focusonparticipant.draftOrder}</h4>
+           </div>
 
-          </div>
+        </div>
+        <div className="w-96 mx-auto">
+          
+          <h1 className="text-center bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold text-2xl">Draft Rules</h1>
+          <ul className="list-disc text-gray-300">
+            <li>
+              Ensure you have enough balance to partcicipate(each player costs $50,000 hence six slots 50,000 x 6=300,000)
+            </li>
+                <li>
+              Click on <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">enter room button </strong>   to enter the draft room and click <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">ready</strong> when you are ready to begin
+            </li>
+            <li>
+              Each round lasts <strong className=" bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">five minutes</strong> 
+            </li>
+            <li>click select to open the list of teams and players , click the plus sign to select the player from the table and click confirm to draft the player</li>
+            <li>
+              If you go 3 slots without a pick you will be kicked out of the draft and the league
+            </li>
+          </ul>
+        
+        </div>
         
         
-          <div  style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center", width: "500px" }} >
+
+     
+
+
+       
+  
+  
+
+      </div>
+
+      
+        <div  className="flex w-72 mx-auto space-x-5">
+          <button className="outline outline-1  outline-secondary px-5 py-1 rounded-full text-gray-300 capitalize" onClick={letmein}>enter room</button> 
+
+
+
+          
+        </div>
+
+      
+        
+      
+
+
+
+
+{/*      
+        <div className="text-center"  >
             <h1 style={{ color: "#ffd204" }}>{balance === 0 ? null : (<>balance : {balance}</>)}</h1>
-            <h1 style={{ color: "#ffd204" }}>{counter === 0 ? "wait your turn" : "timer: " + time_convert(counter)
-            
-            }</h1>
+         
 
             {
               message ? (<div style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center" }} ><h1>draft events</h1><p style={{ color: "#ffd204" }}>{message}</p></div>) : (<p style={{ color: "#ffd204" }}>draftlog</p>)
@@ -302,37 +349,10 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
               {
                 message2 ? (<h1 style={{ color: "#ffd204" }}>{message2}</h1>) : (<h1 style={{ color: "#ffd204" }}></h1>)
               }</div>
-          </div>
-     
-
-
-       
-  
-  
-
-      </div>
-
-      
-        <div  style={{ color: "#ffd204", display: "flex", flexDirection: "row", justifyContent: "space-between", width: "500px" }}>
-          <button style={{ color: "#ffd204", float: "left" }} onClick={letmein}>enter room</button> <br />
-
-
-
-          <button style={{ color: "#ffd204" }} onClick={emitPlayerReady}>are you ready?</button><br />
-        </div>
-
-      
-        
-      
-
-
-
-
-     
-
+          </div> */}
 
   
-    </>
+    </div>
   )
 }
 
@@ -382,7 +402,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       return player
     }
   })
-  console.log(players)
+
 
   const userId = user?.id
 
