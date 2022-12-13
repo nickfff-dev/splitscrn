@@ -67,10 +67,10 @@ const AllLeagues = ({ leagues }: { leagues: any }) => {
 
 
 
-  return (<div className="grid grid-cols-9 col-start-1 col-end-9 gap-3   grid-flow-row auto-rows-auto justify-items-center  bg-gray-medium ">
-    <div className=" grid grid-flow-col gap-7 col-start-1 col-end-9 justify-items-center  row-start-1 row-end-3  px-5  bg-gray-light  ">
-      <p>SortBy</p>
-      <span className="flex items-center"><span>Fee</span><FontAwesomeIcon icon={faUpLong} onClick={() => { setFilters("buyInFee"); setDirection("up") }} className="active:text-secondary focus:text-secondary text-sm"/><FontAwesomeIcon icon={faDownLong } onClick={()=>{setFilters("buyInFee"); setDirection("down")}} className="active:text-secondary focus:text-secondary text-sm"/> </span>
+  return (<div className="grid grid-cols-9 col-start-1 col-end-9 gap-3   grid-flow-row auto-rows-auto justify-items-center   ">
+    <div className=" h-10 grid grid-flow-col gap-7 items-center col-start-1 col-end-9 justify-items-center  row-start-1 row-end-3  px-5  bg-gray-medium outline outline-1 outline-secondary  ">
+      <p>SortBy:</p>
+      <span className="flex items-center"><span>Fee</span><FontAwesomeIcon icon={faUpLong} onClick={() => { setFilters("buyInFee"); setDirection("up") }} className="active:text-secondary  focus:text-secondary text-sm"/><FontAwesomeIcon icon={faDownLong } onClick={()=>{setFilters("buyInFee"); setDirection("down")}} className="active:text-secondary focus:text-secondary text-sm"/> </span>
       <span className="flex items-center"><span>Prize</span><FontAwesomeIcon icon={faUpLong} onClick={ ()=>{setFilters("prize"); setDirection("up")}} className="active:text-secondary focus:text-secondary text-sm"/><FontAwesomeIcon icon={faDownLong } onClick= {()=>{setFilters("prize"); setDirection("down")}} className="active:text-secondary focus:text-secondary text-sm"/> </span>
       <span className="flex items-center"><span>Region</span><FontAwesomeIcon icon={faUpLong} onClick={ ()=>{setFilters("region"); setDirection("up")}} className="active:text-secondary focus:text-secondary text-sm"/><FontAwesomeIcon icon={faDownLong } onClick={()=>{setFilters("region"); setDirection("down")}} className="active:text-secondary focus:text-secondary text-sm"/> </span>
       <span className="flex items-center"><span>DraftDate</span><FontAwesomeIcon icon={faUpLong} onClick={ ()=>{setFilters("draftTime"); setDirection("up")}} className="active:text-secondary focus:text-secondary text-sm"/><FontAwesomeIcon icon={faDownLong } onClick={()=>{setFilters("draftTime"); setDirection("down")}} className="active:text-secondary focus:text-secondary text-sm"/> </span>
@@ -79,8 +79,9 @@ const AllLeagues = ({ leagues }: { leagues: any }) => {
 
     </div>
 
-    <div className=" col-start-1 col-end-9 justify-items-center grid-cols-9 grid-flow-row  auto-rows-auto space-y-2 border p-2">
-    <div className=" col-start-1 col-end-9 grid grid-flow-col justify-items-center grid-cols-9 gap-5 border px-5">     
+    
+    <div className=" col-start-1 col-end-9 justify-items-center grid-cols-9 grid-flow-row  auto-rows-auto space-y-2 p-2 ">
+    <div className=" col-start-1 col-end-9 grid grid-flow-col justify-items-center grid-cols-9 gap-5  px-5">     
       <p>Name</p>
       <p>Region</p>  
       <p>Fee</p> 
@@ -102,7 +103,7 @@ const AllLeagues = ({ leagues }: { leagues: any }) => {
       <p>{league.duration}</p>
             <p>{ league.members.length}</p>  
       <p>|</p>
-      <p><Link href={`/optin-league/${league.name}`}>Join</Link></p>
+      <p><Link  className="outline outline-[#ff921b] px-3 outline-1 text-sm rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" href={`/optin-league/${league.name}`}>Join</Link></p>
           </div>)
         }) : null
       }
