@@ -155,7 +155,7 @@ return  teamsss[index].value.push(ele)
 });
   
 })
-    console.log(outcome)
+
     setTeamStats(teamsss)
   }
 
@@ -176,7 +176,7 @@ return  teamsss[index].value.push(ele)
            
     })
 
-   console.log(playersss )
+
     return playersss 
   }
   const [stats, setStats] = useState(assignData())

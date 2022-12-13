@@ -6,7 +6,7 @@ import { Fixture, Teams, League, Players } from "@prisma/client"
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
-
+import AllLeagues from "@components/All-leagues/AllLeagues";
 
 
 const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -14,9 +14,9 @@ const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServe
  
   return (
     <div>
-          <div  style={{color: "#ffd204"}}>
-      <h1>Open Leagues</h1>
-      
+          <div  className="text-gray-300">
+   
+      <AllLeagues leagues={leagues} />
       </div>
       </div>
   )
