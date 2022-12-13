@@ -50,7 +50,7 @@ const Release = ({closeRelease,players,activeParticipant,onPlayer2}:{closeReleas
 
           </div>
             {
-              players.filter((plays: any) => {
+            players &&  players.filter((plays: any) => {
                 if (plays.selected === true && (plays.name === activeParticipant.top || plays.name === activeParticipant.jungle || plays.name === activeParticipant.mid || plays.name === activeParticipant.adc || plays.name === activeParticipant.support)) {
                   return  plays
                 } 

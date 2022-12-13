@@ -3,7 +3,7 @@ import TradeLine from "./TradeLine"
 import Acquire from "./Acquire"
 import Release from "./Release"
 import TradesPage from "../../pages/participant/[leaguename]/[fantasyname]/trades"
-const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, onClickTrade, acquirecollection,activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any,acquirecollection:any,onClickTrade:any}) => {
+const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, onClickTrade, acquirecollection,activeParticipant,participants, leagues, closeTrade,onActiveLeague,activeLeague}:{showingAcquire:any,showingRelease:any,closeTrade:any,leagues:any,onActiveLeague:any ,activeLeague:any,participants:any, onActiveParticipant:any,activeParticipant:any,trade:any,acquirecollection:any,onClickTrade:any}) => {
 
   const [showModal, setShowModal] = useState(false)
   const showDropwdwn = () => { 
@@ -39,12 +39,12 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, o
           <div className="col-start-3 col-end-5 row-start-1 row-end-2  text-gray-300    p-2  rounded-xl">
           <span  >
               <button id="dropdownDividerButton" onClick={showDropwdwn}
-                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">LEAGUE : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">{activeLeague.name}</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">LEAGUE : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">{activeLeague? activeLeague.name : null}</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
               <div id="dropdownDivider1" className={`${showModal ? "block": "hidden"} absolute z-20 w-32 ml-2 text-center bg-white max-w-40  rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}>
                 <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
               
                   {
-                    leagues.map((league: any, index:number) => {
+                   leagues && leagues.map((league: any, index:number) => {
                       return (
                         <li key={index}>
                           <button onClick={() => { onActiveLeague(league); showDropwdwn()}}
@@ -59,11 +59,11 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, o
               <div className="col-start-5 col-end-7 row-start-1 row-end-2  text-gray-300    p-2  rounded-xl">
           <span  >
               <button id="dropdownDividerButton" onClick={showDropwdwn3}
-                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">fantasy : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">{ activeParticipant.fantasyname}</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                data-dropdown-toggle="dropdownDivider1" className="font-medium rounded-lg text-sm  text-center text-white text-lg inline-flex items-center font-bold " type="button">fantasy : <span className="bg-gradient-to-r from-primary  to-secondary bg-clip-text text-transparent">{ activeParticipant ? (activeParticipant.fantasyname as any): null}</span><svg className="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg></button>
               <div id="dropdownDivider1" className={`${showModal3 ? "block": "hidden"} absolute z-20 w-32 ml-2 text-center bg-white max-w-40  rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}>
                 <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
               
-                  {
+                  {activeLeague &&
                     activeLeague.members.map((member: any, index:number) => {
                       return (
                         <li key={index}>

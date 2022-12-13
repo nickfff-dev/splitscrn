@@ -16,7 +16,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
 
   
   const getParticipant = () => { 
-    return participants.find((participant: any) => participant.leagueId === activeLeague.id)
+    try{return participants.find((participant: any) => participant.leagueId === (activeLeague as any).id)}catch(e:any){console.log(e)}
   }
   const [activeParticipant, setActiveParticipant] = useState( getParticipant())
   
@@ -24,14 +24,14 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
     setActiveParticipant(participant)
    }
    const onActiveLeague = (league: any) => {
-    setActiveLeague(league)
-    getActiveLeaguePlayers()
+    try{setActiveLeague(league)
+      getActiveLeaguePlayers()}catch(e:any){console.log(e)}
     
   }
   const getActiveLeaguePlayers = () => {
-    const activeLeaguePlayers = leagues.find((league:any) => league.name === activeLeague.name)
-    return activeLeaguePlayers.players
-  }
+try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===(activeLeague as any).name)
+  return activeLeaguePlayers.players}catch(e:any)
+{console.log(e)}  }
   const [activeLeaguePlayers, setActiveLeaguePlayers] = useState(getActiveLeaguePlayers())
   useEffect(() => {
     setActiveLeaguePlayers(getActiveLeaguePlayers())
@@ -87,8 +87,8 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
       setTrade([
         ...trade,
         {
-          leagueId: activeLeague.id,
-          leaguename: activeLeague.name,
+          leagueId: (activeLeague as any).id,
+          leaguename: (activeLeague as any).name,
           participantId: activeParticipant.id,
           playerIn: (playerIn as any).name as string,
           playerOut: playerOut.name,
@@ -166,14 +166,14 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
      
             <div className={`${Us.containerleftinnertext2} `}>
             
-            <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{participants.length}</p></div>
-            <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{leagues.length}</p></div>
+            <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{participants? participants.length : 0}</p></div>
+            <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{ leagues?  leagues.length: 0}</p></div>
             <div className={`${Us.profcard}`}><h2>Total points:</h2> <p>{
               participants.reduce((acc: any, item: any) => {
                return acc + item.points
              },0)
             }</p></div>
-              <div className={`${Us.profcard}`}><h2>Prize Claims:</h2> <p>{leagues.length}</p></div>
+              <div className={`${Us.profcard}`}><h2>Prize Claims:</h2> <p>{leagues?  leagues.length: 0}</p></div>
               <div className={`${Us.profcard} invisible`}></div>
             </div>
           
@@ -198,7 +198,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           <div className={`${Us.containerRightInner} `}>
            
             {
-              participants.filter((participant: any) => {
+                 participants &&    participants.filter((participant: any) => {
                 if (participant.confirmedAttendance === false) {
                   return participant
                 }
@@ -211,7 +211,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
                     <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/confirmdraft`}>Click</a></p>
                     <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/`}>draftLink</a></p>
                     <p>{
-                      leagues.filter((league: any) => {
+                    leagues &&  leagues?.filter((league: any) => {
                         if (league.name === participant.draftName) {
                             return league
                           }
@@ -240,7 +240,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           <div className={`${Us.containerRightInner}  `}>
 
             {
-              owner.Wallet[0].Deposit.map((depo: any, index:number) => {
+            owner.Wallet[0].Deposit &&  owner.Wallet[0].Deposit.map((depo: any, index:number) => {
                 return (<div key={ index} className={`${Us.H}`}>
                   <p> deposit</p>
                 
@@ -251,7 +251,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
                 </div>)
               })
             }
-                   {
+                   { owner.Wallet[0].Withdrawal &&
               owner.Wallet[0].Withdrawal.map((depo: any, index:number) => {
                 return (<div key={index} className={`${Us.H}`}>
                   <p> deposit</p>
@@ -280,7 +280,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           </div>
           <div className={`${Us.belowcontainerleftInner} `}>
             {
-              leagues.map((league: any, index:number) => {
+             leagues && leagues.map((league: any, index:number) => {
                 return (<div key={index} className={`${Us.H}`}>
                   
                   <p>{league.name}</p>
@@ -308,7 +308,7 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
           <div className={`${Us.belowContainerRightInner}`}>
           
               {
-                participants.map((participant: any) => {
+             participants &&   participants?.map((participant: any) => {
                   return participant.Trade?.map((trade: any, index:number) => {
                     return(<div key={index} className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
 <p> {trade.playerIn.split(" ")[0]}</p>

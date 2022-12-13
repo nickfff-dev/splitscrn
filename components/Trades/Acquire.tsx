@@ -32,7 +32,7 @@ const Acquire = ({closeAcquire, players,onPlayer1}:{closeAcquire:any ,players:an
           
 
           {
-            players.filter((item: any) => {
+           players && players.filter((item: any) => {
               if (item.selected === false) {
                 return item
                }
