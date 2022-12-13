@@ -30,9 +30,9 @@ const Header2 = () => {
           </ul>
 
           {
-            session?.user? (  <div className="flex space-x-3"> <button  className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="  hover:text-gray-300">{session?.user?.name}</span></button>
-            <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="   hover:text-gray-300">Sign Out</span></Link></div>):(  <div className="flex space-x-3"> 
-        <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-white  flex" role="button"><span className="   hover:text-gray-300">Sign In</span></Link></div>)
+            session?.user? (  <div className="flex space-x-3"> <button  className="bg-gray-dark outline outline-1  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-gray-300  flex" role="button"><span className="  hover:text-gray-300">{session?.user?.name}</span></button>
+            <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1 rounded-3xl hover:outline-gray-300 text-gray-300 flex outline-1" role="button"><span className="   hover:text-gray-300">Sign Out</span></Link></div>):(  <div className="flex space-x-3"> 
+        <Link href="/auth/signin" className="bg-gray-dark outline  outline-secondary px-5 py-1  rounded-3xl ourline-1 hover:outline-gray-300 text-gray-300 flex" role="button"><span className="   hover:text-gray-300">Sign In</span></Link></div>)
         }
         <div className={s.burger}>
         <button  id="mobile-icon"data-collapse-toggle="navbar-sticky" onClick={() => {toggleMenu()
@@ -47,13 +47,13 @@ const Header2 = () => {
       <div className={`${isOpen? "":"hidden"} flex justify-end  mt-5`}>
         <div id="mobile-menu" className="mobile-menu  w-72   relative">
           <ul className="bg-gray-100 shadow-lg leading-9 font-bold ">
-            <li className="border-b-2 border-white hover:bg-red-400 hover:text-white pl-4"><Link href="/" className="block pl-7">Home</Link></li>
-            <li className="border-b-2 border-white hover:bg-red-400 hover:text-white pl-4"><Link href="/alleagues" className="block pl-7">Leagues</Link></li>
+            <li className="border-b-2 border-white hover:bg-red-400 hover:text-gray-300pl-4"><Link href="/" className="block pl-7">Home</Link></li>
+            <li className="border-b-2 border-white hover:bg-red-400 hover:text-gray-300pl-4"><Link href="/alleagues" className="block pl-7">Leagues</Link></li>
             <li className="border-b-2 border-white hover:bg-red-400 hover:text-white">
               <Link href="/stats" className="block pl-11">Stats</Link> 
             </li>
-            <li className="border-b-2 border-white hover:bg-red-400 hover:text-white pl-4"><Link href="/user/profile" className="block pl-7">Account</Link></li>
-            <li className="border-b-2 border-white hover:bg-red-400 hover:text-white pl-4"><Link href="/create-league" className="block pl-7">Create League</Link></li>
+            <li className="border-b-2 border-white hover:bg-red-400 hover:text-gray-300pl-4"><Link href="/user/profile" className="block pl-7">Account</Link></li>
+            <li className="border-b-2 border-white hover:bg-red-400 hover:text-gray-300pl-4"><Link href="/create-league" className="block pl-7">Create League</Link></li>
           </ul>
           </div>
       </div>
