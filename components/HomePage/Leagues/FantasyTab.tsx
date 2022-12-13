@@ -45,7 +45,7 @@ console.log(results)
     <div className={`${k.resultsRow} `}>
         <span className="text-base">{participant.fantasyname}</span>  <span className="text-base">{league.region}</span> <span className="text-base">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-base">{participant.points}</span> <button onClick={() => {
           setShowModal(!showModal)
-        }} className="outline outline-[#ff921b] px-5 py-0.5 rounded-xl uppercase" >View</button></div></div>
+        }} className="outline outline-[#ff921b] px-3 outline-1 rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" >View</button></div></div>
     
     {
         showModal ? (  results &&               <ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} />) : null
