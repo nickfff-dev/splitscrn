@@ -41,11 +41,11 @@ console.log(results)
       
   },[])
   return (
-   <> <div className={`${k.container} mb-1`}>
-    <div className={`${k.resultsRow} `}>
-        <span className="text-base">{participant.fantasyname}</span>  <span className="text-base">{league.region}</span> <span className="text-base">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-base">{participant.points}</span> <button onClick={() => {
+   <> 
+    <div className={`${k.resultsRow} h-10`}>
+        <span className="text-sm">{participant.fantasyname}</span>  <span className="text-sm">{league.region}</span> <span className="text-sm">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-sm">{participant.points}</span> <button onClick={() => {
           setShowModal(!showModal)
-        }} className="outline outline-[#ff921b] px-3 outline-1 rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" >View</button></div></div>
+        }} className="outline outline-[#ff921b] px-3 outline-1 text-sm rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" >View</button></div>
     
     {
         showModal ? (  results &&               <ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} />) : null

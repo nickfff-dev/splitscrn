@@ -41,12 +41,12 @@ console.log(results)
   },[])
   return (
     <>
-        <div className={`${L.container} mb-1`}>
-    <div className={`${L.resultsRow}`}>
+     
+    <div className={`${L.resultsRow} h-10`}>
         <span className="text-sm">{position}</span>  <span className="text-sm">{participant.fantasyname}</span> <span className="text-sm">{participant.points}</span> <span className="text-sm">${wallets.filter((wallet:any) => wallet.userId === participant.userId).map((wallet:any) => Intl.NumberFormat('en-US').format(wallet.credits))
         }</span> <button onClick={() => {
           setShowModal(!showModal)
-          }} className="outline outline-[#ff921b] px-3 text-sm py-0.5 rounded-xl uppercase" >View</button></div></div>
+          }} className="outline outline-1 outline-[#ff921b] px-3 text-sm text-sm rounded-xl capitalize bg-gray-dark" >View</button></div>
       
       {
         showModal ? (<ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} />) : null

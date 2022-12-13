@@ -6,9 +6,9 @@ import dayjs from 'dayjs';
 const OpenLeagues = ({ league, prize }: { league: any, prize: any }) => { 
 
   return (
-    <div className={`${k.container} mb-1`}>
-    <div className={`${k.resultsRow} `}>
-        <span className="text-base">${Intl.NumberFormat('en-US').format(prize)}</span>  <span className="text-base">{league.region}</span> <span className="text-base">${Intl.NumberFormat('en-US').format(league.buyInFee)}</span> <span className="text-base">{Math.ceil(league.duration / 7) + ' weeks'}</span> <a href={`/league-summary/${league.name}/`} className="outline outline-[#ff921b] outline-1 px-3 rounded-xl capitalize" >View</a></div></div>)
+
+    <div className={`${k.resultsRow} h-10`}>
+        <span className="text-sm">${Intl.NumberFormat('en-US').format(prize)}</span>  <span className="text-sm">{league.region}</span> <span className="text-sm">${Intl.NumberFormat('en-US').format(league.buyInFee)}</span> <span className="text-sm">{Math.ceil(league.duration / 7) + ' weeks'}</span> <a href={`/league-summary/${league.name}/`} className="outline outline-[#ff921b] outline-1 text-sm bg-gray-dark px-3 rounded-xl capitalize" >View</a></div>)
 
 }
 

@@ -2,14 +2,15 @@
 .root {
   @apply my-5 flex flex-col 
 }
+
 .resultsContainer{
-  @apply p-4 
+  @apply p-4 space-y-2
 }
 .resultsContainer::-webkit-scrollbar{
   @apply w-1 h-1   bg-gray-light rounded-lg 
 }
 .resultsRow{
-  @apply grid grid-cols-5 w-full text-white  gap-3 h-12 items-center justify-items-center;
+  @apply grid grid-cols-5    text-white  gap-3  items-center justify-items-center;
 }
 
 
@@ -18,9 +19,6 @@
 }
 
 
-.container {
-  @apply grid-flow-col auto-cols-max gap-y-2  rounded-3xl bg-gray-light;
-}
 
 
 .root h1{
