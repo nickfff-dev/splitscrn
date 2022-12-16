@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next'
 
 
 import { useEffect, useState, useCallback } from "react";
-import io, { Socket } from 'socket.io'
+import io, { Socket } from 'Socket.IO-client'
 import DraftPopup from "@components/Draft/DraftPopup";
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
