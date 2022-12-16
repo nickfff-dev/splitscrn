@@ -44,43 +44,44 @@ const Stats = ({ statistics }: { statistics: any }) => {
   };
 
   const filterteamdata = () => {
-    var teamstats: { leaguname: any, name: any; towers: any, inhibitors: any, dragons: any, rift: any, baron: any, totalKill: any, region: any; win: any; split: any; points: any[]; }[] = []
-    statistics.leagues.map((league: any) => {
+try{    var teamstats: { leaguname: any, name: any; towers: any, inhibitors: any, dragons: any, rift: any, baron: any, totalKill: any, region: any; win: any; split: any; points: any[]; }[] = []
+statistics.leagues.map((league: any) => {
 
-      statistics.teamResult.map((result: any) => {
-        if (result.leagueId === league.id) {
-          teamstats.push({
-            leaguname: league.name,
-            name: result.name,
-            region: league.region,
-            towers: result.turretKills,
-            inhibitors: result.inhibitorKills,
-            dragons: result.dragonKills,
-            rift: result.riftHeraldKills,
-            baron: result.baronKills,
-            split: result.game,
-            points: result.points,
-            totalKill: result.teamKills,
-            win: result.didWin
-
-          })
-        }
-
+  statistics.teamResult.map((result: any) => {
+    if (result.leagueId === league.id) {
+      teamstats.push({
+        leaguname: league.name,
+        name: result.name,
+        region: league.region,
+        towers: result.turretKills,
+        inhibitors: result.inhibitorKills,
+        dragons: result.dragonKills,
+        rift: result.riftHeraldKills,
+        baron: result.baronKills,
+        split: result.game,
+        points: result.points,
+        totalKill: result.teamKills,
+        win: result.didWin
 
       })
+    }
 
 
-    })
+  })
+
+
+})
 
 
 
-    return teamstats
+  return teamstats
+} catch (e) { console.log(e) }
   }
 
 
 
   const filterdata = () => {
-    var playerstats: { leaguname: any, name: any; kills: any, deaths: any, assists: any, cs: any, vs: any, teamTotal: any, region: any; team: any; role: any; split: any; points: any[]; }[] = []
+    try{var playerstats: { leaguname: any, name: any; kills: any, deaths: any, assists: any, cs: any, vs: any, teamTotal: any, region: any; team: any; role: any; split: any; points: any[]; }[] = []
     statistics.leagues.map((league: any) => {
 
       statistics.playerResult.map((result: any) => {
@@ -111,7 +112,7 @@ const Stats = ({ statistics }: { statistics: any }) => {
 
 
 
-    return playerstats
+    return playerstats}catch(e){console.log(e)}
   }
 
   const assignTeamData = () => {
@@ -138,7 +139,7 @@ return  teamsss[index].value.push(ele)
     const empunfilt: any[] = []
     const teamsss: any[] = []
     if (region !== "" && season !== "") {
-      unfilt.map((team: any) => {
+      unfilt?.map((team: any) => {
         if (team.region === region) {
           empunfilt.push(team)
         }
@@ -183,42 +184,42 @@ return  teamsss[index].value.push(ele)
   const [stats, setStats] = useState(assignData())
   const [teamStats, setTeamStats] = useState(assignTeamData())
   const runFilter = (region: string, role: string) => {
-    const unfilt = filterdata()
-    const empunfilt: any[] = []
-    const playersss: any[] = []
-    if (region !== "" && role !== "") {
-      unfilt.map((play: any) => {
-        if (play.region === region && play.role === role) {
-          empunfilt.push(play)
-        }
-      })
-    } else if (region !== "" && role === "") {
-      unfilt.map((play: any) => {
-        if (play.region === region) {
-          empunfilt.push(play)
-        }
-      })
-    } else if (region === "" && role !== "") {
-      unfilt.map((play: any) => {
-        if (play.role === role) {
-          empunfilt.push(play)
-        }
-      })
-    }
-
-    const tuma = Object.entries(groupBy(empunfilt, "name")).map(([key, value]) => ({ key, value }))
-    
-    tuma.map((player: any, index:number) => { 
-               playersss.push({key:player.key, value:[]})
-       return    player.value.filter((value: any, index: any, self: any) => {
-       return self.findIndex((v: any) => v.split === value.split) === index;
-      }).map((ele: any) => {
-      return  playersss[index].value.push(ele)
-       
-      });
-           
+try{    const unfilt = filterdata()
+  const empunfilt: any[] = []
+  const playersss: any[] = []
+  if (region !== "" && role !== "") {
+    unfilt?.map((play: any) => {
+      if (play.region === region && play.role === role) {
+        empunfilt.push(play)
+      }
     })
-    setStats(playersss)
+  } else if (region !== "" && role === "") {
+    unfilt?.map((play: any) => {
+      if (play.region === region) {
+        empunfilt.push(play)
+      }
+    })
+  } else if (region === "" && role !== "") {
+    unfilt?.map((play: any) => {
+      if (play.role === role) {
+        empunfilt.push(play)
+      }
+    })
+  }
+
+  const tuma = Object.entries(groupBy(empunfilt, "name")).map(([key, value]) => ({ key, value }))
+  
+  tuma.map((player: any, index:number) => { 
+             playersss.push({key:player.key, value:[]})
+     return    player.value.filter((value: any, index: any, self: any) => {
+     return self.findIndex((v: any) => v.split === value.split) === index;
+    }).map((ele: any) => {
+    return  playersss[index].value.push(ele)
+     
+    });
+         
+  })
+  setStats(playersss)}catch(e){console.log(e)}
 
   }
 

@@ -16,7 +16,7 @@ const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServe
     <div>
           <div  className="text-gray-300">
    
-      <AllLeagues leagues={leagues} />
+      {leagues ? <AllLeagues leagues={leagues}  /> : <p>No Leagues to display</p>}
       </div>
       </div>
   )

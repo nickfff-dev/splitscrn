@@ -20,7 +20,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
     <ul className="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDividerButton">
 
           {
-            data.map((item: any, index: number) => { 
+            data && data.map((item: any, index: number) => { 
               return (
                 <li key={index} className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">
                   <button onClick={() => {
@@ -38,7 +38,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
       </span>
       
       {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+       data && data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.kills}</span>
@@ -49,7 +49,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
          })
       }
             {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.deaths}</span>
@@ -60,7 +60,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
          })
       }
                {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.assists}</span>
@@ -71,7 +71,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
          })
       }
                  {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.cs}</span>
@@ -82,7 +82,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
          })
       }
                      {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.teamTotal}</span>
@@ -93,7 +93,7 @@ const PlayerViewDrop = ({data, }: {data:any}) => {
          })
       }
                         {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+     data &&   data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.vs}</span>

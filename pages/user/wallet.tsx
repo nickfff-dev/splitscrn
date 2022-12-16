@@ -39,13 +39,13 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
       }</span></p>
 
     <p className="font-bold capitalize"> Balance: <span className="pl-2 text-sm">${
-      wallet.balance.toFixed(2)
+      wallet ? wallet.balance.toFixed(2) : 0
     }</span> </p>
 
       <p className="font-bold capitalize ">
         credits:
       <span className="pl-4 text-sm">{
-        wallet.credits
+     wallet ?  wallet.credits : 0
         }</span>
        
     </p>
@@ -70,7 +70,8 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
         <h2 className="font-bold text-gray-300 text-center capitalize">time</h2>
         <h2 className="font-bold text-gray-300 text-center capitalize">credits</h2></div>
       <div className="grid grid-cols-1  grid-flow-row items-center  space-y-2 p-3 overflow-y-scroll overflow-x-hidden  scrollbar-hide h-[580px] ">{
-        withdrawals.map((withdrawa: withdrawal) => {
+        withdrawals 
+    &&    withdrawals.map((withdrawa: withdrawal) => {
           return (<div key={withdrawa.id} className="grid grid-flow-row grid-cols-4 auto-rows-[22px]  items-center text-center    rounded-full space-x-2  text-white ">
             <p>${withdrawa.amount}</p>
             <p>{withdrawa.date}</p>
@@ -94,7 +95,7 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
         <h2 className="font-bold text-gray-300 text-center capitalize">credits</h2>
 </div>
      <div className="grid grid-cols-1  grid-flow-row items-center  space-y-2 p-3 overflow-y-scroll overflow-x-hidden  h-[580px] scrollbar-hide"> {
-        deposits.map((withdrawa: deposit) => {
+     deposits &&   deposits.map((withdrawa: deposit) => {
           return (<div key={withdrawa.id} className="grid grid-flow-row grid-cols-4 auto-rows-[22px]  items-center text-center    rounded-full space-x-2  text-white" >
             <p> ${withdrawa.amount}</p>
             <p> {withdrawa.date}</p>

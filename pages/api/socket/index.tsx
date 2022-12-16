@@ -44,7 +44,8 @@ export default async function handler(req: any, res: any) {
   
     next();
   })
-  io.on("connection", (socket) => {   sessionStore.saveSession((socket as any).sessionID, {
+  io.on("connection", (socket) => {
+    sessionStore.saveSession((socket as any).sessionID, {
     userID: (socket as any).userID,
     username: (socket as any).username,
     connected: true,

@@ -16,7 +16,7 @@ const DataView = ({ stats, mode }: { stats: any, mode:any }) => {
       </div>
        
       {
-        stats.map((stat: any, index:number) => { 
+        stats && stats.map((stat: any, index:number) => { 
           return (
             <div key={index} className={`${St.dataleft} text-white`} >
               <span>{stat.key.split(" ")[0]}</span>
@@ -50,7 +50,7 @@ const DataView = ({ stats, mode }: { stats: any, mode:any }) => {
       </div>
       
       {
-        stats.map((stat: any, index: number) => { 
+       stats && stats.map((stat: any, index: number) => { 
           return (
             <div key={index} className={`${St.dataright} text-white`}>
               {
@@ -82,7 +82,7 @@ const DataView = ({ stats, mode }: { stats: any, mode:any }) => {
       </div>
       
       {
-        stats.map((stat: any, index: number) => { 
+        stats && stats.map((stat: any, index: number) => { 
           return (
             <div key={index} className={`${St.dataright} text-white`}>
               {/* reduce kills deaths assists cs vs teamtotal from stat.value and render each in a span */}

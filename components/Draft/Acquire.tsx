@@ -69,7 +69,7 @@ const Acquire = ({closeAcquire, players,fetchPlayer, teams}:{closeAcquire:any ,p
           
 
           {
-            players.filter((item: any) => {
+           players && players.filter((item: any) => {
               if (item.selected === false) {
                 return item
                }
@@ -92,7 +92,7 @@ const Acquire = ({closeAcquire, players,fetchPlayer, teams}:{closeAcquire:any ,p
         <div className="col-start-1 col-end-9  row-start-4 row-end-7  text-gray-300  p-2 text-center rounded-xl max-h-[400px] overflow-y-scroll overflow-x-hidden scrollbar-style">
 
           {
-            teams.map((team: any, index: number) => {
+            teams  && teams.map((team: any, index: number) => {
               return (
                <AcquireTeam  key={index} team={team} fetchTeam={fetchPlayer} closeAcquire={closeAcquire} />
              )

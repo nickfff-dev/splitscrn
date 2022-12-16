@@ -43,7 +43,7 @@ console.log(results)
   return (
    <> 
     <div className={`${k.resultsRow} h-10`}>
-        <span className="text-sm">{participant.fantasyname}</span>  <span className="text-sm">{league.league.region}</span> <span className="text-sm">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-sm">{participant.points}</span> <button onClick={() => {
+        <span className="text-sm">{ participant && participant.fantasyname}</span>  <span className="text-sm">{league && league.league.region}</span> <span className="text-sm">{ league &&league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-sm">{ participant && participant.points}</span> <button onClick={() => {
           setShowModal(!showModal)
         }} className="outline outline-[#ff921b] px-3 outline-1 text-sm rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" >View</button></div>
     

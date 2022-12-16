@@ -18,7 +18,7 @@ const ViewDrop = ({data, }: {data:any}) => {
     <ul className="py-1 text-sm text-gray-700 " aria-labelledby="dropdownDividerButton">
 
           {
-            data.map((item: any, index: number) => { 
+            data && data.map((item: any, index: number) => { 
               return (
                 <li key={index} className="px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">
                   <button onClick={() => {
@@ -36,7 +36,7 @@ const ViewDrop = ({data, }: {data:any}) => {
       </span>
       
       {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+       data && data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.towers}</span>
@@ -47,7 +47,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
             {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.inhibitors}</span>
@@ -58,7 +58,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+     data &&   data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.dragons}</span>
@@ -69,7 +69,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                  {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+     data &&   data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.rift}</span>
@@ -80,7 +80,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                      {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.baron}</span>
@@ -91,7 +91,7 @@ const ViewDrop = ({data, }: {data:any}) => {
          })
       }
                         {
-        data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
+      data &&  data.filter((item: any) => item.split === split).map((entry: any,index:number) => {  
           return (
             
             <span key={index}>{entry.totalKill}</span>

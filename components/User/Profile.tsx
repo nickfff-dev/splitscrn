@@ -25,7 +25,8 @@ const UserProfile = ({owner, data,wallet, deposit, withdrawal, }:{owner:any,wall
    }
    const onActiveLeague = (league: any) => {
     try{setActiveLeague(league)
-      getActiveLeaguePlayers()}catch(e:any){console.log(e)}
+      getActiveLeaguePlayers()
+    } catch (e: any) { console.log(e) }
     
   }
   const getActiveLeaguePlayers = () => {
@@ -156,11 +157,11 @@ return activeLeague.players
             <img src="https://i.redd.it/rtqwmwm3tdy41.png" className="w-40 h-40" alt={''} />
              
             <div className={`${Us.containerleftinnertext} `}>
-              <div className={`${Us.profiletext}`}><h2>Username:</h2> <p>{owner.name}</p></div>
-              <div className={`${Us.profiletext}`}><h2>Email:</h2> <p>{owner.email}</p></div>
-              <div className={`${Us.profiletext}`}><h2>Dob:</h2> <p>{ owner.birthDate.split(" ")[0]}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Username:</h2> <p>{owner ? owner.name : ""}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Email:</h2> <p>{ owner ? owner.email: ""}</p></div>
+              <div className={`${Us.profiletext}`}><h2>Dob:</h2> <p>{ owner ? owner.birthDate.split(" ")[0]: ""}</p></div>
               <div className={`${Us.profiletext}`}><h2>Locale:</h2> <p> {Intl.DateTimeFormat().resolvedOptions().timeZone}</p></div>
-              <div className={` flex flex-row bg-gradient-to-r from-gray-200 to-  space-x-8 w-full p-2 font-bold`}><h2>Balance:</h2> <p>${Math.ceil(wallet.credits)}</p></div>
+              <div className={` flex flex-row bg-gradient-to-r from-gray-200 to-  space-x-8 w-full p-2 font-bold`}><h2>Balance:</h2> <p>${Math.ceil(wallet ? wallet.credits: 0)}</p></div>
             </div>
             
           </div>
@@ -171,7 +172,7 @@ return activeLeague.players
      
             <div className={`${Us.containerleftinnertext2} `}>
             
-              <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{data.reduce((acc: any, league: any) => {
+              <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{data && data.reduce((acc: any, league: any) => {
               return acc + league.members.length
             },0)}</p></div>
             <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{ data?  data.length: 0}</p></div>
@@ -204,7 +205,7 @@ return activeLeague.players
           </div>
           <div className={`${Us.containerRightInner} `}>
             {
-              data.map((league: any) => {
+             data && data.map((league: any) => {
                 league.members.filter((participant: any) => {
                   if (participant.confirmedAttendance === false) {
                     return participant
@@ -280,7 +281,7 @@ return activeLeague.players
           <div className={`${Us.belowcontainerleftInner} `}>
 
             {
-              data.map((league: any, index:number) => {
+             data && data.map((league: any, index:number) => {
                 return (<div key={index} className={`${Us.H}`}>
                   
                 <p>{league.league.name}</p>
@@ -308,7 +309,7 @@ return activeLeague.players
           </div>
           <div className={`${Us.belowContainerRightInner}`}>
             {
-              data.map((league:any, index: number) => {
+              data &&  data.map((league:any, index: number) => {
                 return league.trades.map((trade: any) => {
                   return(<div key={index} className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
                   <p> {trade.playerIn.split(" ")[0]}</p>

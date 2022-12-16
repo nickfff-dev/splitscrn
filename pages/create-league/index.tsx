@@ -86,7 +86,9 @@ const body = newLeaguedata
   return (
     <>
   
-      <CreateLeague username={username}/>
+      {
+        username ? <CreateLeague username={username}/> : <p>KindlylOGiN</p>
+      }
       </>
 )
   

@@ -27,9 +27,9 @@ const TeamTab = ({ league, participant, wallets, position, fixtures }: { league:
 }
   }
   const updateData = () => {
-    getResults()?.then((data) => {
-      setResults(data)
-    })
+  try{  getResults()?.then((data) => {
+    setResults(data)
+  })}catch(e){console.log(e)}
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ console.log(results)
     <>
      
     <div className={`${L.resultsRow} h-10`}>
-        <span className="text-sm">{position}</span>  <span className="text-sm">{participant.fantasyname}</span> <span className="text-sm">{participant.points}</span> <span className="text-sm">${wallets.filter((wallet:any) => wallet.userId === participant.userId).map((wallet:any) => Intl.NumberFormat('en-US').format(wallet.credits))
+        <span className="text-sm">{position? position: ""}</span>  <span className="text-sm">{participant? participant.fantasyname: ""}</span> <span className="text-sm">{ participant? participant.points: 0}</span> <span className="text-sm">${ wallets && wallets.filter((wallet:any) => wallet.userId === participant.userId).map((wallet:any) => Intl.NumberFormat('en-US').format(wallet.credits))
         }</span> <button onClick={() => {
           setShowModal(!showModal)
           }} className="outline outline-1 outline-[#ff921b] px-3 text-sm text-sm rounded-xl capitalize bg-gray-dark" >View</button></div>

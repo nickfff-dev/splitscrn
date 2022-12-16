@@ -27,101 +27,102 @@ const ResultDetail = ({ results, participant, league, closeModal, fixtures }: { 
   const fantasyRoster = ["Top", "Jungle", "Mid", "Bot", "Support",]
   // group all the results by week ie. week 9, week 10, week 11
   const teamGroupedResults = () => {
-    var reduced = []
+try{    var reduced = []
    
-    for (let i = 0; i < weeks.length; i++) { 
-      var name = ""
-      var teamKills = 0
-      var dragonKills = 0
-      var riftHeraldKills = 0
-      var baronKills = 0
-      var turretKills = 0
-      var inhibitorKills = 0
-      var win = false
-      var points = 0
-      var kills = 0
+  for (let i = 0; i < weeks.length; i++) { 
+    var name = ""
+    var teamKills = 0
+    var dragonKills = 0
+    var riftHeraldKills = 0
+    var baronKills = 0
+    var turretKills = 0
+    var inhibitorKills = 0
+    var win = false
+    var points = 0
+    var kills = 0
 
-      results.participantteam?.map((result: any) => { 
-        if (result.name === participant.team && result.game.split("_")[1] === weeks[i]) {
-          name = result.name
-          teamKills += result.teamKills
-          dragonKills += result.dragonKills
-          riftHeraldKills += result.riftHeraldKills
-          baronKills += result.baronKills
-          turretKills += result.turretKills
-          inhibitorKills += result.inhibitorKills
-          win = result.didWin
-          points += result.points
-          kills += result.teamKills
-        }
-      })
-      reduced.push({name: name, week: weeks[i],  teamKills: teamKills, dragonKills: dragonKills, riftHeraldKills: riftHeraldKills, baronKills: baronKills, turretKills: turretKills, inhibitorKills: inhibitorKills, win: win, points: points, kills: kills})
-    }
+    results.participantteam?.map((result: any) => { 
+      if (result.name === participant.team && result.game.split("_")[1] === weeks[i]) {
+        name = result.name
+        teamKills += result.teamKills
+        dragonKills += result.dragonKills
+        riftHeraldKills += result.riftHeraldKills
+        baronKills += result.baronKills
+        turretKills += result.turretKills
+        inhibitorKills += result.inhibitorKills
+        win = result.didWin
+        points += result.points
+        kills += result.teamKills
+      }
+    })
+    reduced.push({name: name, week: weeks[i],  teamKills: teamKills, dragonKills: dragonKills, riftHeraldKills: riftHeraldKills, baronKills: baronKills, turretKills: turretKills, inhibitorKills: inhibitorKills, win: win, points: points, kills: kills})
+  }
 
-    return reduced
+  return reduced}catch(e){console.log(e)}
 
   }
 
   const [teamResults, setTeamResults] = useState(teamGroupedResults())
   const groupedResults = () => {
 
-    var grouped: any[] = []
-    weeks.map((fixture: any) => {
+try{    var grouped: any[] = []
+  weeks.map((fixture: any) => {
+      
+    for (let i = 0; i < fantasyRoster.length; i++) {
+      results.participantplayer?.filter((result: any) => {
+        if (result.role === fantasyRoster[i] && result.matchId.split("_")[1] === fixture) {
+       
+          grouped.push(result)
         
-      for (let i = 0; i < fantasyRoster.length; i++) {
-        results.participantplayer?.filter((result: any) => {
-          if (result.role === fantasyRoster[i] && result.matchId.split("_")[1] === fixture) {
-         
-            grouped.push(result)
-          
-          
-          }
-        })
-      
+        
+        }
+      })
+    
 
-      }
-      
+    }
+    
 
-    })
-    return grouped
+  })
+  return grouped
+} catch (e) { console.log(e) }
   }
 
   const reduceResultsByweek = () => {
-    var grouped = groupedResults()
-    var roles = ["Top", "Jungle", "Mid", "Bot", "Support"]
-    var reduced: any[] = []
-    roles.forEach((role: any) => {
-      for (let i = 0; i < weeks.length; i++){
-        
-        var kills = 0
-        var deaths = 0
-        var assists = 0
-        var cs = 0
-        var vision = 0
-        var killp = 0
-        var name = ""
-        var team = ""
-        var points= 0
-        var teamTotalKills = 0
-        grouped.forEach((result: any) => {
-          if (result.role === role && result.matchId.split("_")[1] === weeks[i]) {
-            kills += result.kills
-            deaths += result.deaths
-            assists += result.assists
-            cs += result.creepScore
-            vision += result.visionScore
-            killp +=  Number(calcParticipationPts(result.kills, result.assists, result.teamTotalKills))
-            teamTotalKills += result.teamTotalKills
-            name = result.name
-            points += result.points
-            team = result.team
-          }
-        })
-        reduced.push({name:name, team:team ,points: points, role: role, week: weeks[i], kills: kills, deaths: deaths, assists: assists, cs: cs, vision: vision, killp: killp})
-      }
-    })
-
-    return reduced
+    try{var grouped = groupedResults()
+      var roles = ["Top", "Jungle", "Mid", "Bot", "Support"]
+      var reduced: any[] = []
+      roles.forEach((role: any) => {
+        for (let i = 0; i < weeks.length; i++){
+          
+          var kills = 0
+          var deaths = 0
+          var assists = 0
+          var cs = 0
+          var vision = 0
+          var killp = 0
+          var name = ""
+          var team = ""
+          var points= 0
+          var teamTotalKills = 0
+          grouped?.forEach((result: any) => {
+            if (result.role === role && result.matchId.split("_")[1] === weeks[i]) {
+              kills += result.kills
+              deaths += result.deaths
+              assists += result.assists
+              cs += result.creepScore
+              vision += result.visionScore
+              killp +=  Number(calcParticipationPts(result.kills, result.assists, result.teamTotalKills))
+              teamTotalKills += result.teamTotalKills
+              name = result.name
+              points += result.points
+              team = result.team
+            }
+          })
+          reduced.push({name:name, team:team ,points: points, role: role, week: weeks[i], kills: kills, deaths: deaths, assists: assists, cs: cs, vision: vision, killp: killp})
+        }
+      })
+  
+      return reduced}catch(e){console.log(e)}
 
   }
   const [playerResults, setPlayerResults] = useState(reduceResultsByweek())
@@ -169,7 +170,7 @@ const ResultDetail = ({ results, participant, league, closeModal, fixtures }: { 
       <div className={`${d.resultsContainer} `}>
  
         {
-          playerResults.filter((player: any) => { if (player.week === activeWeek) { return player } }).map((player: any, index:any) => {
+         playerResults && playerResults.filter((player: any) => { if (player.week === activeWeek) { return player } }).map((player: any, index:any) => {
             return (
               <div key={index} className={`${d.singleRole}`}>
               <div className={`${d.singleRowHead}`}>
@@ -222,7 +223,7 @@ const ResultDetail = ({ results, participant, league, closeModal, fixtures }: { 
             )
           })
         }{
-          teamResults.filter((team: any) => { if (team.week === activeWeek) { return team } }).map((team: any, index: any) => { 
+          teamResults && teamResults.filter((team: any) => { if (team.week === activeWeek) { return team } }).map((team: any, index: any) => { 
             return (
               <div key={index} className={`${d.singleRole}`}>
               <div className={`${d.singleRowHead}`}>

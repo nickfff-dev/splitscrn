@@ -3,18 +3,20 @@ import {useState, useEffect} from 'react'
 const TradeLine = ({showingAcquire,showingRelease,playerIn,playerOut, credits}:{showingAcquire:any,showingRelease:any,playerIn:any, playerOut:any, credits:any}) => {
   
   function kam(cred: any) {
-    let wearr;
-    if (cred > 0) {
-      let we = cred.toLocaleString("en-US")
-      wearr = we.split("")
-      wearr.splice(0, 0, "+$")
-      
-    } else {
-      let we = cred.toLocaleString("en-US")
-      wearr = we.split("")
-      wearr.splice(1, 0, "$")
-    }
-    return  wearr.join("")
+    try {     let wearr;
+      if (cred > 0) {
+        let we = cred.toLocaleString("en-US")
+        wearr = we.split("")
+        wearr.splice(0, 0, "+$")
+        
+      } else {
+        let we = cred.toLocaleString("en-US")
+        wearr = we.split("")
+        wearr.splice(1, 0, "$")
+      }
+      return  wearr.join("")} catch (e) {
+  console.log(e)
+}
   }
  
   return (

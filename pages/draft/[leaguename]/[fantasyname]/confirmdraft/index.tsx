@@ -16,25 +16,25 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
  
   const sendDraft = async () => { 
   
-    await fetch(`/api/confirmdraft/${draftman.fantasyname}`, {
-      method: "GET",
-    }).then((res) => res.text().then((text) => {
-      setMessage(text + " " + "the link to draft page" + " " + `http://localhost:3000/draft/${draftman.leaguename}/${draftman.fantasyname}`)
-      window.location.href = `/draft/${draftman.leaguename}/${draftman.fantasyname}`
-    }))
+ try{   await fetch(`/api/confirmdraft/${draftman.fantasyname}`, {
+  method: "GET",
+}).then((res) => res.text().then((text) => {
+  setMessage(text + " " + "the link to draft page" + " " + `http://localhost:3000/draft/${draftman.leaguename}/${draftman.fantasyname}`)
+  window.location.href = `/draft/${draftman.leaguename}/${draftman.fantasyname}`
+}))}catch(e){console.log(e)}
 
   }
 
   const deleteParticipant = async () => {
-    await fetch(`/api/deleteParticipant/${draftman.fantasyname}`, {
-      method: "POST",
-      
-    
-    }).then((res: any) => {
-      res.text().then((text:any) => {
-        setMessage(text)
-      })
-    })
+try{    await fetch(`/api/deleteParticipant/${draftman.fantasyname}`, {
+  method: "POST",
+  
+
+}).then((res: any) => {
+  res.text().then((text:any) => {
+    setMessage(text)
+  })
+})}catch(e){console.log(e)}
   }
 
 
@@ -42,12 +42,12 @@ const ConfirmDraft = ({  draftman } : InferGetServerSidePropsType<typeof getServ
     <div className="text-gray-300 text-center max-w-[668px] mx-auto rounded-xl  m-[5%] bg-gradient-to-r from-primary p-1 to-secondary" >
       <div className="bg-gray-dark p-[3%] rounded-xl ">
       {
-        draftman.confirmedAttendance ? (<p>you have already confirmed attendance the link to the draft page is <a target ="_blank" href={`/draft/${draftman.leaguename}/${draftman.fantasyname}`} rel="noreferrer">link to draft</a> </p>) :(<div>   <h1 className="text-4xl mb-2 font-bold">{draftman.leaguename}</h1> 
+        draftman && draftman.confirmedAttendance ? (<p>you have already confirmed attendance the link to the draft page is <a target ="_blank" href={`/draft/${draftman.leaguename}/${draftman.fantasyname}`} rel="noreferrer">link to draft</a> </p>) :(<div>   <h1 className="text-4xl mb-2 font-bold">{draftman && draftman.leaguename}</h1> 
       
         <p className="text-xl font-bold mb-2">draft about to start in 30 min</p>  <br/>
           
         <div className="outline w-max mx-auto px-4 py-2 mb-3 rounded-lg outline-secondary bg-gray-medium text-gray-300 text-xl">
-      {draftman.fantasyname}
+      {draftman && draftman.fantasyname}
         </div> 
         <p className="text-gray-300 text-lg mb-6 ">Please confirm you are present and will participate</p>
      

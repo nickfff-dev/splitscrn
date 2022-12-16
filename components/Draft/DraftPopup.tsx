@@ -48,7 +48,7 @@ const DraftPopup = ({players,ondraftPick,  socketdata, draftPeople}:{players:any
 
             <p className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold text-lg">Room Roster</p>
               {
-                socketdata.usersinroom.map((user: any) => {
+               socketdata && socketdata.usersinroom.map((user: any) => {
                   return (
                     <span className="text-gray-300 text-sm" key={user.userID}> {user.username}  </span>
                   )
@@ -56,12 +56,12 @@ const DraftPopup = ({players,ondraftPick,  socketdata, draftPeople}:{players:any
             }
             
             </div>
-            <div className="row-start-4 row-end-5"><p className="text-gray-300 text-sm">{ socketdata.message2}</p></div>
+            <div className="row-start-4 row-end-5"><p className="text-gray-300 text-sm">{ socketdata ? socketdata.message2 : ""}</p></div>
             <div className=" grid grid-flow-row  row-start-6 row-end-7 items-end ">
               
               
               
-              <p className="text-gray-300 text-sm">{socketdata.message}</p>
+              <p className="text-gray-300 text-sm">{socketdata? socketdata.message: 0}</p>
       
             </div>
           </div>

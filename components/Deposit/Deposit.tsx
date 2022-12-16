@@ -68,8 +68,8 @@ const DepositsPage = ({  owner, wallet }: {  owner: user , wallet: wallet}) => {
       <div className="p-1 grid grid-cols-3     grid-flow-row gap-3" >
 
         {
-          amounts.map((amount) => { 
-            return <button className=" rounded-lg text-gray-200  font-bold py-1 focus:outline outline-primary bg-gray-light w-24 hover:bg-secondary hover:text-gray-medium text-sm mx-auto" key={amount} onClick={onDepositAmountChange} value={amount} >${amount.toFixed(2)}</button>
+         amounts && amounts.map((amount) => { 
+            return <button className=" rounded-lg text-gray-200  font-bold py-1 focus:outline outline-primary bg-gray-light w-24 hover:bg-secondary hover:text-gray-medium text-sm mx-auto" key={amount} onClick={onDepositAmountChange} value={amount} >${amount ? amount.toFixed(2) : 0}</button>
 
           })
         }
@@ -77,17 +77,17 @@ const DepositsPage = ({  owner, wallet }: {  owner: user , wallet: wallet}) => {
         <div className=" flex   row-start-5 ml-8  justify-between space-x-4 w-[430px] text-white">
           <p className="font-bold capitalize">
             fees charged:<span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${
-            ( depositAmount * 0.05).toFixed(2)
+         depositAmount ?    (  depositAmount * 0.05).toFixed(2) : 0
             }</span>
         </p>
         
         <p className="font-bold capitalize">Deposit: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${
         
-       ( depositAmount - (depositAmount * 0.05)).toFixed(2)
+        depositAmount ? ( depositAmount - (depositAmount * 0.05)).toFixed(2) : 0
         }</span></p>
        
         <p className="font-bold capitalize">
-          new balance: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${wallet.balance.toFixed(2)}</span>
+          new balance: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${ wallet? wallet.balance.toFixed(2): 0}</span>
           
         </p>
         <p className="font-bold capitalize bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> {responsetext}</p></div>

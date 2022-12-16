@@ -16,13 +16,13 @@ const Leagues = () => {
   const [leagues, setLeagues] = useState<any>([]);
   const [userLeagues, setUserLeagues] = useState<any>([]);
   const [fixtures, setFxtures] = useState<any>([])
-  useEffect(() => {
+//   useEffect(() => {
     
     
-      getUserLeagues()
+//       getUserLeagues()
    
 
-})
+// }, [])
   const getUserLeagues = async () => { 
     const res = await fetch(`/api/leagues/${session?.user?.name}`);
     const data = await res.json();
@@ -42,10 +42,12 @@ const Leagues = () => {
       myleagues.push(data[index])
     }
   })
+    
+    
   setUserLeagues(myleagues);
 
 
-    return data;
+    return myleagues;
   }
 
 
@@ -92,12 +94,12 @@ const Leagues = () => {
         <div className={`${k.root, k.resultsContainer} h-[300px] overflow-y-scroll`}>
           
           <div className={`${k.resultsRow1}  font-semibold`}>  <span className="text-base">PRIZE</span>  <span className="text-base">REGION</span> <span className="text-base">FEE</span> <span className="text-base">DURATION</span> <button className="invisible outline outline-[#ff921b]  rounded-xl " >View</button></div>
-          {leagues?.map((league: any, index:number) => { 
+          {leagues ? ( leagues?.map((league: any, index:number) => { 
               const prize =  league['members'].length * league['league'].buyInFee
               return <OpenLeagues key={index} league={league ? league : null} prize={prize} />
             
           }
-            )
+            )) : (<p>no leagues</p>)
           }
           </div>
   

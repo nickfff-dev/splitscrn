@@ -92,7 +92,7 @@ const StatsViewPlayers = ({stats, mode}:{stats:any, mode:any}) => {
         }
       </div>
       </div>
-        {stats.map((stat: any, index: number) => { 
+        {stats && stats.map((stat: any, index: number) => { 
           return (
             <div key={index} className=" grid grid-cols-2  items-center my-auto rounded-full text-white">
             <div className="grid grid-flow-col auto-cols-[95px] text-center ">

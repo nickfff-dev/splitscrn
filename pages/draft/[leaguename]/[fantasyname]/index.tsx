@@ -279,8 +279,8 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
                  <h1 className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold text-4xl text-center font-xix ">DRAFT LOBBY</h1>
           <div className=" mt-5 text-center">
             <span className="text-gray-300 font-bold text-xl">Welcome to the Draft!</span>
-            <h2 className="text-gray-300 font-bold text-xl">league: {focusonleague.name}</h2>
-            <h3 className="text-gray-300 font-bold text-xl">Team: {focusonparticipant.fantasyname}</h3>
+            <h2 className="text-gray-300 font-bold text-xl">league: { focusonleague && focusonleague.name}</h2>
+            <h3 className="text-gray-300 font-bold text-xl">Team: { focusonparticipant && focusonparticipant.fantasyname}</h3>
 
            </div>
 
@@ -332,25 +332,6 @@ function Draft({ focusonleague, focusonparticipant, userId, teams, players }: In
       
 
 
-
-
-{/*      
-        <div className="text-center"  >
-            <h1 style={{ color: "#ffd204" }}>{balance === 0 ? null : (<>balance : {balance}</>)}</h1>
-         
-
-            {
-              message ? (<div style={{ color: "#ffd204", display: "flex", flexDirection: "column", justifyContent: "center" }} ><h1>draft events</h1><p style={{ color: "#ffd204" }}>{message}</p></div>) : (<p style={{ color: "#ffd204" }}>draftlog</p>)
-            }
-
-
-            <div >
-
-
-              {
-                message2 ? (<h1 style={{ color: "#ffd204" }}>{message2}</h1>) : (<h1 style={{ color: "#ffd204" }}></h1>)
-              }</div>
-          </div> */}
 
   
     </div>

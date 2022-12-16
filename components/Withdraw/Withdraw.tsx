@@ -76,17 +76,17 @@ const WithdrawPage = ({ owner, wallet }: { owner: user, wallet: wallet }) => {
           <div className="flex space-x-10">
         <p className="font-bold capitalize">Withdraw: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">${
             
-            (withdrawAmount / 100).toFixed(2)
+            withdrawAmount &&  (withdrawAmount / 100).toFixed(2)
           
           }</span></p>
           <p className="font-bold capitalize">
             fees : <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> ${
-              (withdrawAmount / 100 * 0.05).toFixed(2)
+            withdrawAmount &&  (withdrawAmount / 100 * 0.05).toFixed(2)
             }</span>
           </p> 
           
           <p className="font-bold capitalize">new balance: <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            ${wallet.balance.toFixed(2)}</span>
+            ${ wallet && wallet.balance.toFixed(2)}</span>
           </p>
           <p className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent ">{responsetext}</p>
           </div>

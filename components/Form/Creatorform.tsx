@@ -36,17 +36,17 @@ const CreateLeague = ({username}:{username:any}) => {
           return
         }
       
-        await fetch("/api/create-league", {
-          method: 'POST',
-          body: JSON.stringify(body)
-        }).then((res) => {
-          res.text().then((text) => {
-            setLeagueLink(text)
-            alert("League Created Successfully")
-          })
-        }).catch((err: any) => { 
-          console.error(err.message);
-        })
+    try{    await fetch("/api/create-league", {
+      method: 'POST',
+      body: JSON.stringify(body)
+    }).then((res) => {
+      res.text().then((text) => {
+        setLeagueLink(text)
+        alert("League Created Successfully")
+      })
+    }).catch((err: any) => { 
+      console.error(err.message);
+    })}catch(e:any){console.log(e)}
  
     
       }

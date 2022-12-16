@@ -10,18 +10,18 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, o
     setShowModal(!showModal)
   }
   function cashColor(cred: any) {
-    let wearr;
-    if (cred > 0) {
-      let we = cred.toLocaleString("en-US")
-      wearr = we.split("")
-      wearr.splice(0, 0, "+$")
-      
-    } else {
-      let we = cred.toLocaleString("en-US")
-      wearr = we.split("")
-      wearr.splice(1, 0, "$")
-    }
-    return  wearr.join("")
+try{    let wearr;
+  if (cred > 0) {
+    let we = cred.toLocaleString("en-US")
+    wearr = we.split("")
+    wearr.splice(0, 0, "+$")
+    
+  } else {
+    let we = cred.toLocaleString("en-US")
+    wearr = we.split("")
+    wearr.splice(1, 0, "$")
+  }
+  return  wearr.join("")}catch(e){console.log(e)}
   } 
   const [showModal3, setShowModal3] = useState(false)
   const showDropwdwn3 = () => { 
@@ -64,7 +64,7 @@ const TradeMaker = ({showingAcquire,showingRelease,trade, onActiveParticipant, o
                 <ul className="py-1 text-sm text-gray-700" aria-labelledby="dropdownDividerButton">
                   {
                    
-                   activeLeague.members.map((member: any, index:number) => {
+                   activeLeague &&  activeLeague.members.map((member: any, index:number) => {
                         return (
                           <li key={index}>
                             <button onClick= {() => { onActiveParticipant(member); showDropwdwn3()}}
