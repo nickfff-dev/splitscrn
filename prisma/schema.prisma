@@ -1,17 +1,15 @@
 generator client {
-  provider        = "prisma-client-js"
-
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider             = "mysql"
-  url                  = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
-// AUTH MODELS
-model Account {
-  id                String  @id @default(cuid())
+model account {
+  id                String  @id
   userId            String
   type              String
   provider          String
@@ -23,182 +21,111 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
+  user              user @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_idx")
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+model deposit {
+  id       Int    @id @default(autoincrement())
+  amount   Float
+  userId   String
+  date     String
+  time     String
+  txHash   String
+  credits  Int
+  walletId Int
+  fees     Float?
 
-  @@index([userId])
+  @@index([walletId], map: "Deposit_walletId_idx")
 }
 
-model User {
-  id               String    @id @default(cuid())
-  name             String?
-  userName         String?   @unique
-  email            String?   @unique
-  emailVerified    Boolean?
-  verificationCode Int?
-  birthDate        String?
-  country          String?
-  province         String?
-  image            String?
-  admin            Boolean   @default(false)
-  accounts         Account[]
-  sessions         Session[]
-  Wallet           Wallet[]
-  walletkey        String?
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-// FANTASY MODELS
-
-model League {
-  id              Int            @id @default(autoincrement())
-  name            String         @unique
-  draftTime       String
-  startDate       String
-  endDate         String
-  duration        Int?           @db.Int
-  buyIn           String?        @db.VarChar(255)
-  buyInFee        Int?           @db.Int
-  inviteOnly      String
-  inviteCode      String?        @db.VarChar(255)
-  owner           String
-  maxPlayers      Int
-  minPlayers      Int
-  points          Float?
-  draftReady      Boolean        @default(false)
-  populateRosters Boolean        @default(false)
-  region          String
-  teams           Teams[]
-  players         Players[]
-  fixtures        Fixture[]
-  members         Participant[]
-  Draft           Draft[]
-  PlayerResult    PlayerResult[]
-  TeamResult      TeamResult[]
-}
-
-model Teams {
-  id       Int     @id @default(autoincrement())
-  name     String  @db.VarChar(255)
-  slug     String? @db.VarChar(255)
-  top      String  @db.VarChar(100)
-  jungle   String  @db.VarChar(100)
-  mid      String  @db.VarChar(100)
-  adc      String  @db.VarChar(100)
-  support  String  @db.VarChar(100)
-  points   Float?
-  region   String?
+model draft {
+  name     String  @unique(map: "Draft_name_key")
+  date     String?
+  time     String?
   leagueId Int?
-  League   League? @relation(fields: [leagueId], references: [id])
-  selected Boolean @default(false)
-  selectedBy String?
 
-  @@index([leagueId])
+  @@index([leagueId], map: "Draft_leagueId_idx")
 }
 
-model Players {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar(255)
-  slug       String?  @db.VarChar(255)
-  team       String?  @db.VarChar(100)
-  position   String   @db.VarChar(100)
-  points     Float?
-  region     String?
-  leagueId   Int?
-  League     League?  @relation(fields: [leagueId], references: [id])
-  selected   Boolean? @default(false)
-  selectedBy String?
-
-  @@unique([name, leagueId])
-  @@index([leagueId])
-}
-
-model Participant {
-  id                  Int      @id @default(autoincrement())
-  username            String   @db.VarChar(255)
-  top               String?  @db.VarChar(100)
-  topPoints           Float?
-  jungle              String?  @db.VarChar(100)
-  junglePoints        Float?
-  mid                 String?  @db.VarChar(100)
-  midPoints           Float?
-  adc                 String?  @db.VarChar(100)
-  adcPoints           Float?
-  inviteCode          String?  @db.VarChar(255)
-  inviteComplete      Boolean? @default(false)
-  confirmedAttendance Boolean? @default(false)
-  support             String?  @db.VarChar(100)
-  supportPoints       Float?
-  team                String?  @db.VarChar(100)
-  teamPoints          Float?
-  points              Float?
-  draftOrder          Int?     @db.Int
-  leaguename          String?  @db.VarChar(255)
-  isReady             Boolean? @default(false)
-  leagueId            Int?
-  userId              String?
-  fantasyname         String?  @unique @db.VarChar(255)
-  League              League?  @relation(fields: [leagueId], references: [id])
-  Draft               Draft?   @relation(fields: [draftName], references: [name])
-  draftName           String?
-  Trade               Trade[]
-
-  @@index([leagueId])
-  @@index([draftName])
-}
-
-model Fixture {
-  id           Int     @id @default(autoincrement())
+model fixture {
+  id           Int    @id @default(autoincrement())
   MatchId      String
   DateTime_UTC String
   Team1        String
   Team2        String
   Tab          String
   leagueId     Int?
-  League       League? @relation(fields: [leagueId], references: [id])
 
-  @@index([leagueId])
+  @@index([leagueId], map: "Fixture_leagueId_idx")
 }
 
-model Draft {
-  name     String        @unique
-  date     String?
-  time     String?
-  leagueId Int?
-  members  Participant[]
-  League   League?       @relation(fields: [leagueId], references: [id])
-
-  @@index([leagueId])
+model league {
+  id              Int     @id @default(autoincrement())
+  name            String  @unique(map: "League_name_key")
+  duration        Int?
+  buyIn           String? @db.VarChar(255)
+  buyInFee        Int?
+  inviteOnly      String
+  owner           String
+  maxPlayers      Int
+  minPlayers      Int
+  region          String
+  inviteCode      String? @db.VarChar(255)
+  endDate         String
+  startDate       String
+  draftTime       String
+  points          Float?
+  draftReady      Boolean @default(false)
+  populateRosters Boolean @default(false)
 }
 
-model PlayerResult {
-  id             Int     @id @default(autoincrement())
+model mainwallet {
+  id       Int   @id @default(autoincrement())
+  balance  Float
+  credits  Int
+  houseFee Int
+}
+
+model participant {
+  id                  Int      @id @default(autoincrement())
+  username            String   @db.VarChar(255)
+  points              Float?
+  leagueId            Int?
+  adc                 String?  @db.VarChar(100)
+  jungle              String?  @db.VarChar(100)
+  mid                 String?  @db.VarChar(100)
+  support             String?  @db.VarChar(100)
+  team                String?  @db.VarChar(100)
+  top                 String?  @db.VarChar(100)
+  fantasyname         String?  @unique(map: "Participant_fantasyname_key") @db.VarChar(255)
+  leaguename          String?  @db.VarChar(255)
+  draftOrder          Int?
+  draftName           String?
+  userId              String?
+  confirmedAttendance Boolean? @default(false)
+  inviteCode          String?  @db.VarChar(255)
+  inviteComplete      Boolean? @default(false)
+  isReady             Boolean? @default(false)
+  adcPoints           Float?
+  junglePoints        Float?
+  midPoints           Float?
+  supportPoints       Float?
+  teamPoints          Float?
+  topPoints           Float?
+
+  @@index([draftName], map: "Participant_draftName_idx")
+  @@index([leagueId], map: "Participant_leagueId_idx")
+}
+
+model playerresult {
   name           String
   team           String
   role           String
   creepScore     Int?
   visionScore    Int?
-  region        String?
-  team1          String?
-  team2          String?
   kills          Int?
   deaths         Int?
   assists        Int?
@@ -206,96 +133,139 @@ model PlayerResult {
   teamTotalKills Int?
   points         Float?
   leagueId       Int?
-  league         League? @relation(fields: [leagueId], references: [id])
   date           String?
+  id             Int     @id @default(autoincrement())
   participantId  Int
   playerId       Int?
-
-  @@unique([name, game, participantId])
-  @@index([leagueId])
-}
-
-model TeamResult {
-  id              Int      @id @default(autoincrement())
-  name            String
-  game            String
-  teamKills       Int?
+  team1          String?
+  team2          String?
   region         String?
 
+  @@unique([name, game, participantId], map: "PlayerResult_name_game_participantId_key")
+  @@index([leagueId], map: "PlayerResult_leagueId_idx")
+}
+
+model players {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  slug       String?  @db.VarChar(255)
+  team       String?  @db.VarChar(100)
+  position   String   @db.VarChar(100)
+  points     Float?
+  leagueId   Int?
+  selected   Boolean? @default(false)
+  selectedBy String?
+  region     String?
+
+  @@unique([name, leagueId], map: "Players_name_leagueId_key")
+  @@index([leagueId], map: "Players_leagueId_idx")
+}
+
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
+  userId       String
+  expires      DateTime
+  user         user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "Session_userId_idx")
+}
+
+model teamresult {
+  game            String
+  teamKills       Int?
   dragonKills     Int?
   riftHeraldKills Int?
   turretKills     Int?
   inhibitorKills  Int?
-  team1           String?
-  team2           String?
   baronKills      Int?
   didWin          Boolean?
   points          Float?
   leagueId        Int?
-  league          League?  @relation(fields: [leagueId], references: [id])
   date            String?
-  teamId          Int?
+  id              Int      @id @default(autoincrement())
   participantId   Int
+  teamId          Int?
+  name            String
+  team1           String?
+  team2           String?
+  region          String?
 
-  @@unique([name, game, participantId])
-  @@index([leagueId])
+  @@unique([name, game, participantId], map: "TeamResult_name_game_participantId_key")
+  @@index([leagueId], map: "TeamResult_leagueId_idx")
 }
 
-model Wallet {
-  id         Int          @id @default(autoincrement())
-  balance    Float
-  userId     String       @unique
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  credits    Int?
-  Deposit    Deposit[]
-  Withdrawal Withdrawal[]
+model teams {
+  id         Int     @id @default(autoincrement())
+  name       String  @db.VarChar(255)
+  slug       String? @db.VarChar(255)
+  top        String  @db.VarChar(100)
+  jungle     String  @db.VarChar(100)
+  mid        String  @db.VarChar(100)
+  adc        String  @db.VarChar(100)
+  support    String  @db.VarChar(100)
+  points     Float?
+  leagueId   Int?
+  selected   Boolean @default(false)
+  region     String?
+  selectedBy String?
+
+  @@index([leagueId], map: "Teams_leagueId_idx")
 }
 
-model Deposit {
-  id       Int    @id @default(autoincrement())
-  amount   Float
-  userId   String
-  walletId Int
-  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  date     String
-  time     String
-  txHash   String
-  credits  Int
-  fees     Float?
-
-  @@index([walletId])
-}
-
-model Withdrawal {
-  id       Int    @id @default(autoincrement())
-  amount   Float
-  userId   String
-  walletId Int
-  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  date     String
-  time     String
-  txHash   String @unique
-  credits  Int
-  fees     Float?
-
-  @@index([walletId])
-}
-
-model MainWallet {
-  id       Int   @id @default(autoincrement())
-  balance  Float
-  credits  Int
-  houseFee Int
-}
-
-model Trade {
-  id            Int         @id @default(autoincrement())
+model trade {
+  id            Int    @id @default(autoincrement())
   playerIn      String
   playerOut     String
   date          String
   participantId Int
-  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
   leagueId      Int
 
-  @@index([participantId])
+  @@index([participantId], map: "Trade_participantId_idx")
+}
+
+model user {
+  id               String   @id
+  name             String?
+  userName         String?  @unique(map: "User_userName_key")
+  email            String?  @unique(map: "User_email_key")
+  emailVerified    Boolean?
+  birthDate        String?
+  country          String?
+  province         String?
+  image            String?
+  admin            Boolean  @default(false)
+  walletkey        String?
+  verificationCode Int?
+  session      session[]
+  accounts         account[]
+}
+
+model verificationtoken {
+  identifier String
+  token      String   @unique(map: "VerificationToken_token_key")
+  expires    DateTime
+
+  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
+}
+
+model wallet {
+  id      Int    @id @default(autoincrement())
+  balance Float
+  userId  String @unique(map: "Wallet_userId_key")
+  credits Int?
+}
+
+model withdrawal {
+  id       Int    @id @default(autoincrement())
+  amount   Float
+  userId   String
+  date     String
+  time     String
+  txHash   String @unique(map: "Withdrawal_txHash_key")
+  credits  Int
+  walletId Int
+  fees     Float?
+
+  @@index([walletId], map: "Withdrawal_walletId_idx")
 }

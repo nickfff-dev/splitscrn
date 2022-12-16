@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
+
 
 import {League} from "../../../lib/league"
 import prisma from '../../../lib/prisma';
@@ -13,7 +13,7 @@ import { getCurrentGames, getCurrentTeams, getPrivateLeagueTeams, getPrivateLeag
 
 
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<League | Mchezo | string>) { 
+export default async function handler(req: NextApiRequest, res: NextApiResponse<League |  string>) { 
  
     
 

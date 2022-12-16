@@ -1,13 +1,13 @@
-import prisma from "../../lib/prisma";
+import prisma from "@lib/prisma";
 import { useEffect, useState } from 'react';
-import { Grid } from '../../components/ui';
-import { Fixture, Teams, League, Players, Withdrawal, Deposit, Wallet } from "@prisma/client"
+
+import { withdrawal, deposit, wallet } from "@prisma/client"
 
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
 import { getSession } from 'next-auth/react'
-import { DepositsPage } from "../../components";
-import {WithdrawPage} from "../../components";
+import { DepositsPage } from "@components";
+import {WithdrawPage} from "@components";
 
 
 
@@ -70,7 +70,7 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
         <h2 className="font-bold text-gray-300 text-center capitalize">time</h2>
         <h2 className="font-bold text-gray-300 text-center capitalize">credits</h2></div>
       <div className="grid grid-cols-1  grid-flow-row items-center  space-y-2 p-3 overflow-y-scroll overflow-x-hidden  scrollbar-hide h-[580px] ">{
-        withdrawals.map((withdrawa: Withdrawal) => {
+        withdrawals.map((withdrawa: withdrawal) => {
           return (<div key={withdrawa.id} className="grid grid-flow-row grid-cols-4 auto-rows-[22px]  items-center text-center    rounded-full space-x-2  text-white ">
             <p>${withdrawa.amount}</p>
             <p>{withdrawa.date}</p>
@@ -94,7 +94,7 @@ const UserWallet = ({ owner, wallet, withdrawals, deposits }: InferGetServerSide
         <h2 className="font-bold text-gray-300 text-center capitalize">credits</h2>
 </div>
      <div className="grid grid-cols-1  grid-flow-row items-center  space-y-2 p-3 overflow-y-scroll overflow-x-hidden  h-[580px] scrollbar-hide"> {
-        deposits.map((withdrawa: Deposit) => {
+        deposits.map((withdrawa: deposit) => {
           return (<div key={withdrawa.id} className="grid grid-flow-row grid-cols-4 auto-rows-[22px]  items-center text-center    rounded-full space-x-2  text-white" >
             <p> ${withdrawa.amount}</p>
             <p> {withdrawa.date}</p>

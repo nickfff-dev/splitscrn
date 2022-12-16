@@ -128,7 +128,7 @@ export const getCurrentGames = async () => {
 
 
 
-export const getLeagueFixture = async (leaguename:string, startDate: string, endDate: string, region: string) => { 
+export const getLeagueFixture = async (leaguename:string, startDate: string, endDate: string, region: string,leagueId: number) => { 
 
   try {
     const { data } = await cargo.query({
@@ -143,19 +143,18 @@ export const getLeagueFixture = async (leaguename:string, startDate: string, end
    
     if (data) {
       data.forEach(async (fixture) => {
-        await prisma.league.update({
-          where: { name: leaguename},
+        await prisma.fixture.create({
+     
           data: {
-            fixtures: {
-              create: {
+        
                 MatchId: fixture.MatchId,
                 DateTime_UTC: dayjs(fixture.DateTime_UTC).format("YYYY-MM-DD"),
                 Tab: fixture.Tab,
                 Team1: fixture.Team1,
-                Team2: fixture.Team2,
+            Team2: fixture.Team2,
+            leagueId: leagueId
                
-              }
-            }
+            
           }
         })
       })
@@ -174,7 +173,7 @@ export const getLeagueFixture = async (leaguename:string, startDate: string, end
 
 
 
-export const getPrivateLeaguePlayers = async (leaguename:string, startDate: string, endDate: string, region: string) => { 
+export const getPrivateLeaguePlayers = async (leaguename:string, startDate: string, endDate: string, region: string,leagueId: number) => { 
 
   
   try {
@@ -201,18 +200,17 @@ export const getPrivateLeaguePlayers = async (leaguename:string, startDate: stri
     
     if (data) {
       data.forEach(async (player) => {
-        await prisma.league.update({
-          where: { name: leaguename },
+        await prisma.players.create({
+          
           data: {
-            players: {
-              create: {
+          
                 name: player.Player,
                 team: player.Team,
                 position: player.Role,
                 selected: false,
-                region: region
-              }
-            }
+            region: region,
+                leagueId:leagueId
+           
           }
         })
       })
@@ -227,7 +225,7 @@ export const getPrivateLeaguePlayers = async (leaguename:string, startDate: stri
 
 
 
-export const getPrivateLeagueTeams = async (leaguename: string, startDate: string, endDate: string, region: string) => { 
+export const getPrivateLeagueTeams = async (leaguename: string, startDate: string, endDate: string, region: string, leagueId: number) => { 
   try {
 
     const { data } = await cargo.query({
@@ -255,11 +253,10 @@ export const getPrivateLeagueTeams = async (leaguename: string, startDate: strin
     
     if (data) {
       data.forEach(async (team) => {
-        await prisma.league.update({
-          where: { name: leaguename },
+        await prisma.teams.create({
+     
           data: {
-            teams: {
-              create: {
+           
                 name: team.Team,
                 top: team.RosterLinks.split(";;")[0],
                 jungle: team.RosterLinks.split(";;")[1],
@@ -267,10 +264,11 @@ export const getPrivateLeagueTeams = async (leaguename: string, startDate: strin
                 adc: team.RosterLinks.split(";;")[3],
                 support: team.RosterLinks.split(";;")[4],
                 points: 0,
-                region: region,
-                selected: false
-              }
-            }
+            region: region,
+                leagueId: leagueId,
+            selected: false,
+              
+           
           }
         })
       })

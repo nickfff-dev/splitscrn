@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getLeagueRosterChanges } from '../../../lib/cargoQueries';
+import { getLeagueRosterChanges } from '@lib/cargoQueries';
 import { Item } from 'poro/dist/esm/src/leaguepedia/types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {

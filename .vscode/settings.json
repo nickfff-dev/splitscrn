@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/f96883a3-808b-4d0d-8a4a-b06376b452c6/appservices/subscriptions/f96883a3-808b-4d0d-8a4a-b06376b452c6/resourceGroups/splitscrn/providers/Microsoft.Web/sites/splitscreen",
+  "appService.deploySubpath": "azure"
+}

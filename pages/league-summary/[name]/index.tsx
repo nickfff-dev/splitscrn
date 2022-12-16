@@ -8,10 +8,10 @@ import LeagueSummary from "../../../components/Leaguesummary/League";
 
 
 
-const LeaguePage = ({ league, wallets}: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
+const LeaguePage = ({ league, wallets, trades, fixtures, members}: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
     
   return (
-    <LeagueSummary league={league} wallets={wallets}/>
+    <LeagueSummary league={league} wallets={wallets} trades={ trades} members={members} fixtures={fixtures} />
   )
 }
 
@@ -24,38 +24,55 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       name: name?.toString()
     },
-    include: {
-      fixtures: true,
-      members: {
-        include: {
-          Trade: true,
-          
-        }
-      }
-    }
+
   }).then(async (data) => {
  
     await prisma.$disconnect()
     return data
    
   })
+  const members = await prisma.participant.findMany({
+    where: {
+      leagueId:league?.id
+    }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
 
+  })
   const wallets = await prisma.wallet.findMany({})
   await prisma.league.update({
     where: {
       name: name?.toString()
     },
     data: {
-      points: league?.members.map((member: any) => member.points).reduce((a: any, b: any) => a + b, 0),
+      points: members.map((member: any) => member.points).reduce((a: any, b: any) => a + b, 0),
 
     }
   })
 
- 
+  const trades = await prisma.trade.findMany({
+    where: {
+     leagueId:league?.id
+   }
+ }).then(async (data) => {
+  await prisma.$disconnect()
+  return data
+
+ })
+  const fixtures = await prisma.fixture.findMany({
+    where: {
+      leagueId:league?.id
+    }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+  
+   })
   return {
     props: {
 
-      league, wallets
+      league, wallets, trades, fixtures, members
 
     
 

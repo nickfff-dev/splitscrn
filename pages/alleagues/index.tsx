@@ -1,7 +1,7 @@
 import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
 import { Grid } from '../../components/ui';
-import { Fixture, Teams, League, Players } from "@prisma/client"
+
 
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'
@@ -36,16 +36,30 @@ const AllOpenLeagues = ({ leagues }: InferGetServerSidePropsType<typeof getServe
 export const getServerSideProps: GetServerSideProps = async (context) => { 
 
 
-  const leagues = await prisma.league.findMany({
+  const leaguedata = await prisma.league.findMany({
+  
 
-    include: {
-      members: true,
-    }
   }).then(async (leagues) => {
     await prisma.$disconnect()
     return leagues
    
   })
+
+  const members = await prisma.participant.findMany({})
+  const leagues: any[] = []
+  
+
+  leaguedata.map((league: any, index:number) => {
+    leagues.push({ league: league, members: [] })
+    members.map((member: any) => {
+      if (member.leagueId === league.id) {
+         leagues[index].members.push(member)
+      }
+    })
+  })  
+
+
+
   return {
     props: { leagues }
   }

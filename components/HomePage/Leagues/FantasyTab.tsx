@@ -5,7 +5,7 @@ import ResultDetail from '../../PlayerResult/ResultDetail';
 
 
 
-const FantasyTab = ({ league, participant }: { league: any, participant: any }) => { 
+const FantasyTab = ({ league, participant, fixtures }: { league: any, participant: any, fixtures:any }) => { 
   const [showModal, setShowModal] = useState(false)
   const [results, setResults] = useState<any>([])
   const closeModal = () => {
@@ -43,12 +43,12 @@ console.log(results)
   return (
    <> 
     <div className={`${k.resultsRow} h-10`}>
-        <span className="text-sm">{participant.fantasyname}</span>  <span className="text-sm">{league.region}</span> <span className="text-sm">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-sm">{participant.points}</span> <button onClick={() => {
+        <span className="text-sm">{participant.fantasyname}</span>  <span className="text-sm">{league.league.region}</span> <span className="text-sm">{league.members.sort((a: any, b: any) => b.points - a.points).findIndex((member: any) => member.id === participant.id) + 1}</span> <span className="text-sm">{participant.points}</span> <button onClick={() => {
           setShowModal(!showModal)
         }} className="outline outline-[#ff921b] px-3 outline-1 text-sm rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" >View</button></div>
     
     {
-        showModal ? (  results &&               <ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} />) : null
+        showModal ? (  results &&               <ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} fixtures={fixtures} />) : null
       }
     </>)
 

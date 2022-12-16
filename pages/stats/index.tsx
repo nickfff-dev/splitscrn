@@ -1,6 +1,6 @@
-import prisma from "../../lib/prisma";
+import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
-import Stats from "../../components/Stats/Stats";
+import Stats from "@components/Stats/Stats";
 import { InferGetServerSidePropsType } from 'next'
 
 const StatsPage = ({statistics}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -15,15 +15,18 @@ const StatsPage = ({statistics}: InferGetServerSidePropsType<typeof getServerSid
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const statistics = await prisma.league.findMany({
-    include: {
-      PlayerResult: true,
-      TeamResult: true
-   }
+  const playerResult = await prisma.playerresult.findMany({
+
   })
+  const teamResult = await prisma.teamresult.findMany({
+
+  })
+
+  const leagues  = await prisma.league.findMany({})
+  
   return {
     props: {
-      statistics
+      statistics:{playerResult, teamResult, leagues}
     }
   }
  }

@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import UserProfile from "../../components/User/Profile";
 
 
-const UserAccount = ({ owner, leagues,participants }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
+const UserAccount = ({ owner, leagues,participants, wallet, deposit, withdrawal, trades, players, data }: InferGetServerSidePropsType<typeof getServerSideProps>) => { 
 
   
 
@@ -30,7 +30,7 @@ const UserAccount = ({ owner, leagues,participants }: InferGetServerSidePropsTyp
 
   return (
     
-      <UserProfile owner={owner} leagues={ leagues} participants={participants.flat(Infinity)}/>
+    <UserProfile owner={owner} data={data} wallet={wallet} deposit={deposit} withdrawal={withdrawal} />
 
     
   )
@@ -58,48 +58,72 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       
       
     },
-    include: {
-      Wallet: {
-        include: {
-          Deposit: true,
-          Withdrawal: true
 
-        }
-      }
-    }
   }).then((data) => {
     return data
   })
- 
-  const leagues = await prisma.league.findMany({
+
+  const wallet = await prisma.wallet.findUnique({
     where: {
-      members: {
-        some: {
-          username: username
-        }
+      userId:owner?.id
+    }
+  })
+  const deposit = await prisma.deposit.findMany({
+    where: {
+      userId:owner?.id
+    }
+  })
+  const withdrawal = await prisma.withdrawal.findMany({
+    where: {
+      userId:owner?.id
+    }
+  })
+
+
+// include wallet deposits and withdawal
+ 
+  const allleagues = await prisma.league.findMany({ 
+  })
+  const allTrades = await prisma.trade.findMany({})
+  const allplayers = await prisma.players.findMany({})
+  const participants = await prisma.participant.findMany({
+    where: {
+      username: owner?.name as string
+    }
+  })
+
+  let data: any []= []
+
+  allleagues.map((league: any, index:number) => {
+data.push({league:league, members: [], trades: [], players:[]})
+    participants.map((member: any) => {
+      if (member.leagueId === league.id) {
+        data[index].members.push(member)
       }
-
-    },
-    include: {
-      members: {
-        include: {
-          Trade: true
-        }
-      }, 
-      players: true,
-
-    } 
-  })
-  const participants = leagues.map((league) => {
-    return league.members.map((member) => {
-      return member.username === username ? member : null
+      
     })
+    allTrades.map((trade: any) => {
+      if (trade.leagueId === league.id) {
+        data[index].trades.push(trade)
+      }
+    })
+    allplayers.map((player: any) => {
+      if (player.leagueId === league.id) {
+        data[index].players.push(player)
+      }
+    })
+    
   })
-
+  
+ 
+  
+ 
+      
+  console.log("here",data[0].players.length)
 
   return {
     props: {
-      owner, leagues, participants
+      owner, data : data, wallet, deposit, withdrawal
     }
   }
  

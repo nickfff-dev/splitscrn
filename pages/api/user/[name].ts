@@ -57,44 +57,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       
 
 
+
       await prisma.wallet.upsert({
         where: { userId: user?.id },
         update: {
-          balance: { increment: data.amount - depositFee },
+          balance: { increment: (data.amount - depositFee) },
           credits: { increment: purchase },
-          Deposit: {
-            create: {
-            amount: data.amount - depositFee,
-            txHash: txHsh as string,
-            date: dayjs().toDate().toISOString().slice(0,10) as string,
-            time: dayjs().toDate().toISOString().slice(11, 19) as string,
-            userId: data.userId as string,
-            credits: credits(),
-            fees: depositFee,
-         } },
+      
 
         },
         create: {
           balance: data.amount - depositFee,
           credits: purchase,
-          user: { connect: { id: user?.id } },
-          Deposit: {
-            create: {
-            amount: data.amount - depositFee,
-            txHash: txHsh as string,
-            date: dayjs().toDate().toISOString().slice(0,10) as string,
-            time: dayjs().toDate().toISOString().slice(11, 19) as string,
-            userId: data.userId as string,
-            credits: credits(),
-            fees: depositFee,
-         } },
-
+          userId: user?.id as string ,
+ 
 
         }
-      }).then( async() => {
+      }).then(  async () => {
+        await prisma.$disconnect()
+      })       
 
-
-        await prisma.mainWallet.update({
+      const wallet = await prisma.wallet.findUnique({
+        where: {
+     userId:user?.id
+   }
+      }).then(  async (data) => {
+        await prisma.$disconnect()
+        return data
+      }) 
+   
+      await prisma.deposit.create({
+        data: {
+          amount: data.amount - depositFee,
+          txHash: txHsh as string,
+          date: dayjs().toDate().toISOString().slice(0, 10) as string,
+          time: dayjs().toDate().toISOString().slice(11, 19) as string,
+          userId: data.userId as string,
+          credits: credits(),
+          fees: depositFee,
+          walletId: wallet?.id as unknown as number,
+        }
+      })
+        await prisma.mainwallet.update({
           where: { id: 1 },
           data: {
             balance: { increment: depositFee },
@@ -103,7 +107,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }).then(() => { 
           res.status(200).json(`successfully deposited $${data.amount} and awarded $${purchase} credits at a fee of $${depositFee}`)
         })
-      })
+     
     
   
     }
@@ -133,22 +137,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         data: {
           balance: { decrement: (withdrawalAmount + withdrawalFee) },
           credits: { decrement: data.amount},
-          Withdrawal: {
-            create: {
-              amount: withdrawalAmount,
+
+        }
+      }).then(  async () => {
+        await prisma.$disconnect()
+      })
+      const wallet = await prisma.wallet.findUnique({
+        where: {
+          userId:user?.id
+        }
+      }).then(  async (data) => {
+        await prisma.$disconnect()
+        return data
+      })
+
+      await prisma.withdrawal.create({
+    
+        data: {
+             amount: withdrawalAmount,
               txHash: txHsh as string,
               date: dayjs().toDate().toISOString().slice(0, 10) as string,
               time: dayjs().toDate().toISOString().slice(11, 19) as string,
               userId: data.userId as string,
               credits: data.amount,
-              fees:  withdrawalFee,
+               fees: withdrawalFee,
+              walletId:wallet?.id as number
         
-            }
-          }
         }
-      }).then(async () => { 
+      }).then(  async () => {
+        await prisma.$disconnect()
+      })
         
-        await prisma.mainWallet.update({
+        await prisma.mainwallet.update({
           where: { id: 1 },
           data: {
             balance: { increment: withdrawalFee },
@@ -158,7 +178,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           res.status(200).json(`successfull withdrawal of $${withdrawalAmount}  and $${withdrawalFee} withdrawal fee applied credits forfeited $${data.amount }`);
         })
        
-      })
+   
   }
    
   }

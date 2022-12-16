@@ -1,7 +1,7 @@
 import prisma from "@lib/prisma";
 import { useEffect, useState } from 'react';
 import { Grid } from '@components/ui';
-import { Fixture, Teams, League, Players } from "@prisma/client"
+
 import dayjs from "dayjs";
 import { GetServerSideProps } from 'next'
 import { InferGetServerSidePropsType } from 'next'

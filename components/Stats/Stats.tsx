@@ -45,26 +45,26 @@ const Stats = ({ statistics }: { statistics: any }) => {
 
   const filterteamdata = () => {
     var teamstats: { leaguname: any, name: any; towers: any, inhibitors: any, dragons: any, rift: any, baron: any, totalKill: any, region: any; win: any; split: any; points: any[]; }[] = []
-    statistics.map((league: any) => {
+    statistics.leagues.map((league: any) => {
 
-      league.TeamResult.map((result: any) => {
+      statistics.teamResult.map((result: any) => {
+        if (result.leagueId === league.id) {
+          teamstats.push({
+            leaguname: league.name,
+            name: result.name,
+            region: league.region,
+            towers: result.turretKills,
+            inhibitors: result.inhibitorKills,
+            dragons: result.dragonKills,
+            rift: result.riftHeraldKills,
+            baron: result.baronKills,
+            split: result.game,
+            points: result.points,
+            totalKill: result.teamKills,
+            win: result.didWin
 
-        teamstats.push({
-          leaguname: league.name,
-          name: result.name,
-          region: league.region,
-          towers: result.turretKills,
-          inhibitors: result.inhibitorKills,
-          dragons: result.dragonKills,
-          rift: result.riftHeraldKills,
-          baron: result.baronKills,
-          split: result.game,
-          points: result.points,
-          totalKill: result.teamKills,
-          win: result.didWin
-
-        })
-
+          })
+        }
 
 
       })
@@ -81,28 +81,29 @@ const Stats = ({ statistics }: { statistics: any }) => {
 
   const filterdata = () => {
     var playerstats: { leaguname: any, name: any; kills: any, deaths: any, assists: any, cs: any, vs: any, teamTotal: any, region: any; team: any; role: any; split: any; points: any[]; }[] = []
-    statistics.map((league: any) => {
+    statistics.leagues.map((league: any) => {
 
-      league.PlayerResult.map((result: any) => {
+      statistics.playerResult.map((result: any) => {
+        if (result.leagueId = league.id) {
 
-        playerstats.push({
-          leaguname: league.name,
-          name: result.name,
-          region: league.region,
-          team: result.team,
-          role: result.role,
-          split: result.game,
-          kills: result.kills,
-          deaths: result.deaths,
-          assists: result.assists,
-          cs: result.creepScore,
-          vs: result.visionScore,
-          teamTotal: Math.ceil(calcParticipationPts(result.kills, result.assists, result.teamTotalKills)),
-          points: result.points
-        })
+          playerstats.push({
+            leaguname: league.name,
+            name: result.name,
+            region: league.region,
+            team: result.team,
+            role: result.role,
+            split: result.game,
+            kills: result.kills,
+            deaths: result.deaths,
+            assists: result.assists,
+            cs: result.creepScore,
+            vs: result.visionScore,
+            teamTotal: Math.ceil(calcParticipationPts(result.kills, result.assists, result.teamTotalKills)),
+            points: result.points
+          })
 
 
-
+        }
       })
 
 

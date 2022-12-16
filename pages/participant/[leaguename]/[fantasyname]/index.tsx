@@ -1,8 +1,8 @@
-import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
-import prisma from "../../../../lib/prisma";
+
+import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
 
-import { useEffect, useState} from "react";
+
 
 import { InferGetServerSidePropsType } from 'next'
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';

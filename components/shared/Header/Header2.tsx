@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import s from './Header.module.css';
-import Logo from '../../../public/images/logo.svg';
+import Logo from '@public/images/logo.svg';
 import Image from 'next//image';
 import Link from 'next/link';
 import { useSession, signIn, signOut } from 'next-auth/react';

@@ -1,11 +1,9 @@
-import { Fixture, Teams, League, Players, Participant, PlayerResult } from "@prisma/client"
-import prisma from "../../../../../lib/prisma";
+
+import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
 
 import { useEffect, useState } from "react";
-import { getPrivateLeagueResults, getPrivateLeagueMatches } from "../../../../../lib/cargoQueries";
-import { calculatePlayerScore, calculateTeamScore } from "../../../../../lib/calculate";
-import { Grid } from '../../../../../components/ui';
+
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next'
@@ -112,13 +110,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       name: leaguename
     },
-    include: {
-      members: true,
-      fixtures: true,
-      
+    
+  })
+
+  const fixtures = await prisma.fixture.findMany({
+    where: {
+      leagueId:league?.id
     }
   })
-  const participantd = league?.members.find((participant) => participant.fantasyname === fantasyname)
+
+  const participantd = await prisma.participant.findUnique({
+    where: {
+      fantasyname:fantasyname
+    }
+  })
 
   
   const mavitu = await fetch(`http://localhost:3000/api/populate-fantasy/${leaguename}/`, {

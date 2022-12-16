@@ -5,18 +5,18 @@ import Acquire from '@components/Trades/Acquire';
 import { useState, useEffect } from 'react';
 import Release from '@components/Trades/Release';
 import { Trade } from '@customTypes/Trade';
-import TradesPage from '../../pages/participant/[leaguename]/[fantasyname]/trades';
-const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, participants:any}) => {
+
+const UserProfile = ({owner, data,wallet, deposit, withdrawal, }:{owner:any,wallet:any, deposit:any, withdrawal:any,  data:any}) => {
   const [show, setShow] = useState(false)
   const [showAcquire, setShowAcquire] = useState(false)
   const [showRelease, setShowRelease] = useState(false)
   const [showTrade, setShowTrade] = useState(false)
 
-  const [activeLeague, setActiveLeague] = useState(leagues[0])
+  const [activeLeague, setActiveLeague] = useState(data[0])
 
   
   const getParticipant = () => { 
-    try{return participants.find((participant: any) => participant.leagueId === (activeLeague as any).id)}catch(e:any){console.log(e)}
+    try{return data[0].members.find((participant: any) => participant.leagueId === (activeLeague as any).league.id)}catch(e:any){console.log(e)}
   }
   const [activeParticipant, setActiveParticipant] = useState( getParticipant())
   
@@ -29,9 +29,14 @@ const UserProfile = ({owner, leagues, participants}:{owner:any,leagues:any, part
     
   }
   const getActiveLeaguePlayers = () => {
-try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===(activeLeague as any).name)
-  return activeLeaguePlayers.players}catch(e:any)
-{console.log(e)}  }
+   
+    try {
+   
+return activeLeague.players
+    
+    }catch(e:any){}
+  
+  }
   const [activeLeaguePlayers, setActiveLeaguePlayers] = useState(getActiveLeaguePlayers())
   useEffect(() => {
     setActiveLeaguePlayers(getActiveLeaguePlayers())
@@ -155,7 +160,7 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
               <div className={`${Us.profiletext}`}><h2>Email:</h2> <p>{owner.email}</p></div>
               <div className={`${Us.profiletext}`}><h2>Dob:</h2> <p>{ owner.birthDate.split(" ")[0]}</p></div>
               <div className={`${Us.profiletext}`}><h2>Locale:</h2> <p> {Intl.DateTimeFormat().resolvedOptions().timeZone}</p></div>
-              <div className={` flex flex-row bg-gradient-to-r from-gray-200 to-  space-x-8 w-full p-2 font-bold`}><h2>Balance:</h2> <p>${Math.ceil(owner.Wallet[0].credits)}</p></div>
+              <div className={` flex flex-row bg-gradient-to-r from-gray-200 to-  space-x-8 w-full p-2 font-bold`}><h2>Balance:</h2> <p>${Math.ceil(wallet.credits)}</p></div>
             </div>
             
           </div>
@@ -166,14 +171,16 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
      
             <div className={`${Us.containerleftinnertext2} `}>
             
-            <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{participants? participants.length : 0}</p></div>
-            <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{ leagues?  leagues.length: 0}</p></div>
+              <div className={`${Us.profcard}`}><h2>Number of FantasyTeams:</h2> <p>{data.reduce((acc: any, league: any) => {
+              return acc + league.members.length
+            },0)}</p></div>
+            <div className={`${Us.profcard}`}><h2>Number of Leagues:</h2> <p>{ data?  data.length: 0}</p></div>
             <div className={`${Us.profcard}`}><h2>Total points:</h2> <p>{
-              participants.reduce((acc: any, item: any) => {
-               return acc + item.points
-             },0)
+             data.reduce((acc: any, league: any) => {
+              return acc + league.league.points
+            },0)
             }</p></div>
-              <div className={`${Us.profcard}`}><h2>Prize Claims:</h2> <p>{leagues?  leagues.length: 0}</p></div>
+              <div className={`${Us.profcard}`}><h2>Prize Claims:</h2> <p>{ data?  data.length: 0}</p></div>
               <div className={`${Us.profcard} invisible`}></div>
             </div>
           
@@ -196,33 +203,25 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
 
           </div>
           <div className={`${Us.containerRightInner} `}>
-           
             {
-                 participants &&    participants.filter((participant: any) => {
-                if (participant.confirmedAttendance === false) {
-                  return participant
-                }
-         
-              }).map((participant: any, index:number) => {
-                return (
-                  <div key={index} className={`${Us.H}`}>
-                    <p>{participant.fantasyname}</p>
-                    <p>{participant.draftName}</p>
-                    <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/confirmdraft`}>Click</a></p>
-                    <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/`}>draftLink</a></p>
-                    <p>{
-                    leagues &&  leagues?.filter((league: any) => {
-                        if (league.name === participant.draftName) {
-                            return league
-                          }
-                      }).map((league: any) => {
-                          return league.draftTime.split("T")[0]
-                        })
-                    }</p>
-                  </div>
-                )
+              data.map((league: any) => {
+                league.members.filter((participant: any) => {
+                  if (participant.confirmedAttendance === false) {
+                    return participant
+                  }
+                }).map((participant: any, index:number) => {
+                  return (
+                    <div key={index} className={`${Us.H}`}>
+                      <p>{participant.fantasyname}</p>
+                      <p>{participant.draftName}</p>
+                      <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/confirmdraft`}>Click</a></p>
+                      <p><a href={`/draft/${participant.draftName}/${participant.fantasyname}/`}>draftLink</a></p>
+                      <p>{ league.league.draftTime.split("T")[0]}</p>
+                    </div>)
+                })
               })
            }
+         
    
 
           </div>
@@ -240,7 +239,7 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
           <div className={`${Us.containerRightInner}  `}>
 
             {
-            owner.Wallet[0].Deposit &&  owner.Wallet[0].Deposit.map((depo: any, index:number) => {
+           deposit &&  deposit.map((depo: any, index:number) => {
                 return (<div key={ index} className={`${Us.H}`}>
                   <p> deposit</p>
                 
@@ -251,8 +250,8 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
                 </div>)
               })
             }
-                   { owner.Wallet[0].Withdrawal &&
-              owner.Wallet[0].Withdrawal.map((depo: any, index:number) => {
+                   { withdrawal &&
+              withdrawal.map((depo: any, index:number) => {
                 return (<div key={index} className={`${Us.H}`}>
                   <p> deposit</p>
                 
@@ -279,18 +278,20 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
             <h2>Points</h2>
           </div>
           <div className={`${Us.belowcontainerleftInner} `}>
+
             {
-             leagues && leagues.map((league: any, index:number) => {
+              data.map((league: any, index:number) => {
                 return (<div key={index} className={`${Us.H}`}>
                   
-                  <p>{league.name}</p>
-                  <p>{league.region}</p>
-                  <p>{league.startDate.split("T")[0]}</p>
-                  <p>{league.owner === owner.name ? "me": (owner.name)}</p>
-                  <p>{league.points}</p>
-                </div>)
+                <p>{league.league.name}</p>
+                <p>{league.league.region}</p>
+                <p>{league.league.startDate.split("T")[0]}</p>
+                <p>{league.league.owner === owner.name ? "me": (owner.name)}</p>
+                <p>{league.league.points}</p>
+              </div>)
               })
-             }
+            }
+            
          
       
    
@@ -306,19 +307,19 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
             <h2>CREDITS</h2>
           </div>
           <div className={`${Us.belowContainerRightInner}`}>
-          
-              {
-             participants &&   participants?.map((participant: any) => {
-                  return participant.Trade?.map((trade: any, index:number) => {
-                    return(<div key={index} className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
-<p> {trade.playerIn.split(" ")[0]}</p>
-                    
-                      <p> {trade.playerOut.split(" ")[0]}</p>
-                
-                    <p> $50000</p></div> )
-                  })
+            {
+              data.map((league:any, index: number) => {
+                return league.trades.map((trade: any) => {
+                  return(<div key={index} className={`${Us.Htrade}`}> <p> {trade.date.split("T")[0]}</p>
+                  <p> {trade.playerIn.split(" ")[0]}</p>
+                                      
+                                        <p> {trade.playerOut.split(" ")[0]}</p>
+                                  
+                                      <p> $50000</p></div> )
                 })
-             }
+              })
+          }
+         
               
              
            
@@ -329,7 +330,7 @@ try{    const activeLeaguePlayers = leagues.find((league:any) => league.name ===
 
     
 
-      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={leagues} participants={participants} activeParticipant={ activeParticipant} trade={trade}  acquirecollection={acquirecollection} onClickTrade={onClickTrade} /></div>
+      <div id="trademarker" className={`${showTrade ? "" : "hidden"}  absolute top-24 z-40 left-20 right-20 `}><TradeMaker onActiveLeague={onActiveLeague} onActiveParticipant={onActivePartcicpant} activeLeague={activeLeague} closeTrade={closeTrade}  showingAcquire={showingAcquire} showingRelease={showingRelease} leagues={data} activeParticipant={ activeParticipant} trade={trade}  acquirecollection={acquirecollection} onClickTrade={onClickTrade} /></div>
       <div id="acquire" className={`${showAcquire ? "" : "hidden"} absolute top-24 z-40 left-20 right-20`}><Acquire closeAcquire={closeAcquire} players={activeLeaguePlayers} onPlayer1={onPlayer1 } /></div>
       <div id="release" className={`${showRelease ? "" : "hidden"} absolute top-24 z-40 left-20 right-20 `}><Release closeRelease={closeRelease} players={activeLeaguePlayers}   activeParticipant={activeParticipant} onPlayer2={onPlayer2} /></div>
 

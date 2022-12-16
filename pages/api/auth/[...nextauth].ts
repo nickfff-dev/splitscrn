@@ -3,7 +3,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import TwitchProvider from 'next-auth/providers/twitch';
 import GoogleProvider from 'next-auth/providers/google';
 
-import prisma from '../../../lib/prisma';
+import prisma from '@lib/prisma';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),

@@ -9,46 +9,48 @@ const AllLeagues = ({ leagues }: { leagues: any }) => {
   const [filter, setFilters] = useState("")
   const [direction, setDirection] = useState("")
   const filterRunner = () => {
+
     if (filter === "duration" && direction === "up") {
-      leagues.sort((a: any, b: any) => a.duration - b.duration)
+  
+      leagues.sort((a: any, b: any) => a["league"].duration - b["league"].duration)
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     } else if (filter === "duration" && direction === "down") {
-      leagues.sort((a: any, b: any) => b.duration - a.duration)
+      leagues.sort((a: any, b: any) => b["league"].duration - a["league"].duration)
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     } else if (filter === "participants" && direction === "up") {
-      leagues.sort((a: any, b: any) => a.members.length - b.members.length)
+      leagues.sort((a: any, b: any) => a["members"].length - b["members"].length)
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     } 
     else if (filter === "participants" && direction === "down") {
-      leagues.sort((a: any, b: any) => b.members.length - a.members.length)
+      leagues.sort((a: any, b: any) => b["members"].length - a["members"].length)
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     } else if (filter === "prize" && direction === "down") {
-      leagues.sort((a: any, b: any) => ((b.members.length * b.buyInFee) - (a.members.length * a.buyInFee)))
+      leagues.sort((a: any, b: any) => ((b["members"].length * b["league"].buyInFee) - (a["members"].length * a["league"].buyInFee)))
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     }
     else if (filter === "prize" && direction === "up") {
-      leagues.sort((a: any, b: any) => ((a.members.length * a.buyInFee) - (b.members.length * b.buyInFee)))
+      leagues.sort((a: any, b: any) => ((a["members"].length * a["league"].buyInFee) - (b["members"].length * b["league"].buyInFee)))
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     }else if (filter === "buyInFee" && direction === "down") {
-     leagues.sort((a: any, b: any) => (a.buyInFee - b.buyInFee))
+     leagues.sort((a: any, b: any) => (a["league"].buyInFee - b["league"].buyInFee))
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
     }
     else if (filter === "buyInFee" && direction === "up") {
-      leagues.sort((a: any, b: any) => (b.buyInFee - a.buyInFee))
+      leagues.sort((a: any, b: any) => (b["league"].buyInFee - a["league"].buyInFee))
       setLeagueData(leagues)
       setFilters("")
       setDirection("")
@@ -93,15 +95,15 @@ const AllLeagues = ({ leagues }: { leagues: any }) => {
       <p>Join</p>
     </div>
       {
-        leagueData ?  (leagueData as any).map((league: any, index:number) => {
+        leagues ?  (leagues as any).map(( league:any,index:number) => {
           return (<div key={index} className=" grid grid-flow-col  grid-cols-9 gap-5 col-start-1 col-end-9 justify-items-center  px-5  bg-gray-light py-1">
-          <p>{league.name}</p>
-      <p>{league.region}</p>
-      <p>${league.buyIn ? league.buyInFee : "FREE"}</p>  
-            <p>{league.buyIn ?  (league.buyInFee * league.members.length) - 100 : "FREE"}</p> 
-      <p>{league.draftTime.split("T")[0]}</p>  
-      <p>{league.duration}</p>
-            <p>{ league.members.length}</p>  
+          <p>{leagueData[index].league.name}</p>
+      <p>{leagueData[index].league.region}</p>
+      <p>${leagueData[index].league.buyIn ? leagueData[index].league.buyInFee : "FREE"}</p>  
+            <p>{leagueData[index].league.buyIn ?  (leagueData[index].league.buyInFee * leagueData[index].members.length) - 100 : "FREE"}</p> 
+       <p>{leagueData[index].league.draftTime.split("T")[0]}</p>
+      <p>{leagueData[index].league.duration}</p>
+            <p>{ leagueData[index].members.length}</p>  
       <p>|</p>
       <p><Link  className="outline outline-[#ff921b] px-3 outline-1 text-sm rounded-xl bg-gray-dark hover:outline-gray-300 capitalize" href={`/optin-league/${league.name}`}>Join</Link></p>
           </div>)

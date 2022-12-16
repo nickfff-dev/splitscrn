@@ -2,7 +2,7 @@
 import { Grid } from '../../components/ui';
 import {useState, useEffect} from 'react';
 import dayjs from 'dayjs';
-import { Fixture, Teams, League, Players, Participant, TeamResult} from "@prisma/client"
+
 
 import { calculatePlayerScore,  calculateTeamScore } from "../../lib/calculate";
 import { useSession, signIn, signOut } from 'next-auth/react';

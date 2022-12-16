@@ -1,7 +1,7 @@
 // Components
 import { Header,  Footer } from '@components/shared';
 import Header2 from '@components/shared/Header/Header2';
-import Footer2 from '../Footer/Footer2';
+import Footer2 from '@components/shared/Footer/Footer2';
 // styles
 import s from './Layout.module.css';
 import '../../../utils/icons/font-awesome'

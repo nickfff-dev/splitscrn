@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
+
 
 import {League} from "@lib/league"
 import prisma from '@lib/prisma';
@@ -13,7 +13,7 @@ import {  getPrivateLeagueTeams,  getPrivateLeaguePlayers,getLeagueFixture, } fr
 
 
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<League | Mchezo | string>) { 
+export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) { 
  
     
  
@@ -44,13 +44,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           minPlayers: league.minPlayers,
         }
  
-       }).then(() => {
+       }).then(async () => {
         
          
      
-          getPrivateLeaguePlayers(league.name, league.startDate, league.endDate, league.region)
-          getPrivateLeagueTeams(league.name, league.startDate, league.endDate, league.region)
-         getLeagueFixture(league.name, league.startDate, league.endDate, league.region)
+         await prisma.league.findUnique({
+           where: {
+           name: league.name
+         }
+         }).then(async (data:any) => {
+           await prisma.$disconnect()
+           getPrivateLeaguePlayers(data.name, data.startDate, data.endDate, data.region, data.id)
+           getPrivateLeagueTeams(data.name, data.startDate, data.endDate, data.region, data.id)
+          getLeagueFixture(data.name, data.startDate, data.endDate, data.region, data.id)
+       })
       
  
       })

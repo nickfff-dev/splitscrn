@@ -18,70 +18,62 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     data: {
       playerIn: trade.playerIn,
       playerOut: trade.playerOut,
-      participant: {
-        connect: {
-          id: trade.participantId
-        }
-      },
+      participantId: trade.participantId,
       date: dayjs(new Date()).toDate().toISOString(),
     leagueId: trade.leagueId
     }
-  }).then(async () => {
-    await prisma.league.update({
-      where: {
-        id: trade.leagueId
-      },
-      data: {
-        members: {
-          update: {
-            where: {
-              id: trade.participantId
-            },
-            data: {
-              [therole]: trade.playerIn
-            }
+      }).then(async () => {
+    
+        await prisma.participant.update({
+          where: {
+            id:trade.participantId
+          },
+          data: {
+            [therole]: trade.playerIn
           }
-        },
-        players: {
-          update: [
-            {
-              where: {
-                name_leagueId: {
-                  name: trade.playerOut,
-                  leagueId: trade.leagueId
-                }
-              },
-              data: {
-                selected: false,
-                selectedBy: null
-              }
-            },
-            {
-              where: {
-                name_leagueId: {
-                  name: trade.playerIn,
-                  leagueId: trade.leagueId
-                }
-              },
-              data: {
-                selected: true,
-                selectedBy: fantasyname as string
-              }
+            
+          
+          
+        }).then(async () => {
+          await prisma.$disconnect()
+        })
+        await prisma.players.update({
+          where: {
+            name_leagueId: {
+              name: trade.playerOut,
+              leagueId: trade.leagueId
             }
-          ]
-        }
-  
-        
-      }
-    }).then(async () => {
+          },
+          data: {
+            selected: false,
+                selectedBy: null
+          }
+        }).then(async () => {
+          await prisma.$disconnect()
+        })
+
+
+        await prisma.players.update({
+          where:  {
+            name_leagueId: {
+              name: trade.playerIn,
+              leagueId: trade.leagueId
+            }
+          },
+          data: {
+            selected: true,
+            selectedBy: fantasyname as string
+          }
+        }).then(async () => {
        
     
-        await prisma.$disconnect();
-        
-     
-    })
+          await prisma.$disconnect();
+          
+       
+      })
+    
   }).then(async () => {
-    await prisma.playerResult.deleteMany({
+    await prisma.playerresult.deleteMany({
       where: {
         participantId: trade.participantId,
         name: trade.playerOut

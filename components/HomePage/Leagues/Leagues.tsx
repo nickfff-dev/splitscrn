@@ -1,8 +1,8 @@
 import k from './Leagues.module.css';
 import { useEffect, useState } from 'react';
-import { Date } from '../../../types/Date';
-import { Fixture } from '../../../types/Fixture';
-import { Spinner } from '../../ui';
+import { Date } from '@customTypes/Date';
+import { Fixture } from '@customTypes/Fixture';
+import { Spinner } from '@components/ui';
 import { Button } from '../../ui';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import clsx from 'clsx';
@@ -15,22 +15,32 @@ const Leagues = () => {
  
   const [leagues, setLeagues] = useState<any>([]);
   const [userLeagues, setUserLeagues] = useState<any>([]);
+  const [fixtures, setFxtures] = useState<any>([])
+  useEffect(() => {
+    
+    
+      getUserLeagues()
+   
 
-
-
+})
   const getUserLeagues = async () => { 
     const res = await fetch(`/api/leagues/${session?.user?.name}`);
     const data = await res.json();
     
     setLeagues(data);
     
-  const myleagues =data.filter((league: any) => {
-      return league.members.find((member: any) => {
-        if (member.username === session?.user?.name) {
-          return league;
+    const myleagues :any =[]
+  data.map((league: any, index:any) => {
+     let matche =  league.members.some((member: any) => 
+         member.username === session?.user?.name
+          
         
-       }
-     })
+        
+       
+     )
+    if (matche === true) {
+      myleagues.push(data[index])
+    }
   })
   setUserLeagues(myleagues);
 
@@ -38,9 +48,8 @@ const Leagues = () => {
     return data;
   }
 
-  useEffect(() => {
-getUserLeagues()
-  });
+
+;
  
   
 
@@ -54,13 +63,13 @@ getUserLeagues()
         <div className={`${k.root, k.resultsContainer} h-[300px] overflow-y-scroll [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
           
           
-          {userLeagues.length > 0 ? userLeagues.map((league: any) => { 
+          {userLeagues ? userLeagues.map((league: any) => { 
             return league.members.map((participant: any, index:number) => { 
-              return <FantasyTab key={ index} league={league} participant={participant} />
+              return <FantasyTab key={ index} league={league} participant={participant} fixtures={league.fixtures} />
             })
           }
             )
-          : <p className="w-24 h-24 mx-auto mt-5 text-white">JOin a league</p>}
+          : <p className=" mx-auto mt-5 text-white">JOin a league</p>}
           </div>
           <div className={`${k.root}`}>  
             <h1 className=" font-bold text-3xl uppercase">Open Leagues</h1>
@@ -68,9 +77,9 @@ getUserLeagues()
         <div className={`${k.root, k.resultsContainer} h-[300px] overflow-y-scroll [&>*:nth-child(odd)]:bg-gray-medium [&>*:nth-child(even)]:bg-gray-light`}>
           
          
-          {leagues.length > 0 ? leagues.map((league: any, index:number) => { 
-             const prize =  league.members.length * league.buyInFee
-            return <OpenLeagues key={index} league={league} prize={prize? prize :league.buyInFee} />
+          {leagues ? leagues.map((league: any, index:number) => { 
+             const prize =  league['members'].length * league['league'].buyInFee
+            return <OpenLeagues key={index} league={league} prize={prize? prize :league.league.buyInFee} />
             
           }
             )
@@ -83,13 +92,13 @@ getUserLeagues()
         <div className={`${k.root, k.resultsContainer} h-[300px] overflow-y-scroll`}>
           
           <div className={`${k.resultsRow1}  font-semibold`}>  <span className="text-base">PRIZE</span>  <span className="text-base">REGION</span> <span className="text-base">FEE</span> <span className="text-base">DURATION</span> <button className="invisible outline outline-[#ff921b]  rounded-xl " >View</button></div>
-          {leagues.length > 0 ? leagues.map((league: any, index:number) => { 
-             const prize = 100
-              return <OpenLeagues key={index} league={league} prize={prize} />
+          {leagues?.map((league: any, index:number) => { 
+              const prize =  league['members'].length * league['league'].buyInFee
+              return <OpenLeagues key={index} league={league ? league : null} prize={prize} />
             
           }
             )
-          : <div className="w-24 h-24 mx-auto mt-5"><Spinner /></div>}
+          }
           </div>
   
       </div>)

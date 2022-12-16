@@ -4,7 +4,7 @@ import ResultDetail from '../PlayerResult/ResultDetail';
 
 
 
-const TeamTab = ({ league, participant, wallets, position }: { league: any, participant: any, wallets: any, position: any }) => { 
+const TeamTab = ({ league, participant, wallets, position, fixtures }: { league: any, participant: any, wallets: any, position: any, fixtures:any }) => { 
  const [showModal, setShowModal] = useState(false)
   const [results, setResults] = useState<any>([])
   const closeModal = () => {
@@ -49,7 +49,7 @@ console.log(results)
           }} className="outline outline-1 outline-[#ff921b] px-3 text-sm text-sm rounded-xl capitalize bg-gray-dark" >View</button></div>
       
       {
-        showModal ? (<ResultDetail league={league} participant={participant} results={results} closeModal={ closeModal} />) : null
+        showModal ? (<ResultDetail league={league} participant={participant} results={results} fixtures={fixtures} closeModal={ closeModal} />) : null
       }
     </>
   

@@ -1,7 +1,7 @@
 import prisma from "@lib/prisma";
 import { useEffect, useState } from 'react';
 import { Grid } from '@components/ui';
-import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
+
 
 import { GetServerSideProps } from 'next'
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';

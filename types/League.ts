@@ -1,5 +1,5 @@
-import { Teams} from '@prisma/client';
-import { Players } from '@prisma/client';
+import { teams} from '@prisma/client';
+import { players } from '@prisma/client';
 import { Participant } from './Participant';
 
 export interface League{
@@ -14,8 +14,8 @@ export interface League{
   startDate: string,
   endDate: string,
   duration: string,
- players: Array<Players>,
-  teams: Array<Teams>,
+ players: Array<players>,
+  teams: Array<teams>,
   minPlayers: number,
   maxPlayers: number,
   houseFee: number,

@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { League as Mchezo, Fixture, Teams, Players, Participant } from "@prisma/client"
 
 
-import prisma from '../../../lib/prisma';
-import cargo from '../../../lib/cargo';
+
+import prisma from '@lib/prisma';
+import cargo from '@lib/cargo';
 import nodemailer from 'nodemailer';
 import dayjs from 'dayjs';
 
@@ -62,23 +62,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     if ((league?.maxPlayers as number) > enrolledparticipants.length) {
       if (inviteOnly === "false" && buyIn === "false") {
-        await prisma.league.update({
-          where: {
-            name: leaguename
-          },
+        await prisma.participant.create({
           data: {
-            members: {
-              create: {
-                username: username,
+            username: username,
                 fantasyname: teamname,
-                leaguename: leaguename,
                 inviteCode: null,
-                inviteComplete: true,
-                userId: userId,
-
-
-              }
-            }
+                leaguename: leaguename,
+                inviteComplete: false,
+            userId: userId,
+                leagueId:leagueId
           }
         }).then(async () => {
           await prisma.$disconnect()
@@ -101,25 +93,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
             }
             else if (data) {
-              await prisma.league.update({
-                where: {
-                  name: leaguename
-                },
+              await prisma.participant.create({
                 data: {
-                  members: {
-                    create: {
-                      username: username,
+                  username: username,
                       fantasyname: teamname,
                       inviteCode: inviteCode,
                       leaguename: leaguename,
                       inviteComplete: false,
-                      userId: userId,
-                    }
-                  }
-
-
+                  userId: userId,
+                      leagueId:leagueId
                 }
-
               }).then(async () => {
                 await prisma.$disconnect();
 
@@ -138,22 +121,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           if (walletbalance && (walletbalance.balance > buyInFee)) {
 
 
-            await prisma.league.update({
-              where: {
-                name: leaguename
-              },
+            await prisma.participant.create({
               data: {
-                members: {
-                  create: {
-                    username: username,
+                username: username,
                     fantasyname: teamname,
                     inviteCode: null,
                     leaguename: leaguename,
-                    inviteComplete: true,
-                    userId: userId,
-
-                  }
-                }
+                    inviteComplete: false,
+                userId: userId,
+                    leagueId:leagueId
               }
             }).then(async () => {
 
@@ -198,45 +174,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 res.status(200).send("verification failed refresh and try again")
               }
               else if (data) {
-                await prisma.league.update({
-                  where: {
-                    name: leaguename
-                  },
+
+                await prisma.participant.create({
                   data: {
-                    members: {
-                      create: {
-                        username: username,
+                    username: username,
                         fantasyname: teamname,
                         inviteCode: inviteCode,
                         leaguename: leaguename,
                         inviteComplete: false,
-                        userId: userId,
-                      }
-                    }
+                    userId: userId,
+                        leagueId:leagueId
                   }
-                }).then(async () => {
-                  await prisma.user.update({
-                    where: {
-                      email: email
-                    },
-                    data: {
-                      Wallet: {
-                        update: {
-                          where: {
-                            userId: userId
-                          },
-                          data: {
-                            balance: {
-                              decrement: buyInFee
-                            },
-                            credits: {
-                              decrement: buyInFee * 95
-                            }
-                          }
+                })
+                  .then(async () => {
+             
+                    await prisma.wallet.update({
+                      where: {
+                        userId: userId
+                      },
+                      data: {
+                        balance: {
+                          decrement: buyInFee
+                        },
+                        credits: {
+                          decrement: buyInFee * 95
                         }
                       }
-                    }
-                  })
+                    })
+          
                 })
               }
 
@@ -275,25 +240,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     });
     console.log(verifyInviteCode[0])
     if (verifyInviteCode && verifyInviteCode[0].inviteCode === inviteCode) {
-      await prisma.league.update({
+
+      await prisma.participant.update({
         where: {
-          name: leaguename
+          
+          id:verifyInviteCode[0].id
         },
         data: {
-          members: {
-            update: {
-              where: {
-                id: verifyInviteCode[0].id
-
-              },
-              data: {
-                inviteComplete: true
-              }
-            }
-          }
-
+          inviteComplete: true
         }
-      }).then(async () => {
+      })
+   .then(async () => {
         await prisma.$disconnect();
 
       });

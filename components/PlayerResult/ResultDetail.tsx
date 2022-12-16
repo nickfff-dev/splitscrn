@@ -4,9 +4,9 @@ import playpic from "../../avatar.png"
 
 import {useEffect, useState} from 'react';
 import { cursorTo } from "readline";
-import { calcParticipationPts } from "../../lib/calculate";
+import { calcParticipationPts } from "@lib/calculate";
 
-const ResultDetail = ({ results, participant, league, closeModal }: { results: any, participant: any, league: any, closeModal:any }) => {
+const ResultDetail = ({ results, participant, league, closeModal, fixtures }: { results: any, participant: any, league: any, closeModal:any, fixtures:any }) => {
   const [show, setShow] = useState(false)
   const showDropwdwn = () => {
     setShow(!show)
@@ -14,7 +14,7 @@ const ResultDetail = ({ results, participant, league, closeModal }: { results: a
    }
   const calcweeks = () => { 
     let theweeks: any[] = []
-    league.fixtures.map((fixture: any) => {
+    fixtures.map((fixture: any) => {
       theweeks.push(fixture.MatchId.split("_")[1])
     })
 

@@ -1,7 +1,7 @@
 import prisma from "../../lib/prisma";
 import { useEffect, useState } from 'react';
 import { Grid } from '../../components/ui';
-import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
+import {  league, } from "@prisma/client"
 
 import { useSession, signIn, getSession, signOut } from 'next-auth/react';
 
@@ -11,7 +11,7 @@ import { InferGetServerSidePropsType } from 'next'
 
 const MyLeagues = ({ leagues , username} :  InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-  const [myleagues, setMyLeagues] = useState<League[]>([])
+  const [myleagues, setMyLeagues] = useState<league[]>([])
 
 
   
@@ -53,9 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       owner: username as string
      },
-     include: {
-      members: true
-     }
+    
    }).then(async (leagues) => {
     await prisma.$disconnect()
     return leagues

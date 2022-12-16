@@ -2,14 +2,14 @@
 import { Grid } from '../ui';
 import {useState, useEffect} from 'react';
 import dayjs from 'dayjs';
-import { Fixture, Teams, League, Players, Participant, Wallet, Deposit, User } from "@prisma/client"
+import {  wallet, deposit, user } from "@prisma/client"
 
 import { useSession, signIn, signOut } from 'next-auth/react';
 
 import { useRouter } from 'next/router';
 
 
-const DepositsPage = ({  owner, wallet }: {  owner: User , wallet: Wallet}) => {
+const DepositsPage = ({  owner, wallet }: {  owner: user , wallet: wallet}) => {
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);

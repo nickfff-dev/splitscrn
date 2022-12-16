@@ -1,16 +1,16 @@
-import { Teams } from "@prisma/client";
-import { League } from "@prisma/client";
-import { Players } from "@prisma/client";
-import { Participant } from "@prisma/client";
-import { Fixture } from "@prisma/client";
+import { teams } from "@prisma/client";
+import { league } from "@prisma/client";
+import { players } from "@prisma/client";
+import { participant } from "@prisma/client";
+import { fixture } from "@prisma/client";
 
 
 export interface Tournament{
  
-  league: League;
-  teams: Teams[] ;
-  players: Players[];
-  fixtures: Fixture[];
+  league: league;
+  teams: teams[] ;
+  players: players[];
+  fixtures: fixture[];
   
 
 }

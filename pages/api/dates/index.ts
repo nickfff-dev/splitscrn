@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { Date } from '../../../types/Date';
-
+import prisma from '@lib/prisma';
 import cargo from '../../../lib/cargo';
 import dayjs from 'dayjs';
 
@@ -18,14 +18,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           },  
         ],
         where:
-          'Tournaments.Name = CurrentLeagues.Event AND (Tournaments.Name LIKE "%LCS%" OR Tournaments.Name LIKE "%LEC%" OR Tournaments.Name LIKE "%LCK%" OR Tournaments.Name LIKE "%LPL%") AND Tournaments.Name NOT LIKE "%LCK CL%" AND Tournaments.Name NOT LIKE "%LCS Proving Grounds%" ',
+          'Tournaments.Name = CurrentLeagues.Event AND (Tournaments.Name LIKE "%LCS%" OR Tournaments.Name LIKE "%LEC%" OR Tournaments.Name LIKE "%LCK%" OR Tournaments.Name LIKE "%LPL%") AND Tournaments.Name NOT LIKE "%LCK CL%" AND Tournaments.Name NOT LIKE "%LCS Proving Grounds%" AND Tournaments.Name NOT LIKE "%LPLLOL%" ',
       });
 
       if (data.length <= 0) {
        return res.send('No active tournaments found');
         
       }
-           console.log("data",data);
+           
       const dates = data?.map((league) => {
         const date =league.Name.split(' ').slice(1).join(' ');
         const name = league.Name.split(' ')[0];
@@ -35,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
           name,
         };
       });
-       
+
       return res.status(200).send(dates);
      
     } catch (e: any) {

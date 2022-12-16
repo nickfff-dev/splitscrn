@@ -1,4 +1,4 @@
-import { League as Mchezo,Fixture, Teams,  Players } from "@prisma/client"
+import { league as Mchezo } from "@prisma/client"
 import { useEffect, useState } from "react";
 import prisma from '../../lib/prisma';
 import dayjs from "dayjs";

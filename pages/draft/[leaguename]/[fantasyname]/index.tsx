@@ -1,4 +1,4 @@
-import { Fixture, Teams, League, Players, Participant } from "@prisma/client"
+
 import prisma from "@lib/prisma";
 import { GetServerSideProps } from 'next'
 
@@ -376,11 +376,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       name: leaguename,
     },
-    include: {
-      members: true,
-      teams: true,
-      players: true,
-    }
+   
   }).then(async (league) => {
     await prisma.$disconnect()
     return league
@@ -390,18 +386,49 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     where: {
       email: session?.user?.email as string,
     }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+
   })
 
-  const focusonparticipant = focusonleague?.members.find((member) => {
-    return member.fantasyname === fantasyname
-  })
-  const participants = focusonleague?.members
-  const teams = focusonleague?.teams
-
-  const players = focusonleague?.players.filter((player) => {
-    if (player.selected === false) {
-      return player
+  const focusonparticipant = await prisma.participant.findUnique({
+    where: {
+      fantasyname:fantasyname
     }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+
+  })
+  const participants = await prisma.participant.findMany({
+    where: {
+      leagueId:focusonleague?.id
+    }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+
+  })
+  const teams = await prisma.teams.findMany({
+    where: {
+      leagueId:focusonleague?.id
+    }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+
+  })
+
+  const players = await prisma.players.findMany({
+    where: {
+      leagueId: focusonleague?.id,
+      selected:false
+    }
+  }).then(async (data) => {
+    await prisma.$disconnect()
+    return data
+
   })
 
 
